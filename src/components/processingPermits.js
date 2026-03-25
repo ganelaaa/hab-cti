@@ -2,7 +2,7 @@ export default function ProcessingPermits() {
   return (
     <div className="px-20 py-10">
       {/* Agency Heading */}
-      <p className="text-green-600">PROCESSING PERMITS</p>
+      <p className="text-green-600 font-bold">PROCESSING PERMITS</p>
       <p className="font-bold text-2xl">Acts and Regulatory Agencies</p>
       <p className="text-xs">
         Learn how permits for algal bloom control are reviewed and approved,
