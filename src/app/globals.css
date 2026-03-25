@@ -1,1 +1,21 @@
+/* IMPORTS */
+@import "tailwindcss";
 @import "@uswds/uswds/css/uswds.min.css";
+
+/* FONTS */
+* {
+  font-family: "Public Sans", sans-serif;
+}
+
+/* COLORS */
+:root {
+  --primary: #005ea2;
+  --primary-light: #d9e8f6;
+  --green: #538200;
+  --green-light: #b8d293;
+  --red-light: #f4e3db;
+  --red: #c9371a;
+  --orange: #f3bf90;
+  --gray: #5c6670;
+  --black: #1b1b1b;
+}
