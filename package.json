@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "deploy": "next build && touch out/.nojekyll && npx gh-pages -d out",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -20,7 +19,6 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
-    "gh-pages": "^6.3.0",
     "tailwindcss": "^4"
   }
 }
