@@ -7,7 +7,7 @@ export default function Disclaimer() {
 
       {/* Attention! */}
       <div className="flex flex-row mt-7">
-        <div className="bg-red-200 border-l-red-700 text-black py-3 px-3">
+        <div className="bg-accent-warm-lighter border-l-red-700 text-black py-3 px-3">
           <div className="font-bold">
             <div className="text-xl">Attention!</div>
             <h3>Content last updated as of: March 04, 2025, Monday</h3>
@@ -30,7 +30,7 @@ export default function Disclaimer() {
         </div>
 
         {/* Report Errors */}
-        <div className="bg-blue-200 py-3 px-3 ml-3">
+        <div className="bg-primary-lighter py-3 px-3 ml-3">
           <h1 className="font-bold">Report Errors</h1>
           <p>Found broken links, missing content, or errors?</p>
           <p className="mt-5">

@@ -7,15 +7,10 @@
   font-family: "Public Sans", sans-serif;
 }
 
-/* COLORS */
+/* US WEB COLORS */
 :root {
-  --primary: #005ea2;
-  --primary-light: #d9e8f6;
-  --green: #538200;
-  --green-light: #b8d293;
-  --red-light: #f4e3db;
-  --red: #c9371a;
-  --orange: #f3bf90;
-  --gray: #5c6670;
-  --black: #1b1b1b;
+  --primary: #005ea2 --primary-lighter: #d9e8f6 --primary-darker: #162e51
+    --green-50v: #538200 --green-20: #b8d293 --red-warm-10: #f4e3db
+    --red-warm-vivid: #d54309 --orange-20: #f3bf90 --gray-cool-60: #565c65
+    --gray-90: #171717;
 }
