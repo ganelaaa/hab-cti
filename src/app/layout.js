@@ -1,4 +1,6 @@
 import "./globals.css";
+import Navbar from "@/components/navbar.js";
+import Footer from "@/components/footer.js";
 
 export const metadata = {
   title: "US HAB-CTI",
@@ -11,7 +13,11 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="icon" href="/logo.png" type="image/png" />
       </head>
-      <body>{children}</body>
+      <body>
+        <Navbar />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

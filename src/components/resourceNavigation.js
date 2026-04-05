@@ -23,7 +23,7 @@ export default function ResourceNavigation() {
           <div className="border border-gray-300 rounded-md py-5 px-5 w-full bg-white hover:shadow-sm transition">
             <p className="font-semibold text-black">
               <svg
-                class="usa-icon"
+                className="usa-icon"
                 aria-hidden="true"
                 focusable="false"
                 role="img"
@@ -40,7 +40,7 @@ export default function ResourceNavigation() {
           <div className="border border-gray-300 rounded-md py-5 px-5 w-full bg-white hover:shadow-sm transition">
             <p className="font-semibold text-black">
               <svg
-                class="usa-icon"
+                className="usa-icon"
                 aria-hidden="true"
                 focusable="false"
                 role="img"
@@ -57,7 +57,7 @@ export default function ResourceNavigation() {
           <div className="border border-gray-300 rounded-md py-5 px-5 w-full bg-white hover:shadow-sm transition">
             <p className="font-semibold text-black">
               <svg
-                class="usa-icon"
+                className="usa-icon"
                 aria-hidden="true"
                 focusable="false"
                 role="img"
@@ -74,7 +74,7 @@ export default function ResourceNavigation() {
           <div className="border border-gray-300 rounded-md py-5 px-5 w-full bg-white hover:shadow-sm transition">
             <p className="font-semibold text-black">
               <svg
-                class="usa-icon"
+                className="usa-icon"
                 aria-hidden="true"
                 focusable="false"
                 role="img"
@@ -89,7 +89,7 @@ export default function ResourceNavigation() {
           <div className="border border-gray-300 rounded-md py-5 px-5 w-full bg-white hover:shadow-sm transition">
             <p className="font-semibold text-black">
               <svg
-                class="usa-icon"
+                className="usa-icon"
                 aria-hidden="true"
                 focusable="false"
                 role="img"
@@ -116,7 +116,7 @@ export default function ResourceNavigation() {
             <div className="border border-gray-300 rounded-md py-5 px-5 w-full bg-white">
               <p className="font-semibold text-black">
                 <svg
-                  class="usa-icon"
+                  className="usa-icon"
                   aria-hidden="true"
                   focusable="false"
                   role="img"
@@ -133,7 +133,7 @@ export default function ResourceNavigation() {
             <div className="border border-gray-300 rounded-md py-5 px-5 w-full bg-white">
               <p className="font-semibold text-black">
                 <svg
-                  class="usa-icon"
+                  className="usa-icon"
                   aria-hidden="true"
                   focusable="false"
                   role="img"
@@ -152,7 +152,7 @@ export default function ResourceNavigation() {
             <div className="border border-gray-300 rounded-md py-5 px-5 w-full bg-white">
               <p className="font-semibold text-black">
                 <svg
-                  class="usa-icon"
+                  className="usa-icon"
                   aria-hidden="true"
                   focusable="false"
                   role="img"
@@ -169,7 +169,7 @@ export default function ResourceNavigation() {
             <div className="border border-gray-300 rounded-md py-5 px-5 w-full bg-white">
               <p className="font-semibold text-black">
                 <svg
-                  class="usa-icon"
+                  className="usa-icon"
                   aria-hidden="true"
                   focusable="false"
                   role="img"
@@ -193,7 +193,7 @@ export default function ResourceNavigation() {
             <div className="border border-gray-300 rounded-md py-5 px-5 bg-white">
               <p className="font-semibold text-black">
                 <svg
-                  class="usa-icon"
+                  className="usa-icon"
                   aria-hidden="true"
                   focusable="false"
                   role="img"
@@ -208,7 +208,7 @@ export default function ResourceNavigation() {
             <div className="border border-gray-300 rounded-md py-5 px-5 bg-white">
               <p className="font-semibold text-black">
                 <svg
-                  class="usa-icon"
+                  className="usa-icon"
                   aria-hidden="true"
                   focusable="false"
                   role="img"

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Navbar() {
   return (
     <div
@@ -19,21 +21,21 @@ export default function Navbar() {
 
       {/* Nav Links */}
       <nav className="flex flex-row gap-10 text-gray-600">
-        <a href="#" className="hover:text-blue-400 text-sm">
+        <Link className="hover:text-blue-400 text-sm" href="/">
           Home
-        </a>
-        <a href="#" className="hover:text-blue-400 text-sm">
+        </Link>
+        <Link className="hover:text-blue-400 text-sm" href="/about">
           About
-        </a>
-        <a href="#" className="hover:text-blue-400 text-sm">
+        </Link>
+        <Link className="hover:text-blue-400 text-sm" href="/">
           Funding Resources
-        </a>
-        <a href="#" className="hover:text-blue-400 text-sm">
+        </Link>
+        <Link className="hover:text-blue-400 text-sm" href="/">
           HABs 101
-        </a>
-        <a href="#" className="hover:text-blue-400 text-sm">
+        </Link>
+        <Link className="hover:text-blue-400 text-sm" href="/">
           FAQs
-        </a>
+        </Link>
       </nav>
 
       {/* Search bar */}

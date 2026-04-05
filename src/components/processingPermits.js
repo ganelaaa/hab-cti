@@ -20,7 +20,12 @@ export default function ProcessingPermits() {
             pesticides and algicides.
           </p>
           <p className="underline">Visit the FIFRA website</p>
-          <svg class="usa-icon" aria-hidden="true" focusable="false" role="img">
+          <svg
+            className="usa-icon"
+            aria-hidden="true"
+            focusable="false"
+            role="img"
+          >
             <use href="/assets/img/sprite.svg#launch"></use>
           </svg>
         </div>
