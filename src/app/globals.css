@@ -9,8 +9,14 @@
 
 /* FINAL US WEB COLORS */
 :root {
-  --primary: #005ea2 --primary-lighter: #d9e8f6 --primary-darker: #162e51
-    --red-light: #f4e3db --green-50v: #538200 --green-20: #b8d293
-    --red-warm-vivid: #d54309 --orange-20: #f3bf90 --gray-cool-60: #565c65
-    --gray-90: #171717;
+  --primary: #005ea2;
+  --primary-lighter: #d9e8f6;
+  --primary-darker: #162e51;
+  --red-light: #f4e3db;
+  --green-50v: #538200;
+  --green-20: #b8d293;
+  --red-warm-vivid: #d54309;
+  --orange-20: #f3bf90;
+  --gray-cool-60: #565c65;
+  --gray-90: #171717;
 }

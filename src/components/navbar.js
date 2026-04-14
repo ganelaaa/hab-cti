@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <div
-      className="flex flex-row items-center justify-between px-20 py-3 tracking-wide"
+      className="flex flex-row items-center justify-between px-20 py-3 tracking-wide shadow-sm border-b border-gray-200 rounded-b-lg"
       style={{ backgroundColor: "var(--primary-darkest)" }}
     >
       {/* Logo and Title */}
@@ -39,7 +39,7 @@ export default function Navbar() {
       </nav>
 
       {/* Search bar */}
-      <div className="flex flex-row items-center border-4 border-blue-700 rounded-lg gap-2 bg-white w-86">
+      <div className="flex flex-row items-center border-t-2 border-r-2 border-l-2 border-b-2 border-primary rounded-lg gap-2 bg-white w-86 focus-within:ring-2 focus-within:ring-primary">
         <span className="text-gray-400 text-sm"></span>
         <svg
           style={{ width: "24px", height: "24px" }}
@@ -52,11 +52,8 @@ export default function Navbar() {
         <input
           type="search"
           placeholder="Quick search"
-          className="flex text-xs bg-transparent text-gray-600"
+          className=" navbar-search flex text-xs bg-transparent text-gray-600 outline-none"
         />
-        <span className="bg-blue-800 text-white text-xs px-2 py-1 rounded-md font-bold">
-          ⌘ + K
-        </span>
       </div>
     </div>
   );

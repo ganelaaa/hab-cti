@@ -37,7 +37,7 @@ export default function Footer() {
                   placeholder="yourmail@example.com"
                   className="px-3 py-1 text-sm text-black rounded w-56 bg-white justify-self-end-safe"
                 />
-                <button className="usa-button bg-blue-700">
+                <button className="usa-button">
                   Sign Up
                   <svg
                     className="usa-icon"
