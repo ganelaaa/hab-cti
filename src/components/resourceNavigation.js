@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function ResourceNavigation() {
   return (
     <div className="px-20 py-10">
@@ -71,11 +73,13 @@ export default function ResourceNavigation() {
             </div>
 
             <div className="border border-gray-300 rounded-md py-5 px-5 w-full bg-white">
+            <Link href="/literature">
               <p className="font-semibold text-black">Literature Search</p>
-              <p className="text-sm text-gray-600 mt-1">
-                Publications on HAB control technologies
-              </p>
-            </div>
+            </Link>
+            <p className="text-sm text-gray-600 mt-1">
+              Publications on HAB control technologies
+            </p>
+          </div>
           </div>
 
           <div className="flex flex-row gap-6 mt-6">

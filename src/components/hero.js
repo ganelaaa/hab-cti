@@ -15,7 +15,7 @@ export default function Hero() {
           <div>
             <p className="text-green-300 text-xs">WELCOME TO</p>
             <div className="font-bold text-xl">
-              <h1>US Harmful Algal Bloom-Control</h1>
+              <h1>NEW US Harmful Algal Bloom-Control</h1>
               <h1>Technologies Incubator Clearinghouse</h1>
             </div>
           </div>
