@@ -15,7 +15,7 @@ export default function AboutIntro() {
       </p>
       <p className="mt-6">
         We accelerate the development and assessment of strategies that
-        eliminate or reduce harmful alagae and their toxins through biological,
+        eliminate or reduce harmful algae and their toxins through biological,
         chemical, or physical means. Our work is guided by an Advisory and
         Review Board with representatives from the U.S. Army Corps of Engineers,
         Environmental Protection Agency (EPA), U.S. Geological Survey (USGS),
@@ -30,9 +30,9 @@ export default function AboutIntro() {
           Our mission is to advance the development and use of effective,
           science-based technologies that control or reduce HABs and their
           toxins. We aim to expand the range of proven control options available
-          and to simplify the licensing and permitting the processes required
-          for their deployment. By doing so, we support a more effective and
-          coordinated national response ot the growing challenge of HABs.
+          and to simplify the licensing and permitting processes required for
+          their deployment. By doing so, we support a more effective and
+          coordinated national response of the growing challenge of HABs.
         </p>
       </div>
 
