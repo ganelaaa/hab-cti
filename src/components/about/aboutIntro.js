@@ -44,7 +44,7 @@ export default function AboutIntro() {
             <img src="/NOAA.svg" className="w-24 h-24 object-contain" />{" "}
             <div className="text-primary font-bold mt-8">
               <p>National Oceanic and</p>
-              <p>Atmospheric Administraion</p>
+              <p>Atmospheric Administration</p>
               <p>(NOAA)</p>
             </div>
           </div>

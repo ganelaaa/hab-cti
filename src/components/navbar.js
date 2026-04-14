@@ -27,13 +27,13 @@ export default function Navbar() {
         <Link className="hover:text-blue-400 text-sm" href="/about">
           About
         </Link>
-        <Link className="hover:text-blue-400 text-sm" href="/">
+        <Link className="hover:text-blue-400 text-sm" href="#">
           Funding Resources
         </Link>
-        <Link className="hover:text-blue-400 text-sm" href="/">
+        <Link className="hover:text-blue-400 text-sm" href="#">
           HABs 101
         </Link>
-        <Link className="hover:text-blue-400 text-sm" href="/">
+        <Link className="hover:text-blue-400 text-sm" href="#">
           FAQs
         </Link>
       </nav>
