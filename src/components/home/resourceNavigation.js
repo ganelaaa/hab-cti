@@ -1,26 +1,24 @@
 export default function ResourceNavigation() {
   return (
     <div className="px-20 py-10 tracking-wide">
-      {/* Quick Access Heading */}
-      <p className="text-green-600 text-sm font-semibold">
-        RESOURCE NAVIGATION
-      </p>
+      {/* Heading */}
+      <p className="text-green text-sm font-semibold">RESOURCE NAVIGATION</p>
       <p className="font-bold text-3xl text-(--black)] mt-1">
         Quick Access to Key Tools
       </p>
-      <p className="text-sm text-(--gray)] mt-2 max-w-xl">
+      <p className="text-sm text-(--gray)] mt-2 max-w-xl whitespace-nowrap">
         Easily find permits, research, technologies, and approved products
         related to HAB control.
       </p>
 
       {/* Laws and Permit Section */}
-      <fieldset className="border border-primary rounded-xl py-10 px-10 mt-8 font-medium">
-        <legend className="text-primary px-2 text-sm font-medium">
+      <fieldset className="border-b-2 border-l-2 border-r-2 border-t-2 border-primary rounded-xl py-10 px-10 mt-8 font-medium">
+        <legend className="text-primary px-2 text-xl font-medium">
           Laws and Permits
         </legend>
 
         <div className="flex flex-row gap-6 mt-4">
-          <div className="border border-gray-300 rounded-md py-5 px-5 w-full bg-white hover:shadow-sm transition">
+          <div className="border-b-2 border-t-2 border-r-2 border-l-2 border-gray-300 rounded-md py-5 px-5 w-full bg-white transition">
             <p className="font-semibold text-black">
               <svg
                 className="usa-icon"
@@ -37,7 +35,7 @@ export default function ResourceNavigation() {
             </p>
           </div>
 
-          <div className="border border-gray-300 rounded-md py-5 px-5 w-full bg-white hover:shadow-sm transition">
+          <div className="border-b-2 border-t-2 border-r-2 border-l-2 border-gray-300 rounded-md py-5 px-5 w-full bg-white transition">
             <p className="font-semibold text-black">
               <svg
                 className="usa-icon"
@@ -54,7 +52,7 @@ export default function ResourceNavigation() {
             </p>
           </div>
 
-          <div className="border border-gray-300 rounded-md py-5 px-5 w-full bg-white hover:shadow-sm transition">
+          <div className="border-b-2 border-t-2 border-r-2 border-l-2 border-gray-300 rounded-md py-5 px-5 w-full bg-white transition">
             <p className="font-semibold text-black">
               <svg
                 className="usa-icon"
@@ -71,7 +69,7 @@ export default function ResourceNavigation() {
         </div>
 
         <div className="flex flex-row gap-6 mt-6">
-          <div className="border border-gray-300 rounded-md py-5 px-5 w-full bg-white hover:shadow-sm transition">
+          <div className="border-b-2 border-t-2 border-r-2 border-l-2 border-gray-300 rounded-md py-5 px-5 w-full bg-white transition">
             <p className="font-semibold text-black">
               <svg
                 className="usa-icon"
@@ -86,7 +84,7 @@ export default function ResourceNavigation() {
             <p className="text-sm text-gray-700 mt-1">Permits & Regulations</p>
           </div>
 
-          <div className="border border-gray-300 rounded-md py-5 px-5 w-full bg-white hover:shadow-sm transition">
+          <div className="border-b-2 border-t-2 border-r-2 border-l-2 border-gray-300 rounded-md py-5 px-5 w-full bg-white transition">
             <p className="font-semibold text-black">
               <svg
                 className="usa-icon"
@@ -107,13 +105,13 @@ export default function ResourceNavigation() {
 
       {/* Literature */}
       <div className="flex flex-row gap-8 mt-10">
-        <fieldset className="border border-primary rounded-xl py-8 px-8 w-2/3">
-          <legend className="text-primary px-2 text-sm font-medium">
+        <fieldset className="border-b-2 border-l-2 border-r-2 border-t-2 border-primary rounded-xl py-8 px-8 w-2/3">
+          <legend className="text-primary px-2 text-xl font-medium">
             Literature
           </legend>
 
           <div className="flex flex-row gap-6 mt-4">
-            <div className="border border-gray-300 rounded-md py-5 px-5 w-full bg-white">
+            <div className="border-b-2 border-t-2 border-r-2 border-l-2 border-gray-300 rounded-md py-5 px-5 w-full bg-white">
               <p className="font-semibold text-black">
                 <svg
                   className="usa-icon"
@@ -130,7 +128,7 @@ export default function ResourceNavigation() {
               </p>
             </div>
 
-            <div className="border border-gray-300 rounded-md py-5 px-5 w-full bg-white">
+            <div className="border-b-2 border-t-2 border-r-2 border-l-2 border-gray-300 rounded-md py-5 px-5 w-full bg-white">
               <p className="font-semibold text-black">
                 <svg
                   className="usa-icon"
@@ -149,7 +147,7 @@ export default function ResourceNavigation() {
           </div>
 
           <div className="flex flex-row gap-6 mt-6">
-            <div className="border border-gray-300 rounded-md py-5 px-5 w-full bg-white">
+            <div className="border-b-2 border-t-2 border-r-2 border-l-2 border-gray-300 rounded-md py-5 px-5 w-full bg-white">
               <p className="font-semibold text-black">
                 <svg
                   className="usa-icon"
@@ -166,7 +164,7 @@ export default function ResourceNavigation() {
               </p>
             </div>
 
-            <div className="border border-gray-300 rounded-md py-5 px-5 w-full bg-white">
+            <div className="border-b-2 border-t-2 border-r-2 border-l-2 border-gray-300 rounded-md py-5 px-5 w-full bg-white">
               <p className="font-semibold text-black">
                 <svg
                   className="usa-icon"
@@ -184,13 +182,13 @@ export default function ResourceNavigation() {
         </fieldset>
 
         {/* Products */}
-        <fieldset className="border border-primary rounded-xl py-8 px-8 w-1/3">
-          <legend className="text-primary px-2 text-sm font-medium">
+        <fieldset className="border-b-2 border-l-2 border-r-2 border-t-2 border-primary rounded-xl py-8 px-8 w-1/3">
+          <legend className="text-primary px-2 text-xl font-medium">
             Products
           </legend>
 
           <div className="flex flex-col gap-6 mt-4">
-            <div className="border border-gray-300 rounded-md py-5 px-5 bg-white">
+            <div className="border-b-2 border-t-2 border-r-2 border-l-2 border-gray-300 rounded-md py-5 px-5 bg-white">
               <p className="font-semibold text-black">
                 <svg
                   className="usa-icon"
@@ -205,7 +203,7 @@ export default function ResourceNavigation() {
               <p className="text-sm text-gray mt-1">Product Catalogue</p>
             </div>
 
-            <div className="border border-gray-300 rounded-md py-5 px-5 bg-white">
+            <div className="border-b-2 border-t-2 border-r-2 border-l-2 border-gray-300 rounded-md py-5 px-5 bg-white">
               <p className="font-semibold text-black">
                 <svg
                   className="usa-icon"

@@ -26,21 +26,24 @@ export default function Hero() {
           style={{ backgroundImage: `url('${slides[activeSlide].image}')` }}
         />
         {/* Overlay */}
-        <div className="absolute inset-0 bg-black opacity-50" />
+        <div className="absolute inset-0 bg-black opacity-10" />
 
         {/* Content */}
         <div className="relative z-10 py-24 px-20 text-center">
-          <p className="text-green-300 text-xs font-bold tracking-widest">
+          <p className="text-green text-2xl font-bold tracking-wide">
             WELCOME TO
           </p>
-          <div className="font-bold text-4xl mt-3 leading-tight">
+          <div className="font-bold text-4xl leading-tight">
             <h1>US Harmful Algal Bloom - Control</h1>
             <h1>Technologies Incubator Clearinghouse</h1>
           </div>
-          <p className="mt-6 text-sm text-gray-200 max-w-xl mx-auto leading-relaxed">
-            A collection of HAB control regulations and permitting information
-            to help users navigate algaecide use in marine and freshwater
-          </p>
+          <div className="mt-6 text-xl text-gray-200 max-w-xl mx-auto whitespace-nowrap">
+            <p>
+              A collection of HAB control regulations and permitting information
+              to help
+            </p>
+            <p>users navigate algaecide use in marine and freshwater</p>
+          </div>
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 z-10 flex items-center gap-4 px-8 py-4">

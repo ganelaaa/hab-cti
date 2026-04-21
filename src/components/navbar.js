@@ -1,11 +1,11 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+  const pathname = usePathname();
   return (
-    <div
-      className="flex flex-row items-center justify-between px-20 py-3 tracking-wide shadow-sm border-b border-gray-200 rounded-b-lg"
-      style={{ backgroundColor: "var(--primary-darkest)" }}
-    >
+    <div className="flex flex-row items-center justify-between px-20 py-3 tracking-wide shadow-sm border-b border-gray-200 rounded-b-lg">
       {/* Logo and Title */}
       <div className="flex flex-row items-center gap-3">
         <img
@@ -27,7 +27,7 @@ export default function Navbar() {
         <Link className="hover:text-blue-400 text-sm" href="/about">
           About
         </Link>
-        <Link className="hover:text-blue-400 text-sm" href="#">
+        <Link className="hover:text-blue-400 text-sm" href="/fundingResources">
           Funding Resources
         </Link>
         <Link className="hover:text-blue-400 text-sm" href="#">
@@ -39,7 +39,7 @@ export default function Navbar() {
       </nav>
 
       {/* Search bar */}
-      <div className="flex flex-row items-center border-t-2 border-r-2 border-l-2 border-b-2 border-primary rounded-lg gap-2 bg-white w-86 focus-within:ring-2 focus-within:ring-primary">
+      <div className="flex flex-row items-center border-t-2 border-r-2 border-l-2 border-b-2 border-primary rounded-lg gap-2 bg-white w-86">
         <span className="text-gray-400 text-sm"></span>
         <svg
           style={{ width: "24px", height: "24px" }}
@@ -52,7 +52,7 @@ export default function Navbar() {
         <input
           type="search"
           placeholder="Quick search"
-          className=" navbar-search flex text-xs bg-transparent text-gray-600 outline-none"
+          className=" navbar-search flex text-xs bg-transparent text-gray-600"
         />
       </div>
     </div>

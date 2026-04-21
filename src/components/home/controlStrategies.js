@@ -4,7 +4,6 @@ import { useState } from "react";
 export default function ControlStrategies() {
   const [activeTab, setActiveTab] = useState("chemical");
   const [activeSubTab, setActiveSubTab] = useState("conventional");
-
   return (
     <div className="px-20 py-10 tracking-wide">
       {/* Strategies Headings */}

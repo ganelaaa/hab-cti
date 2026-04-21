@@ -2,6 +2,13 @@
 @import "tailwindcss";
 @import "@uswds/uswds/css/uswds.min.css";
 
+/* Fix USWDS global input focus styles TEMPORARY */
+button:not([disabled]):focus,
+input:not([disabled]):focus {
+  outline: none;
+  box-shadow: none;
+}
+
 /* FONTS */
 * {
   font-family: "Public Sans", sans-serif;
@@ -13,8 +20,8 @@
   --primary-lighter: #d9e8f6;
   --primary-darker: #162e51;
   --red-light: #f4e3db;
-  --green-50v: #538200;
-  --green-20: #b8d293;
+  --green: #538200;
+  --green-light: #b8d293;
   --red-warm-vivid: #d54309;
   --orange-20: #f3bf90;
   --gray-cool-60: #565c65;

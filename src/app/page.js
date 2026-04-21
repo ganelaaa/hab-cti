@@ -1,8 +1,8 @@
-import Hero from "@/components/hero.js";
-import ResourceNavigation from "@/components/resourceNavigation.js";
-import ProcessingStrategies from "@/components/processingPermits.js";
-import ControlStrategies from "@/components/controlStrategies.js";
-import Disclaimer from "@/components/disclaimer.js";
+import Hero from "@/components/home/hero.js";
+import ResourceNavigation from "@/components/home/resourceNavigation.js";
+import ProcessingStrategies from "@/components/home/processingPermits.js";
+import ControlStrategies from "@/components/home/controlStrategies.js";
+import Disclaimer from "@/components/home/disclaimer.js";
 
 export default function Home() {
   return (
