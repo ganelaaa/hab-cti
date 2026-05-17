@@ -9,11 +9,11 @@ export default function Disclaimer() {
 
       {/* Attention! */}
       <div className="flex flex-row mt-7">
-        <div className="bg-[#f4e3db] text-black py-5 px-10 w-2xl border-l-6 border-l-[#d54309] rounded">
+        <div className="bg-[#f4e3db] text-black py-5 px-10 border-l-6 border-l-[#d54309] rounded w-full">
           <div className="font-bold">
-            <div className="text-xl">
+            <div className="text-xl flex flex-row items-center gap-2">
               <svg
-                className="usa-icon text-2xl"
+                className="usa-icon text-xl"
                 aria-hidden="true"
                 focusable="false"
                 role="img"
@@ -42,10 +42,10 @@ export default function Disclaimer() {
         </div>
 
         {/* Report Errors */}
-        <div className="bg-primary-lighter px-52 ml-3 border-primary border-l-2 border-t-2 border-r-2 border-b-2 rounded-xl">
+        <div className="bg-primary-lighter px-8 py-8 ml-3 border-primary border-l-2 border-t-2 border-r-2 border-b-2 rounded-xl shrink-0 w-96">
           <h1 className="font-bold">
             <svg
-              className="usa-icon"
+              className="usa-icon mr-3"
               aria-hidden="true"
               focusable="false"
               role="img"
@@ -60,7 +60,7 @@ export default function Disclaimer() {
           <p className="mt-5 text-light">
             File a report below. We'll look into it and get it sorted.
           </p>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 mt-10">
             <button className="usa-button bg-blue-700 mb-3.5">
               File a Report
               <svg

@@ -16,8 +16,8 @@ export default function ControlStrategies() {
         different process for registration
       </p>
       {/* Control Technology Tabs */}
-      <div className="rounded border-b border-l-2 border-t-2 border-r-2 border-gray-300">
-        <div className="bg-[#d6efd3] flex flex-row text-gray-500 font-bold gap-45 px-4 py-4">
+      <div className="rounded-xl border-b border-l-2 border-t-2 border-r-2 border-gray-300 mt-5">
+        <div className="bg-[#ecf8dc] flex flex-row text-gray-500 font-bold gap-45 px-4 py-4">
           <p
             onClick={() => setActiveTab("chemical")}
             className={`px-2 py-2 rounded transition-all duration-500 cursor-pointer flex items-center gap-1 ${activeTab === "chemical" ? "bg-[#538200] text-white" : "text-gray-500"}`}
@@ -88,37 +88,42 @@ export default function ControlStrategies() {
           </p>
         </div>
         {/* Information Block */}
-        <div className="rounded border-b border-l border-t border-r border-gray-300 bg-white text-black">
-          <div>Image here</div>
-          <div>
-            <h1 className="font-bold">Conventional Chemical</h1>
-            <p className="font-light">
-              Conventional pesticides are all active ingredients other than
-              biological pesticides and antimicrobial pesticides. Conventional
-              active ingredients are geenrally produced synthetically, i.e., are
-              synthetic chemicals athat prevent, mitigate, destroy, or repel any
-              pest; or that act as a plant growth regulator, desiccant,
-              defoliant or nitrogen stabilizer.
-            </p>
-            <p className="font-light mt-6">
-              Wood preservative and anti-foulant products that do not have
-              antimicrobial uses and agricultural fungicide and aquatic
-              herbicide products are either classified as a conventional or a
-              biochemical pesticide. biochemical pesticides eith a toxic mode of
-              action are classified for the purposes of the registration process
-              as conventional pesticides.
-            </p>
-            <button className="usa-button bg-blue-700">
-              Know More
-              <svg
-                className="usa-icon"
-                aria-hidden="true"
-                focusable="false"
-                role="img"
-              >
-                <use href="/assets/img/sprite.svg#arrow_forward"></use>
-              </svg>
-            </button>
+        <div className="rounded border-b border-l border-t border-r border-gray-300 bg-white text-black p-6 flex flex-row">
+          <div className="flex flex-row gap-6 items-start mb-6">
+            <img
+              src="/lab.png"
+              className="w-60 h-60 object-contain shrink-0 mt-6"
+            />
+            <div>
+              <h1 className="font-bold">Conventional Chemical</h1>
+              <p className="font-light">
+                Conventional pesticides are all active ingredients other than
+                biological pesticides and antimicrobial pesticides. Conventional
+                active ingredients are geenrally produced synthetically, i.e.,
+                are synthetic chemicals athat prevent, mitigate, destroy, or
+                repel any pest; or that act as a plant growth regulator,
+                desiccant, defoliant or nitrogen stabilizer.
+              </p>
+              <p className="font-light mt-6">
+                Wood preservative and anti-foulant products that do not have
+                antimicrobial uses and agricultural fungicide and aquatic
+                herbicide products are either classified as a conventional or a
+                biochemical pesticide. biochemical pesticides eith a toxic mode
+                of action are classified for the purposes of the registration
+                process as conventional pesticides.
+              </p>
+              <button className="usa-button bg-blue-700 !mt-5">
+                Know More
+                <svg
+                  className="usa-icon"
+                  aria-hidden="true"
+                  focusable="false"
+                  role="img"
+                >
+                  <use href="/assets/img/sprite.svg#arrow_forward"></use>
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>

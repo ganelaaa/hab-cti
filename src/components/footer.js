@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div className="mt-15 tracking-wide">
+    <div className="mt-5 tracking-wide">
       {/* Return to top */}
       <div className="flex justify-center py-2">
         <a href="#" className="text-primary underline text-sm text-center mb-4">
@@ -59,11 +59,21 @@ export default function Footer() {
             <div className="flex flex-col gap-5">
               <div className="underline font-bold">Main Links</div>
               <ul className="list-none p-0 m-0 flex flex-col gap-3">
-                <li>Home</li>
-                <li>Guidance by Role</li>
-                <li>Acts & Agencies</li>
-                <li>FAQs</li>
-                <li>Disclaimer</li>
+                <li className="hover:underline cursor-pointer hover:text-primary-lighter">
+                  Home
+                </li>
+                <li className="hover:underline cursor-pointer hover:text-primary-lighter">
+                  Guidance by Role
+                </li>
+                <li className="hover:underline cursor-pointer hover:text-primary-lighter">
+                  Acts & Agencies
+                </li>
+                <li className="hover:underline cursor-pointer hover:text-primary-lighter">
+                  FAQs
+                </li>
+                <li className="hover:underline cursor-pointer hover:text-primary-lighter">
+                  Disclaimer
+                </li>
               </ul>
             </div>
 
@@ -71,10 +81,18 @@ export default function Footer() {
             <div className="flex flex-col gap-5">
               <div className="underline font-bold">Researcher</div>
               <ul className="list-none p-0 m-0 flex flex-col gap-3">
-                <li>Literature Search</li>
-                <li>Regulations Directory</li>
-                <li>Research Guidelines</li>
-                <li>Field Studies</li>
+                <li className="hover:underline cursor-pointer hover:text-primary-lighter">
+                  Literature Search
+                </li>
+                <li className="hover:underline cursor-pointer hover:text-primary-lighter">
+                  Regulations Directory
+                </li>
+                <li className="hover:underline cursor-pointer hover:text-primary-lighter">
+                  Research Guidelines
+                </li>
+                <li className="hover:underline cursor-pointer hover:text-primary-lighter">
+                  Field Studies
+                </li>
               </ul>
             </div>
 
@@ -82,11 +100,21 @@ export default function Footer() {
             <div className="flex flex-col gap-5">
               <div className="underline font-bold">Tech Developer</div>
               <ul className="list-none p-0 m-0 flex flex-col gap-3">
-                <li>Patent Check</li>
-                <li>Consultants Database</li>
-                <li>Timelines and Costs</li>
-                <li>Getting Approvals</li>
-                <li>External Resources</li>
+                <li className="hover:underline cursor-pointer hover:text-primary-lighter">
+                  Patent Check
+                </li>
+                <li className="hover:underline cursor-pointer hover:text-primary-lighter">
+                  Consultants Database
+                </li>
+                <li className="hover:underline cursor-pointer hover:text-primary-lighter">
+                  Timelines and Costs
+                </li>
+                <li className="hover:underline cursor-pointer hover:text-primary-lighter">
+                  Getting Approvals
+                </li>
+                <li className="hover:underline cursor-pointer hover:text-primary-lighter">
+                  External Resources
+                </li>
               </ul>
             </div>
 
@@ -94,15 +122,19 @@ export default function Footer() {
             <div className="flex flex-col gap-5">
               <div className="underline font-bold">Manager</div>
               <ul className="list-none p-0 m-0 flex flex-col gap-3">
-                <li>Registered Products</li>
-                <li>Existing Literature</li>
+                <li className="hover:underline cursor-pointer hover:text-primary-lighter">
+                  Registered Products
+                </li>
+                <li className="hover:underline cursor-pointer hover:text-primary-lighter">
+                  Existing Literature
+                </li>
               </ul>
             </div>
 
             {/* Contact column */}
             <div className="flex flex-col gap-5">
               <div className="underline font-bold">Contact</div>
-              <p className="font-extrabold">
+              <p className="font-extrabold hover:underline cursor-pointer hover:text-primary-lighter">
                 <svg
                   className="usa-icon mr-2.5"
                   aria-hidden="true"
@@ -113,7 +145,7 @@ export default function Footer() {
                 </svg>
                 (800) CALL-GOVT
               </p>
-              <p className="font-bold">
+              <p className="font-bold hover:underline cursor-pointer hover:text-primary-lighter">
                 <svg
                   className="usa-icon mr-2.5"
                   aria-hidden="true"

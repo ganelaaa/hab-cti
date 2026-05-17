@@ -118,31 +118,32 @@ export default function ResourceNavigation() {
               Permits & Regulations
             </p>
           </div>
-
-          <div className="border-b-2 border-t-2 border-r-2 border-l-2 border-gray-300 rounded-md py-5 px-5 w-full bg-white hover:scale-105 hover:shadow-[0_0_15px_rgba(0,94,162,0.3)] transition-all duration-300 cursor-pointer">
-            <p className="font-semibold text-black">
-              <svg
-                className="usa-icon mr-8 text-xl"
-                aria-hidden="true"
-                focusable="false"
-                role="img"
-              >
-                <use href="/assets/img/sprite.svg#topic"></use>
-              </svg>
-              <svg
-                className="usa-icon absolute left-145 text-xl"
-                aria-hidden="true"
-                focusable="false"
-                role="img"
-              >
-                <use href="/assets/img/sprite.svg#launch"></use>
-              </svg>
-              Regulatory Agencies
-            </p>
-            <p className="text-sm text-gray-700 mt-1 ml-18">
-              Federal & State Regulations
-            </p>
-          </div>
+          <a href="/regulationsDirectory" className="block w-full">
+            <div className="border-b-2 border-t-2 border-r-2 border-l-2 border-gray-300 rounded-md py-5 px-5 w-full bg-white hover:scale-105 hover:shadow-[0_0_15px_rgba(0,94,162,0.3)] transition-all duration-300 cursor-pointer">
+              <p className="font-semibold text-black">
+                <svg
+                  className="usa-icon mr-8 text-xl"
+                  aria-hidden="true"
+                  focusable="false"
+                  role="img"
+                >
+                  <use href="/assets/img/sprite.svg#topic"></use>
+                </svg>
+                <svg
+                  className="usa-icon absolute left-145  text-xl"
+                  aria-hidden="true"
+                  focusable="false"
+                  role="img"
+                >
+                  <use href="/assets/img/sprite.svg#launch"></use>
+                </svg>
+                Regulatory Agencies
+              </p>
+              <p className="text-sm text-gray-700 mt-1 ml-18">
+                Federal & State Regulations
+              </p>
+            </div>
+          </a>
         </div>
       </fieldset>
 
@@ -178,31 +179,32 @@ export default function ResourceNavigation() {
                 Species, Impacts, Research, Resources, Response
               </p>
             </div>
-
-            <div className="border-b-2 border-t-2 border-r-2 border-l-2 border-gray-300 rounded-md py-5 px-5 w-full bg-white hover:scale-105 hover:shadow-[0_0_15px_rgba(0,94,162,0.3)] transition-all duration-300 cursor-pointer">
-              <p className="font-semibold text-black">
-                <svg
-                  className="usa-icon mr-8 text-xl"
-                  aria-hidden="true"
-                  focusable="false"
-                  role="img"
-                >
-                  <use href="/assets/img/sprite.svg#local_library"></use>
-                </svg>
-                <svg
-                  className="usa-icon absolute left-80 text-xl"
-                  aria-hidden="true"
-                  focusable="false"
-                  role="img"
-                >
-                  <use href="/assets/img/sprite.svg#launch"></use>
-                </svg>
-                Literature Search
-              </p>
-              <p className="text-sm text-gray-600 mt-1 ml-18">
-                Publications on HAB control technologies
-              </p>
-            </div>
+            <a href="/literatureSearch" className="block w-full">
+              <div className="border-b-2 border-t-2 border-r-2 border-l-2 border-gray-300 rounded-md py-5 px-5 w-full bg-white hover:scale-105 hover:shadow-[0_0_15px_rgba(0,94,162,0.3)] transition-all duration-300 cursor-pointer">
+                <p className="font-semibold text-black">
+                  <svg
+                    className="usa-icon mr-8 text-xl"
+                    aria-hidden="true"
+                    focusable="false"
+                    role="img"
+                  >
+                    <use href="/assets/img/sprite.svg#local_library"></use>
+                  </svg>
+                  <svg
+                    className="usa-icon absolute left-80 text-xl"
+                    aria-hidden="true"
+                    focusable="false"
+                    role="img"
+                  >
+                    <use href="/assets/img/sprite.svg#launch"></use>
+                  </svg>
+                  Literature Search
+                </p>
+                <p className="text-sm text-gray-600 mt-1 ml-18">
+                  Publications on HAB control technologies
+                </p>
+              </div>
+            </a>
           </div>
 
           <div className="flex flex-row gap-6 mt-6">

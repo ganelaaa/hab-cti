@@ -30,13 +30,12 @@ export default function Navbar() {
       <nav className="flex flex-row gap-10 text-gray-600">
         {links.map((link) => (
           <Link
-            key={link.href}
+            key={link.label}
             href={link.href}
             className={`relative text-sm group transition-colors duration-200 hover:text-primary ${
               pathname === link.href ? "text-primary" : ""
             }`}
           >
-            {/* ADDED - top hover line */}
             <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center" />
             <span
               className={`absolute bottom-0 left-0 w-full h-0.5 bg-primary transition-transform duration-300 origin-center ${

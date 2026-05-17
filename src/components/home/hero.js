@@ -19,7 +19,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <div className="px-20 py-4 tracking-widest">
+    <div className="px-20 py-4 tracking-wide">
       <div className="relative text-white min-h-64 rounded-lg overflow-hidden">
         {/* ADDED - Render all slides, translate based on active index */}
         {slides.map((slide, index) => (
@@ -36,7 +36,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-black opacity-10 z-10" />
         {/* Content */}
         <div className="relative z-10 py-10 px-1 text-center mb-6">
-          <p className="text-green text-l font-bold mt-8">WELCOME TO</p>
+          <p className="text-[#78a529] text-l font-bold mt-8">WELCOME TO</p>
           <div className="font-bold text-xl leading-tight">
             <h1 className="!mb-0">US Harmful Algal Bloom - Control</h1>
             <h1 className="!mt-2">Technologies Incubator Clearinghouse</h1>
