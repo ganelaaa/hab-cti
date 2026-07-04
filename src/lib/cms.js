@@ -1,141 +1,47 @@
-export const GET_PERMITTING_LAWS = `
-query GetPermittingLaws {
-  page(id: "194", idType: DATABASE_ID) {
-    homepageAgenciesFields {
-    sectionTitle
-    sectionDescription
-      # Card 01
-      card01Title
-      card01Description
-      card01Link
-      card01IsPrimary
-      card01Image { node { sourceUrl } }
-      # Card 02
-      card02Title
-      card02Description
-      card02Link
-      card02IsPrimary
-      card02Image { node { sourceUrl } }
-      # Card 03
-      card03Title
-      card03Description
-      card03Link
-      card03IsPrimary
-      card03Image { node { sourceUrl } }
-      # Card 04
-      card04Title
-      card04Description
-      card04Link
-      card04IsPrimary
-      card04Image { node { sourceUrl } }
-      # Card 05
-      card05Title
-      card05Description
-      card05Link
-      card05IsPrimary
-      card05Image { node { sourceUrl } }
-      # Card 06
-      card06Title
-      card06Description
-      card06Link
-      card06IsPrimary
-      card06Image { node { sourceUrl } }
-      # Card 07
-      card07Title
-      card07Description
-      card07Link
-      card07IsPrimary
-      card07Image { node { sourceUrl } }
-      # Card 08
-      card08Title
-      card08Description
-      card08Link
-      card08IsPrimary
-      card08Image { node { sourceUrl } }
+
+export const GET_ALL_AGENCY_POSTS = `
+query GetAllAgencyPosts {
+  agencies(first: 100, where: { orderby: { field: MENU_ORDER, order: ASC } }) {
+    nodes {
+      databaseId
+      title
+      agencyInternalConnector {
+        featuredImage {
+          node {
+            sourceUrl
+          }
+        }
+        cardDescription
+        isPrimary
+        agencyType
+        backgroundText
+        permitsApplicable
+        regulatoryApplication
+      }
     }
   }
 }
 `;
 
-export const GET_COMPLIANCE_ACTS = `
-query GetComplianceActs {
-  page(id: "227", idType: DATABASE_ID) {
-    complianceActsFields {
-    sectionTitle
-    sectionDescription
-      # Act 01
-      act01Title
-      act01Description
-      act01Link
-      act01Image { node { sourceUrl } }
-      # Act 02
-      act02Title
-      act02Description
-      act02Link
-      act02Image { node { sourceUrl } }
-      # Act 03
-      act03Title
-      act03Description
-      act03Link
-      act03Image { node { sourceUrl } }
-      # Act 04
-      act04Title
-      act04Description
-      act04Link
-      act04Image { node { sourceUrl } }
-      # Act 05
-      act05Title
-      act05Description
-      act05Link
-      act05Image { node { sourceUrl } }
-      # Act 06
-      act06Title
-      act06Description
-      act06Link
-      act06Image { node { sourceUrl } }
-      # Act 07
-      act07Title
-      act07Description
-      act07Link
-      act07Image { node { sourceUrl } }
-    }
-  }
-}
-`;
-
-export async function getPermittingLawsFields() {
+export async function getAllAgencyPosts() {
   try {
     const res = await fetch('https://cms.habctrl.info/graphql', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query: GET_PERMITTING_LAWS }),
+      body: JSON.stringify({ query: GET_ALL_AGENCY_POSTS }),
       cache: 'no-store',
     });
-    if (!res.ok) throw new Error(`Status ${res.status}`);
+
+    if (!res.ok) throw new Error(`WordPress responded with status ${res.status}`);
+    
     const { data } = await res.json();
-    return data?.page?.homepageAgenciesFields || null;
+    return data?.agencies?.nodes || [];
   } catch (error) {
-    console.error("Permitting Laws Fetch Error:", error);
-    return null;
+    console.error("Error fetching dynamic agency posts:", error);
+    return []; // Return empty array so Promise.all won't crash the homepage
   }
 }
 
-export async function getComplianceActsFields() {
-  try {
-    const res = await fetch('https://cms.habctrl.info/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query: GET_COMPLIANCE_ACTS }),
-      cache: 'no-store',
-    });
-    if (!res.ok) throw new Error(`Status ${res.status}`);
-    const { data } = await res.json();
-    return data?.page?.complianceActsFields || null;
-  } catch (error) {
-    console.error("Compliance Acts Fetch Error:", error);
-    return null;
-  }
-}
 
 export const GET_HOMEPAGE_DATA = `
 query GetHomepageData {
@@ -369,6 +275,41 @@ query GetExperimentalUseData {
 }
 `;
 
+export const GET_AGENCY_BY_ID = `
+query GetAgencyBySlug($slug: ID!) {
+  agency(id: $slug, idType: DATABASE_ID) {
+    title
+    agencyInternalConnector {
+      backgroundText
+      implementingAgency
+      regulatoryApplication
+      permitsApplicable
+      contacts
+    }
+  }
+}
+`;
+
+export async function getAgencyData(id) {
+  try {
+    const res = await fetch('https://cms.habctrl.info/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: GET_AGENCY_BY_ID,
+        variables: { slug: id }
+      }),
+      cache: 'no-store',
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const { data } = await res.json();
+    return data?.agency || null;
+  } catch (error) {
+    console.error(`Error loading agency content for ID (${id}):`, error);
+    return null;
+  }
+}
+
 export async function getExperimentalUseFields() {
   try {
     const res = await fetch('https://cms.habctrl.info/graphql', {
@@ -385,6 +326,7 @@ export async function getExperimentalUseFields() {
     return null;
   }
 }
+
 
 export async function getResearchRequirementsFields() {
   try {
@@ -409,15 +351,14 @@ export async function getDisclaimerFields() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query: GET_DISCLAIMER_DATA }),
-      cache: 'no-store',
     });
-
-    if (!res.ok) throw new Error(`WordPress API returned status ${res.status}`);
+    
+    if (!res.ok) throw new Error(`Status ${res.status}`);
     const { data } = await res.json();
-    return data?.page?.homepageDisclaimer || null;
+    return data?.page?.homepageDisclaimerFields || null;
   } catch (error) {
     console.error("Disclaimer Fetch Error:", error);
-    return null; 
+    return null; // Safe fallback returns null so the layout renders defaults gracefully
   }
 }
 
@@ -427,15 +368,14 @@ export async function getStrategiesFields() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query: GET_STRATEGIES_DATA }),
-      cache: 'no-store',
+      signal: AbortSignal.timeout(5000), // Drop connection if it hangs over 5 seconds
     });
-
-    if (!res.ok) throw new Error(`WordPress API returned status ${res.status}`);
+    if (!res.ok) return null;
     const { data } = await res.json();
-    return data?.page?.homepageControlStrategies || null;
+    return data?.page?.homepageStrategiesFields || null;
   } catch (error) {
-    console.error("Strategies Fetch Error:", error);
-    return null; 
+    console.warn("Strategies fetch timed out, using frontend defaults instead.");
+    return null; // Return null so the component safely reads its static fallback variables
   }
 }
 

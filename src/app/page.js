@@ -7,8 +7,8 @@ import Disclaimer from "@/components/home/disclaimer.js";
 import { 
   getHomepageFields, 
   getNavigationFields, 
-  getPermittingLawsFields, 
-  getComplianceActsFields,
+
+  getAllAgencyPosts,
   getStrategiesFields,
   getDisclaimerFields
 } from "@/lib/cms";
@@ -18,16 +18,14 @@ export default async function Home() {
   const [
     heroData, 
     navigationData, 
-    permittingData, 
-    complianceData,
+    allAgencies,
     strategiesData,
     disclaimerData
 
   ] = await Promise.all([
     getHomepageFields(),
     getNavigationFields(),
-    getPermittingLawsFields(),
-    getComplianceActsFields(),
+    getAllAgencyPosts(),
     getStrategiesFields(),
     getDisclaimerFields()
   ]);
@@ -36,7 +34,8 @@ export default async function Home() {
     <main>
       <Hero cms={heroData} />
       <Navigation cms={navigationData} />
-      <Agencies permittingCms={permittingData} complianceCms={complianceData} />
+      {/* <Agencies permittingCms={permittingData} complianceCms={complianceData} /> */}
+      <Agencies allAgencies={allAgencies} />
       {/* Injected consolidated control strategies data fields */}
       <Strategies cms={strategiesData} />
       <Disclaimer cms={disclaimerData} />
