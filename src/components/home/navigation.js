@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 
-export default function Navigation({ toolsList = [] }) {
+export default function Navigation({ toolsList = [], headerData }) {
   // 1. Group the flat array of posts into their categories dynamically
   const groupedTools = toolsList.reduce((acc, tool) => {
     // FIXED: Must match the exact GraphQL property name we just updated
@@ -39,14 +39,14 @@ export default function Navigation({ toolsList = [] }) {
 
   return (
     <section className="w-full px-4 py-8 tracking-wide sm:px-6 sm:py-10 lg:px-10 xl:px-20">
-      <p className="text-sm font-semibold text-green">RESOURCE NAVIGATION</p>
+      <p className="text-sm font-semibold text-green">{headerData?.label || "RESOURCE NAVIGATION"}</p>
 
       <h2 className="mt-1 text-2xl font-bold text-gray-900 sm:text-3xl">
-        Quick Access to Key Tools
+        {headerData?.title || "Quick Access to Key Tools"}
       </h2>
 
       <p className="mt-2 max-w-2xl text-sm leading-6 text-gray-600">
-        Easily find permits, research, technologies, and approved products related to HAB control.
+        {headerData?.description || "Easily find permits, research, technologies, and approved products related to HAB control."}
       </p>
 
       {/* Primary Section */}

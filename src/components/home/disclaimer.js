@@ -1,4 +1,4 @@
-export default function Disclaimer({ cms }) {
+export default function Disclaimer({ cms, headerData }) {
   // Fallback text matching your original static content layout structure
   const defaultText = `The information available through US HAB CTI's web site is provided as a public service and if for educational purposes only. All efforts have been made to ensure the material on this site is accurate and up to date However, US HAB-CTI and University of Maryland Center for Environemntal Science cannot be held responsible for any circumstances resulting from its use, unavailability, or possible inaccuracy.
 
@@ -7,9 +7,9 @@ US HAB-CTI makes no representations and specifically disclaims all liabilities a
   return (
     <div className="px-20 py-10 tracking-wide">
       {/* Warning Title */}
-      <p className="text-green font-bold text-sm">DISCLAIMER</p>
+      <p className="text-green font-bold text-sm">{headerData?.label || "Warning & Report"}</p>
       <p className="font-bold text-3xl text-black mt-1">
-        {cms?.sectionTitle || "Warning & Report"}
+        {headerData?.title || "Warning & Report"}
       </p>
 
       {/* Attention & Report Columns Block */}

@@ -240,6 +240,54 @@ query GetAllSlides {
   }
 }
 `;
+export const GET_HOMEPAGE_SECTION_HEADERS = `
+query GetHomepageSectionHeaders {
+  # IMPORTANT: Replace "YOUR_PAGE_ID" with the actual ID of the page you created (e.g., "46")
+  page(id: "480", idType: DATABASE_ID) {
+    homepageSectionHeaders {
+      section01Label
+      section01Title
+      section01Description
+      
+      section02Label
+      section02Title
+      section02Description
+      
+      section03Label
+      section03Title
+      section03Description
+      
+      section04Label
+      section04Title
+      section04Description
+      
+      section05Label
+      section05Title
+      # Assuming section 5 also has a description based on your pattern
+      section05Description 
+    }
+  }
+}
+`;
+
+export async function getHomepageSectionHeaders() {
+  try {
+    const res = await fetch('https://cms.habctrl.info/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: GET_HOMEPAGE_SECTION_HEADERS }),
+      cache: 'no-store', // Ensures fresh data is fetched instantly when updated in WP
+    });
+
+    if (!res.ok) throw new Error(`WordPress API returned status ${res.status}`);
+    
+    const { data } = await res.json();
+    return data?.page?.homepageSectionHeaders || null;
+  } catch (error) {
+    console.error("Homepage Section Headers Fetch Error:", error);
+    return null; 
+  }
+}
 
 export async function getAllSlides() {
   try {

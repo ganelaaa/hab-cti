@@ -7,7 +7,7 @@ import Disclaimer from "@/components/home/disclaimer.js";
 
 import { 
   getAllSlides,
-  getHomepageFields, 
+  getHomepageSectionHeaders,
   getAllStrategyPosts,
   getAllAgencyPosts,
   getDisclaimerFields,
@@ -21,25 +21,60 @@ export default async function Home() {
     allKeyTools,
     allAgencies,
     allStrategyPosts,
-    disclaimerData
+    disclaimerData,
+    sectionHeaders
 
   ] = await Promise.all([
     getAllSlides(),
     getAllKeyTools(),
     getAllAgencyPosts(),
     getAllStrategyPosts(),
-    getDisclaimerFields()
+    getDisclaimerFields(),
+    getHomepageSectionHeaders()
   ]);
 
   return (
     <main>
       <Hero slidesList={allSlides} />
-      <Navigation toolsList={allKeyTools} />
+      <Navigation 
+      toolsList={allKeyTools} 
+      headerData={{
+          label: sectionHeaders?.section01Label,
+          title: sectionHeaders?.section01Title,
+          description: sectionHeaders?.section01Description
+        }}
+      
+      />
       {/* <Agencies permittingCms={permittingData} complianceCms={complianceData} /> */}
-      <Agencies allAgencies={allAgencies} />
+      <Agencies 
+      allAgencies={allAgencies} 
+      headerData={{
+          label: sectionHeaders?.section02Label,
+          title: sectionHeaders?.section02Title,
+          description: sectionHeaders?.section02Description,
+          label2: sectionHeaders?.section03Label,
+          title2: sectionHeaders?.section03Title,
+          description2: sectionHeaders?.section03Description
+        }}
+      
+      />
       {/* Injected consolidated control strategies data fields */}
-      <Strategies strategiesList={allStrategyPosts} />
-      <Disclaimer cms={disclaimerData} />
+      <Strategies strategiesList={allStrategyPosts} 
+      headerData={{
+          label: sectionHeaders?.section04Label,
+          title: sectionHeaders?.section04Title,
+          description: sectionHeaders?.section04Description
+        }}
+      
+      />
+      <Disclaimer cms={disclaimerData} 
+      headerData={{
+          label: sectionHeaders?.section05Label,
+          title: sectionHeaders?.section05Title,
+          description: sectionHeaders?.section05Description
+        }}
+      
+      />
     </main>
   );
 }

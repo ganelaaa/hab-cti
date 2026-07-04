@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 
-export default function Agencies({ allAgencies = [] }) {
+export default function Agencies({ allAgencies = [], headerData }) {
   // Dynamically split your custom post items based on their select configurations
   const laws = allAgencies.filter((item) => 
     item.agencyInternalConnector?.agencyType?.includes("permitting")
@@ -13,12 +13,14 @@ export default function Agencies({ allAgencies = [] }) {
 
   return (
     <div className="px-4 py-10 tracking-wide sm:px-10 lg:px-20">
-      <p className="text-sm font-bold text-green">ACTS AND REGULATORY AGENCIES</p>
+      <p className="text-sm font-bold text-green">
+        {headerData?.label || "ACTS AND REGULATORY AGENCIES"}
+        </p>
       
       {/* SECTION 1: Permitting Laws */}
-      <h2 className="mt-1 text-3xl font-bold text-black">Permitting Laws</h2>
+      <h2 className="mt-1 text-3xl font-bold text-black">{headerData?.title || "Permitting Laws"}</h2>
       <p className="mt-2 max-w-xl text-sm text-gray-600">
-        Laws and regulations requiring permits for algaecide approval and deployment.
+        {headerData?.description || "Laws and regulations requiring permits for algaecide approval and deployment."}
       </p>
 
       <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -31,9 +33,11 @@ export default function Agencies({ allAgencies = [] }) {
       </div>
 
       {/* SECTION 2: Acts Requiring Compliance */}
-      <h2 className="mt-16 text-3xl font-bold text-black">Acts Requiring Compliance</h2>
+      <h2 className="mt-16 text-3xl font-bold text-black">
+        {headerData?.title2 || "Acts Requiring Compliance"}
+      </h2>
       <p className="mt-2 max-w-xl text-sm text-gray-600">
-        Regulatory statutes with which the deployment of algaecide products must comply.
+        {headerData?.description2 || "Regulatory statutes with which the deployment of algaecide products must comply."}
       </p>
 
       <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
