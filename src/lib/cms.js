@@ -94,129 +94,10 @@ query GetHomepageData {
 }
 `;
 
-export const GET_NAVIGATION_DATA = `
-query GetNavigationData {
-  page(id: "103", idType: DATABASE_ID) {
-    quickAccessToKeyTools {
-      # === Laws & Permits Section ===
-      lawsPermitsCard01Title
-      lawsPermitsCard01Description
-      lawsPermitsCard01Link
-      lawsPermitsCard01Icon
-      lawsPermitsCard02Title
-      lawsPermitsCard02Description
-      lawsPermitsCard02Link
-      lawsPermitsCard02Icon
-      lawsPermitsCard03Title
-      lawsPermitsCard03Description
-      lawsPermitsCard03Link
-      lawsPermitsCard03Icon
-      lawsPermitsCard04Title
-      lawsPermitsCard04Description
-      lawsPermitsCard04Link
-      lawsPermitsCard04Icon
-      lawsPermitsCard05Title
-      lawsPermitsCard05Description
-      lawsPermitsCard05Link
-      lawsPermitsCard05Icon
-
-      # === Literature Section ===
-      literatureCardTitle01
-      literatureCardDescription01
-      literatureCardLink01
-      literatureCardIcon01
-      literatureCardTitle02
-      literatureCardDescription02
-      literatureCardLink02
-      literatureCardIcon02
-      literatureCardTitle03
-      literatureCardDescription03
-      literatureCardLink03
-      literatureCardIcon03
-      literatureCardTitle04
-      literatureCardDescription04
-      literatureCardLink04
-      literatureCardIcon04
-
-      # === Products Section ===
-      productsCardTitle01
-      productsCardDescription01
-      productsCardLink01
-      productsCardIcon01
-      productsCardTitle02
-      productsCardDescription02
-      productsCardLink02
-      productsCardIcon02
-    }
-  }
-}
-`;
 
 
-export const GET_STRATEGIES_DATA = `
-query GetStrategiesData {
-  page(id: "248", idType: DATABASE_ID) {
-    homepageControlStrategies {
-      sectionTitle
-      sectionDescription
-      
-      # Main Tab Names
-      tab01
-      tab02
-      tab03
-      tab04
 
-      # --- Tab 01 Sub Tabs (1 - 4) ---
-      tab01SubTab01Label
-      tab01SubTab01Description
-      tab01SubTab01Link
-      tab01SubTab01Image { node { sourceUrl } }
-      tab01SubTab02Label
-      tab01SubTab02Description
-      tab01SubTab02Link
-      tab01SubTab02Image { node { sourceUrl } }
-      tab01SubTab03Label
-      tab01SubTab03Description
-      tab01SubTab03Link
-      tab01SubTab03Image { node { sourceUrl } }
-      tab01SubTab04Label
-      tab01SubTab04Description
-      tab01SubTab04Link
-      tab01SubTab04Image { node { sourceUrl } }
 
-      # --- Tab 02 Sub Tabs (1 - 4) ---
-      tab02SubTab01Label
-      tab02SubTab01Description
-      tab02SubTab01Link
-      tab02SubTab01Image { node { sourceUrl } }
-      tab02SubTab02Label
-      tab02SubTab02Description
-      tab02SubTab02Link
-      tab02SubTab02Image { node { sourceUrl } }
-      tab02SubTab03Label
-      tab02SubTab03Description
-      tab02SubTab03Link
-      tab02SubTab03Image { node { sourceUrl } }
-      tab02SubTab04Label
-      tab02SubTab04Description
-      tab02SubTab04Link
-      tab02SubTab04Image { node { sourceUrl } }
-
-      # --- Tab 03 Sub Tab (1) ---
-      tab03SubTab01Label
-      tab03SubTab01Description
-      tab03SubTab01Link
-      tab03SubTab01Image { node { sourceUrl } }
-
-      # --- Tab 04 Sub Tab (1) ---
-      tab04SubTab01Label
-      tab04SubTab01Description
-      tab04SubTab01Link
-      tab04SubTab01Image { node { sourceUrl } }
-    }
-  }
-}
-`;
 
 export const GET_DISCLAIMER_DATA = `
 query GetDisclaimerData {
@@ -289,6 +170,130 @@ query GetAgencyBySlug($slug: ID!) {
   }
 }
 `;
+
+export const GET_ALL_STRATEGY_POSTS = `
+query GetAllStrategyPosts {
+  # Setting orderby DATE ensures your uploads stay chronological
+  strategies(first: 100, where: { orderby: { field: DATE, order: ASC } }) {
+    nodes {
+      databaseId
+      title
+      controlStrategiesConnector {
+        strategyDescription
+        learnMoreLink
+        
+        # WPGraphQL will now return your exact human-readable label string here!
+        mainTab 
+        
+        subTabLabel
+        tabThumbnail {
+          node {
+            sourceUrl
+          }
+        }
+      }
+    }
+  }
+}
+`;
+
+export const GET_ALL_KEY_TOOLS = `
+query GetAllKeyTools {
+  keyTools(first: 100, where: { orderby: { field: MENU_ORDER, order: ASC } }) {
+    nodes {
+      databaseId
+      title
+      # FIXED: Matched exactly to your ACF group name
+      quickAccessKeyToolsConnector {
+        toolCategory
+        toolDescription
+        toolLink
+        toolIcon
+      }
+    }
+  }
+}
+`;
+
+// Replace GET_HOMEPAGE_DATA and getHomepageFields with this:
+
+export const GET_ALL_SLIDES = `
+query GetAllSlides {
+  slides(first: 20, where: { orderby: { field: MENU_ORDER, order: ASC } }) {
+    nodes {
+      databaseId
+      title
+      slideConnector {
+        isWelcomeSlide
+        slideLabel
+        slideTag
+        slideTitle
+        # 1. FIXED: Replaced the two fields with your new single WYSIWYG field
+        slideDescription01
+        slideImage {
+          node {
+            sourceUrl
+          }
+        }
+      }
+    }
+  }
+}
+`;
+
+export async function getAllSlides() {
+  try {
+    const res = await fetch('https://cms.habctrl.info/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: GET_ALL_SLIDES }),
+      cache: 'no-store', 
+    });
+
+    if (!res.ok) throw new Error(`WordPress API returned status ${res.status}`);
+    
+    const { data } = await res.json();
+    return data?.slides?.nodes || [];
+  } catch (error) {
+    console.error("Slideshow Fetch Error:", error);
+    return []; 
+  }
+}
+
+
+export async function getAllKeyTools() {
+  try {
+    const res = await fetch('https://cms.habctrl.info/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: GET_ALL_KEY_TOOLS }),
+      cache: 'no-store',
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const { data } = await res.json();
+    return data?.keyTools?.nodes || [];
+  } catch (error) {
+    console.error("Error fetching dynamic key tools list:", error);
+    return [];
+  }
+}
+
+export async function getAllStrategyPosts() {
+  try {
+    const res = await fetch('https://cms.habctrl.info/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: GET_ALL_STRATEGY_POSTS }),
+      cache: 'no-store',
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const { data } = await res.json();
+    return data?.strategies?.nodes || [];
+  } catch (error) {
+    console.error("Error fetching dynamic strategies list:", error);
+    return [];
+  }
+}
 
 export async function getAgencyData(id) {
   try {
@@ -379,29 +384,6 @@ export async function getStrategiesFields() {
   }
 }
 
-export async function getNavigationFields() {
-  try {
-    const res = await fetch('https://cms.habctrl.info/graphql', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ query: GET_NAVIGATION_DATA }),
-      cache: 'no-store',
-    });
-
-    if (!res.ok) {
-      throw new Error(`WordPress API returned status ${res.status}`);
-    }
-
-    const { data } = await res.json();
-    // FIXED: Matched to the group name in your query layout above
-    return data?.page?.quickAccessToKeyTools || null;
-  } catch (error) {
-    console.error("Navigation CMS Fetch Error:", error);
-    return null; 
-  }
-}
 
 export async function getHomepageFields() {
   try {

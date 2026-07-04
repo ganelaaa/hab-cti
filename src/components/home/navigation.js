@@ -1,84 +1,41 @@
 "use client";
 import Link from "next/link";
 
-export default function Navigation({ cms }) {
-  // 1. Laws and Permits Array
-  const lawsAndPermits = [
-    {
-      title: cms?.lawsPermitsCard01Title || "Research Requirements",
-      description: cms?.lawsPermitsCard01Description || "Data Requirements for EPA Registration",
-      href: cms?.lawsPermitsCard01Link || "/researchRequirements",
-      icon: cms?.lawsPermitsCard01Icon || "star",
-    },
-    {
-      title: cms?.lawsPermitsCard02Title || "Field Studies",
-      description: cms?.lawsPermitsCard02Description || "Experimental Use Permits",
-      href: cms?.lawsPermitsCard02Link || "/experimentalUse",
-      icon: cms?.lawsPermitsCard02Icon || "construction_worker",
-    },
-    {
-      title: cms?.lawsPermitsCard03Title || "External Resources",
-      description: cms?.lawsPermitsCard03Description || "Learn More!",
-      href: cms?.lawsPermitsCard03Link || "/externalResources",
-      icon: cms?.lawsPermitsCard03Icon || "link",
-    },
-    {
-      title: cms?.lawsPermitsCard04Title || "Getting an Approval",
-      description: cms?.lawsPermitsCard04Description || "Permits & Regulations",
-      href: cms?.lawsPermitsCard04Link || "/gettingApproval",
-      icon: cms?.lawsPermitsCard04Icon || "thumb_up_alt",
-    },
-    {
-      title: cms?.lawsPermitsCard05Title || "Regulatory Agencies",
-      description: cms?.lawsPermitsCard05Description || "Federal & State Regulations",
-      href: cms?.lawsPermitsCard05Link || "/regulationsDirectory",
-      icon: cms?.lawsPermitsCard05Icon || "topic",
-    },
-  ];
+export default function Navigation({ toolsList = [] }) {
+  // 1. Group the flat array of posts into their categories dynamically
+  const groupedTools = toolsList.reduce((acc, tool) => {
+    // FIXED: Must match the exact GraphQL property name we just updated
+    const fields = tool.quickAccessKeyToolsConnector || {};
+    
+    // Extract the label configured in ACF
+    let categoryLabel = fields.toolCategory;
+    if (Array.isArray(categoryLabel)) categoryLabel = categoryLabel[0];
+    
+    // If the category is somehow blank, only then does it fall back
+    categoryLabel = categoryLabel || "Laws and Permits"; 
 
-  // 2. Literature Array (Mapped from image_81d6a4.png structures)
-  const literature = [
-    {
-      title: cms?.literatureCardTitle01 || "HABs 101",
-      description: cms?.literatureCardDescription01 || "Species, Impacts, Research, Resources, Response",
-      href: cms?.literatureCardLink01 || "/habs101",
-      icon: cms?.literatureCardIcon01 || "public",
-    },
-    {
-      title: cms?.literatureCardTitle02 || "Literature Search",
-      description: cms?.literatureCardDescription02 || "Publications on HAB control technologies",
-      href: cms?.literatureCardLink02 || "/literatureSearch",
-      icon: cms?.literatureCardIcon02 || "local_library",
-    },
-    {
-      title: cms?.literatureCardTitle03 || "Consultants Database",
-      description: cms?.literatureCardDescription03 || "Get Consultants or Experts",
-      href: cms?.literatureCardLink03 || "/consultantsDatabase",
-      icon: cms?.literatureCardIcon03 || "contact_page",
-    },
-    {
-      title: cms?.literatureCardTitle04 || "Control Technologies",
-      description: cms?.literatureCardDescription04 || "Common Concepts",
-      href: cms?.literatureCardLink04 || "/controlTechnologies",
-      icon: cms?.literatureCardIcon04 || "history",
-    },
-  ];
+    if (!acc[categoryLabel]) {
+      acc[categoryLabel] = [];
+    }
+    
+    // Map the WordPress fields directly to your original component's expected props
+    acc[categoryLabel].push({
+      title: tool.title,
+      description: fields.toolDescription || "",
+      href: fields.toolLink || "#",
+      icon: fields.toolIcon || "star",
+    });
 
-  // 3. Products Array (Mapped from image_81d6a4.png structures)
-  const products = [
-    {
-      title: cms?.productsCardTitle01 || "Registered Products",
-      description: cms?.productsCardDescription01 || "Product Catalogue",
-      href: cms?.productsCardLink01 || "/registeredProducts",
-      icon: cms?.productsCardIcon01 || "verified",
-    },
-    {
-      title: cms?.productsCardTitle02 || "Patent Search",
-      description: cms?.productsCardDescription02 || "IP, Inventorship Agreements & Registration Information",
-      href: cms?.productsCardLink02 || "/patentSearch",
-      icon: cms?.productsCardIcon02 || "search",
-    },
-  ];
+    return acc;
+  }, {});
+
+  const categories = Object.keys(groupedTools);
+  
+  // Separate the first category to keep your full-width layout, and group the rest for the split layout
+  const firstCategory = categories[0];
+  const remainingCategories = categories.slice(1);
+
+  if (categories.length === 0) return null;
 
   return (
     <section className="w-full px-4 py-8 tracking-wide sm:px-6 sm:py-10 lg:px-10 xl:px-20">
@@ -92,27 +49,34 @@ export default function Navigation({ cms }) {
         Easily find permits, research, technologies, and approved products related to HAB control.
       </p>
 
-      {/* Laws and Permit Section */}
-      <ToolSection
-        title="Laws and Permits"
-        items={lawsAndPermits}
-        className="mt-8"
-        gridClassName="md:grid-cols-2 xl:grid-cols-3"
-      />
-
-      <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[2fr_1fr]">
+      {/* Primary Section */}
+      {firstCategory && (
         <ToolSection
-          title="Literature"
-          items={literature}
-          gridClassName="md:grid-cols-2"
+          title={firstCategory}
+          items={groupedTools[firstCategory]}
+          className="mt-8"
+          gridClassName="md:grid-cols-2 xl:grid-cols-3"
         />
+      )}
 
-        <ToolSection title="Products" items={products} />
-      </div>
+      {/* Secondary Sections */}
+      {remainingCategories.length > 0 && (
+        <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[2fr_1fr]">
+          {remainingCategories.map((category, index) => (
+            <ToolSection
+              key={category}
+              title={category}
+              items={groupedTools[category]}
+              gridClassName={index === 0 ? "md:grid-cols-2" : ""}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }
 
+// ... Keep your ToolCard and ToolSection UI functions exactly the same as before ...
 function ToolCard({ item }) {
   return (
     <Link
@@ -122,7 +86,7 @@ function ToolCard({ item }) {
       <div className="flex items-start justify-between gap-4">
         <div className="flex min-w-0 items-start gap-3">
           <svg
-            className="usa-icon mt-0.5 shrink-0 text-xl"
+            className="usa-icon mt-0.5 shrink-0 text-xl text-black transition-colors duration-300 group-hover:text-primary"
             aria-hidden="true"
             focusable="false"
             role="img"
@@ -131,7 +95,7 @@ function ToolCard({ item }) {
           </svg>
 
           <div className="min-w-0">
-            <p className="font-semibold leading-snug text-black">
+            <p className="font-semibold leading-snug text-black group-hover:text-primary transition-colors duration-300">
               {item.title}
             </p>
             <p className="mt-1 text-sm leading-snug text-gray-700">
@@ -141,7 +105,7 @@ function ToolCard({ item }) {
         </div>
 
         <svg
-          className="usa-icon mt-0.5 shrink-0 text-xl transition-transform duration-300 group-hover:translate-x-0.5"
+          className="usa-icon mt-0.5 shrink-0 text-xl text-gray-400 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-primary"
           aria-hidden="true"
           focusable="false"
           role="img"
