@@ -1,6 +1,6 @@
 "use client";
 export default function Footer() {
-  const contactEmail = "info@agency.gov"; 
+  const contactEmail = "info@agency.gov";
   return (
     <div className="mt-5 tracking-wide">
       {/* Return to top */}
@@ -35,7 +35,9 @@ export default function Footer() {
             {/* Sign Up */}
             <div className="flex flex-col gap-2">
               <div className="font-bold text-xl">Contact</div>
-              <div>For questions, updates, or website feedback, contact us at:</div>
+              <div>
+                For questions, updates, or website feedback, contact us at:
+              </div>
               <div>{contactEmail}</div>
             </div>
           </div>
@@ -49,9 +51,6 @@ export default function Footer() {
             <div className="flex gap-12">
               <a className="underline hover:text-primary-lighter">
                 Legal Notice
-              </a>
-              <a className="underline hover:text-primary-lighter">
-                Disclaimer
               </a>
               <a className="underline hover:text-primary-lighter">
                 Privacy Policy
