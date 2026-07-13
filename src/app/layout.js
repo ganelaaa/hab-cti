@@ -14,10 +14,13 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="icon" href="/logo.png" type="image/png" />
       </head>
-      <body>
+
+      <body id="top" className="min-h-screen flex flex-col">
         <ScrollToTop />
         <Navbar />
-        {children}
+
+        <main className="flex-1">{children}</main>
+
         <Footer />
       </body>
     </html>
