@@ -270,6 +270,64 @@ query GetHomepageSectionHeaders {
 }
 `;
 
+export const GET_STATE_DETAILS = `
+query GetStateDetails($id: ID!) {
+  # Note: If your GraphQL schema named this CPT something else, change 'state' to 'usState' or 'stateDirectory'
+  stateDirectory(id: $id, idType: SLUG) {
+    title
+    slug
+    stateRegulationsConnector {
+      heroImageText
+      introText
+      
+      section01Title
+      section01Text
+      section02Title
+      section02Text
+      section03Title
+      section03Text
+      section04Title
+      section04Text
+      section05Title
+      section05Text
+      section06Title
+      section06Text
+      section07Title
+      section07Text
+      section08Title
+      section08Text
+      section09Title
+      section09Text
+    }
+  }
+}
+`;
+
+export async function getStateDetails(stateName) {
+  try {
+    const res = await fetch('https://cms.habctrl.info/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: GET_STATE_DETAILS,
+        // FIXED: Search directly by the slug (e.g., "massachusetts") instead of the URI folder path
+        variables: { id: stateName } 
+      }),
+      cache: 'no-store', 
+    });
+
+    if (!res.ok) throw new Error(`WordPress API error: ${res.status}`);
+    
+    const { data } = await res.json();
+    
+    // If it still fails, the GraphQL single name might be different. 
+    return data?.stateDirectory || null;
+  } catch (error) {
+    console.error(`Error pulling CMS data for state [${stateName}]:`, error);
+    return null;
+  }
+}
+
 export async function getHomepageSectionHeaders() {
   try {
     const res = await fetch('https://cms.habctrl.info/graphql', {
