@@ -26,16 +26,16 @@ const externalLinks = {
     cfrPart156Full:
         "https://www.ecfr.gov/current/title-40/chapter-I/subchapter-E/part-156?toc=1",
     cfr15610:
-        "https://www.ecfr.gov/current/title-40/chapter-I/subchapter-E/part-156/subpart-A/section-156.10",
+        "https://www.ecfr.gov/current/title-40/chapter-I/subchapter-E/part-156/subpart-A/section-156.10#p-156.10(f)",
     labelReviewManual:
         "https://www.epa.gov/pesticide-registration/label-review-manual",
     labelReviewManualPdf:
         "https://www.epa.gov/system/files/documents/2024-12/label_review_manual_12122024.pdf",
     pesticideLabels:
-        "https://www.epa.gov/pesticide-labels",
+        "https://www.epa.gov/pesticide-labels/introduction-pesticide-labels",
     npicStateAgencies: "https://npic.orst.edu/reg/state_agencies.html",
     ingredientStatement:
-        "https://www.ecfr.gov/current/title-40/chapter-I/subchapter-E/part-156/subpart-A/section-156.10",
+        "https://www.epa.gov/pesticide-labels/label-review-training-module-3-special-issues-page-34",
     workerProtectionStatements:
         "https://www.ecfr.gov/current/title-40/chapter-I/subchapter-E/part-156/subpart-K",
     subpartD:
@@ -55,13 +55,21 @@ const externalLinks = {
     labelReviewTraining:
         "https://www.epa.gov/pesticide-labels/pesticide-label-review-training",
     pesticideIngredientsLabels:
-        "https://www.epa.gov/pesticide-labels/searching-pesticide-ingredients-and-labels",
+        "https://www.epa.gov/ingredients-used-pesticide-products/how-search-information-about-pesticide-ingredients-and-labels",
     pesticideLabelingQa:
         "https://www.epa.gov/pesticide-labels/pesticide-labeling-questions-answers",
     pesticideLabelingQaForm:
-        "https://www.epa.gov/pesticide-labels/forms/contact-us-about-pesticide-labeling-questions",
+        "https://www.epa.gov/pesticide-labels/forms/pesticide-labeling-questions-answers-form",
     logosGraphicsChapter:
-        "https://www.epa.gov/sites/default/files/2017-10/documents/chap-16-dec-2014.pdf",
+        "https://www.epa.gov/sites/default/files/2017-09/documents/chap-16-aug-2017.pdf",
+    frontPanelTemplate:
+        "https://www.epa.gov/pesticide-labels/label-review-training-module-2-parts-label-page-4",
+    backPanelTemplate:
+        "https://www.epa.gov/pesticide-labels/label-review-training-module-2-parts-label-page-10",
+    criteriaSubjectToWPS:
+        "https://www.epa.gov/pesticide-labels/label-review-training-module-3-special-issues-page-21",
+    determiningRestrictedEntryIntervals:
+        "https://www.epa.gov/pesticide-labels/label-review-training-module-3-special-issues-page-27",
 };
 
 function ExternalLink({ href, children, className = "" }) {
@@ -224,9 +232,9 @@ export default function LabelingPage() {
                                     40 CFR Part 156- Labeling Requirements for Pesticides and
                                     Devices
                                 </ExternalLink>{" "}
-                                and the EPA Office of Pesticide Programs’{" "}
-                                <ExternalLink href={externalLinks.labelReviewManual}>
-                                    Label Review Manual
+                                and the {" "}
+                                <ExternalLink href={externalLinks.labelReviewManualPdf}>
+                                    EPA Office of Pesticide Programs’ Label Review Manual
                                 </ExternalLink>
                                 .
                             </p>
@@ -277,7 +285,7 @@ export default function LabelingPage() {
                     {/* algaecide label requirements */}
                     <div
                         id="algaecide-label-requirements"
-                        className="scroll-mt-28 border-b-4 border-primary-lighter"
+                        className="scroll-mt-28"
                     >
                         <h1 className="font-bold text-primary">
                             Algaecide Label Requirements
@@ -370,6 +378,27 @@ export default function LabelingPage() {
                                 </li>
                             </ul>
 
+                            {/* front panel template */}
+                            <div
+                                id="front-panel-template"
+                                className="mt-6 scroll-mt-28 border-b-4 border-primary-lighter"
+                            >
+
+                                <div className="mb-8 text-lg">
+                                    <p>
+                                        <ExternalLink href={externalLinks.frontPanelTemplate}>
+                                            Front Panel Template
+                                        </ExternalLink>
+                                    </p>
+
+                                    <img
+                                        src="/assets/img/labeling-front-panel-template.png"
+                                        alt="Front Panel Template"
+                                        className="mx-auto mt-6 w-full max-w-3xl border border-gray-300"
+                                    />
+                                </div>
+                            </div>
+
                             <p className="mt-8 font-bold">Back Panel Information</p>
 
                             <ul className="mt-3 ml-6 list-disc">
@@ -415,9 +444,15 @@ export default function LabelingPage() {
                                             </ExternalLink>
                                             .
                                             <ul className="mt-3 ml-6 list-disc">
-                                                <li>Table detailing the criteria subject to WPS</li>
+                                                <li>
+                                                    <ExternalLink href={externalLinks.criteriaSubjectToWPS}>
+                                                        Table detailing the criteria subject to WPS
+                                                    </ExternalLink>
+                                                </li>
                                                 <li className="mt-3">
-                                                    Determining Restricted Entry Intervals
+                                                    <ExternalLink href={externalLinks.determiningRestrictedEntryIntervals}>
+                                                        Determining Restricted Entry Intervals
+                                                    </ExternalLink>
                                                 </li>
                                             </ul>
                                         </li>
@@ -458,9 +493,7 @@ export default function LabelingPage() {
                                     Flammable
                                     <ul className="mt-3 ml-6 list-[circle]">
                                         <li>
-                                            <ExternalLink href={externalLinks.logosGraphicsChapter}>
-                                                Logos and graphics
-                                            </ExternalLink>
+                                            Logos and graphics
                                             <sup>3</sup>
                                         </li>
                                     </ul>
@@ -522,50 +555,26 @@ export default function LabelingPage() {
                                 </ExternalLink>
                                 .
                             </p>
-                        </div>
-                    </div>
 
-                    {/* front panel template */}
-                    <div
-                        id="front-panel-template"
-                        className="scroll-mt-28 border-b-4 border-primary-lighter"
-                    >
-                        <h1 className="font-bold text-primary">Front Panel Template</h1>
+                            {/* back panel template */}
+                            <div
+                                id="back-panel-template"
+                                className="mt-6 scroll-mt-28 border-b-4 border-primary-lighter"
+                            >
+                                <div className="mb-8 text-lg">
+                                    <p>
+                                        <ExternalLink href={externalLinks.backPanelTemplate}>
+                                            Back Panel Template
+                                        </ExternalLink>
+                                    </p>
 
-                        <div className="mb-8 text-lg">
-                            <p>
-                                <ExternalLink href={externalLinks.labelReviewManualPdf}>
-                                    Front Panel Template
-                                </ExternalLink>
-                            </p>
-
-                            <img
-                                src="/assets/img/labeling-front-panel-template.png"
-                                alt="Front Panel Template"
-                                className="mx-auto mt-6 w-full max-w-3xl border border-gray-300"
-                            />
-                        </div>
-                    </div>
-
-                    {/* back panel template */}
-                    <div
-                        id="back-panel-template"
-                        className="scroll-mt-28 border-b-4 border-primary-lighter"
-                    >
-                        <h1 className="font-bold text-primary">Back Panel Template</h1>
-
-                        <div className="mb-8 text-lg">
-                            <p>
-                                <ExternalLink href={externalLinks.labelReviewManualPdf}>
-                                    Back Panel Template
-                                </ExternalLink>
-                            </p>
-
-                            <img
-                                src="/assets/img/labeling-back-panel-template.jpg"
-                                alt="Back Panel Template"
-                                className="mx-auto mt-6 w-full max-w-3xl border border-gray-300"
-                            />
+                                    <img
+                                        src="/assets/img/labeling-back-panel-template.jpg"
+                                        alt="Back Panel Template"
+                                        className="mx-auto mt-6 w-full max-w-3xl border border-gray-300"
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -607,12 +616,8 @@ export default function LabelingPage() {
                                 </li>
 
                                 <li className="mt-3">
-                                    <ExternalLink href={externalLinks.safetyDataSheet}>
-                                        Safety Data Sheet
-                                    </ExternalLink>
+                                    Safety Data Sheet
                                 </li>
-
-                                <li className="mt-3">&nbsp;</li>
                             </ul>
                         </div>
                     </div>
@@ -628,9 +633,9 @@ export default function LabelingPage() {
 
                         <div className="mb-8 text-lg">
                             <p>
-                                Applicants are encouraged to complete the EPA’s{" "}
+                                Applicants are encouraged to complete the{" "}
                                 <ExternalLink href={externalLinks.labelReviewTraining}>
-                                    Pesticide Label Review Training
+                                    EPA’s Pesticide Label Review Training
                                 </ExternalLink>
                                 . The training contains five modules covering the four core
                                 principles of product labeling: clarity, accuracy, consistency
@@ -645,9 +650,9 @@ export default function LabelingPage() {
                                     40 CFR Part 156 - Labeling Requirements for Pesticides and
                                     Devices
                                 </ExternalLink>{" "}
-                                and the Office of Pesticide Programs{" "}
-                                <ExternalLink href={externalLinks.labelReviewManual}>
-                                    Label Review Manual
+                                and the {" "}
+                                <ExternalLink href={externalLinks.labelReviewManualPdf}>
+                                    Office of Pesticide Programs Label Review Manual
                                 </ExternalLink>
                                 , unless otherwise specified. For more details, please visit the
                                 website.

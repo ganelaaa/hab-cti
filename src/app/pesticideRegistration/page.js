@@ -865,7 +865,14 @@ export default function PesticideRegistration() {
                             </li>
                           </ul>
                         </li>
-                        <li>Draft Labeling</li>
+                        <li>
+                          <Link
+                            href="/labelingInfoPage"
+                            className="text-primary text-underline"
+                          >
+                            Draft Labeling
+                          </Link>
+                        </li>
                       </ul>
                     </li>
 

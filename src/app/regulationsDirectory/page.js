@@ -27,7 +27,7 @@ const FIPS_TO_STATE = {
   22: "louisiana",
   23: "maine",
   24: "maryland",
-  25: "massachusetts",
+  25: "maassachusetts",
   26: "michigan",
   27: "minnesota",
   28: "mississippi",

@@ -1,11 +1,8 @@
 import Image from 'next/image';
-import https from 'https';
-// 1. Force the Node process to bypass the self-signed certificate check globally
-// process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 const GET_ABOUT_PAGE_DATA = `
   query TestAboutData {
-    page(id: "about", idType: URI) {
+    page(id: "5", idType: DATABASE_ID) {
       aboutPageFields {
         heroBackgroundImage {
           node {
@@ -52,35 +49,8 @@ const GET_ABOUT_PAGE_DATA = `
   }
 `;
 
-function nativeGraphqlFetch(options, queryData) {
-  return new Promise((resolve, reject) => {
-    const postData = JSON.stringify({ query: queryData });
-
-    const req = https.request(options, (res) => {
-      let data = '';
-      res.on('data', (chunk) => { data += chunk; });
-      res.on('end', () => {
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          try {
-            resolve(JSON.parse(data));
-          } catch (e) {
-            reject(new Error("Malformed JSON response from CMS"));
-          }
-        } else {
-          reject(new Error(`HTTP status error: ${res.statusCode}`));
-        }
-      });
-    });
-
-    req.on('error', (err) => { reject(err); });
-    req.write(postData);
-    req.end();
-  });
-}
-
 async function getAboutData() {
   try {
-    // Standard fetch hitting your beautiful new, secure domain!
     const res = await fetch('https://cms.habctrl.info/graphql', {
       method: 'POST',
       headers: { 
@@ -114,7 +84,7 @@ export default async function About() {
   const subtitle1 = fields.heroSubtitle1 || 'US Harmful Algal Bloom - Control';
   const subtitle2 = fields.heroSubtitle2 || 'Technologies & Regulatory Logistics';
   
-  // Clean fallbacks restored safely
+  // Mapped exactly to your provided query fields
   const intro1 = fields.introductionParagraph1 || 'The United States HAB Control Technologies & Regulatory Logistics (US HAB CTRL) streamlines the vetting process for novel harmful algal bloom (HAB) control technologies. Our goal is to help the research community and funding agencies to identify and advance solutions that are feasible, environmentally acceptable, scalable, and cost-effective for controlling the impacts of both freshwater and marine HABS.';
   const intro2 = fields.introductionParagraph2 || 'We accelerate the development and assessment of strategies that eliminate or reduce harmful algae and their toxins through biological, chemical, or physical means. Our work is guided by an Advisory and Review Board with representatives from the U.S. Army Corps of Engineers, Environmental Protection Agency (EPA), U.S. Geological Survey (USGS), National Oceanic and Atmospheric Administration (NOAA), state agencies, academic institutions, non-governmental organizations, and industry.';
   const mission = fields.missionStatement || 'Our mission is to advance the development and use of effective, science-based technologies that control or reduce HABs and their toxins. We aim to expand the range of proven control options available and to simplify the licensing and permitting processes required for their deployment. By doing so, we support a more effective and coordinated national response of the growing challenge of HABs.';
@@ -125,7 +95,7 @@ export default async function About() {
     <div className="tracking-wide px-20">
       <div className="flex flex-row justify-between items-center mt-5">
         <div className="flex flex-row items-center hover:scale-105 transition-all duration-300 cursor-pointer w-fit">
-          <svg className="usa-icon text-gray-500" aria-hidden="true" focusable="false" role="img">
+          <svg className="usa-icon text-gray-500 w-4 h-4" aria-hidden="true" focusable="false" role="img">
             <use href="/assets/img/sprite.svg#arrow_back"></use>
           </svg>
           <a className="text-black ml-2 text-sm relative group" href="/">
@@ -135,7 +105,7 @@ export default async function About() {
         </div>
 
         <div className="bg-red-600 text-white font-mono text-xs px-3 py-1 rounded-full animate-pulse uppercase tracking-widest font-bold shadow-md">
-          CMS-TEST DEPLOYED 3.2
+          GIT REPLACEMENT CHECK
         </div>
       </div>
 
@@ -213,10 +183,9 @@ export default async function About() {
             </div>
           </div>
 
-          <div className="flex flex-row items-start gap-30">
+          <div className="flex flex-row items-start gap-30 pb-20">
             <h1 className="text-2xl font-bold whitespace-nowrap">Funding</h1>
             <div>
-              {/* Confirmed clean hydration layout div wrapper */}
               <div 
                 className="mt-5 ml-12" 
                 dangerouslySetInnerHTML={{ __html: fundingHtml }}
