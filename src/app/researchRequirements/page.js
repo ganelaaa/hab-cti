@@ -1,219 +1,26 @@
 "use client";
-
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import InternalPageHero from "@/components/InternalPageHero";
-import { getResearchRequirementsFields } from "@/lib/cms";
 
-// --- STATIC DEFAULT RECOVERY ARRAYS (IF CMS FIELD BOXES ARE EMPTY) ---
-const fallbackConventional = {
-  tableTitle: "Conventional",
-  tableLink: "https://www.epa.gov/pesticide-registration/conventional-pesticide-registration",
-  rows: [
-    { group: { title: "Applicator Exposure (Occupational & Residential)", link: "https://www.epa.gov/test-guidelines-pesticides-and-toxic-substances/series-875-occupational-and-residential-exposure" } },
-    { rd: "875.1100", bppd: "", name: "Dermal Outdoor Exposure", registrationFood: "R", eupFood: "R", nonFood: "R" },
-    { rd: "875.1300", bppd: "", name: "Inhalation Outdoor Exposure", registrationFood: "R", eupFood: "R", nonFood: "R" },
-    { rd: "875.1500", bppd: "", name: "Biological Monitoring", registrationFood: "CR", eupFood: "CR", nonFood: "CR" },
-    { rd: "875.1600", bppd: "", name: "Data Reporting and Calculations", registrationFood: "R", eupFood: "R", nonFood: "R" },
-    { rd: "875.1700", bppd: "", name: "Product Use Information", registrationFood: "R", eupFood: "R", nonFood: "R" },
-    { group: { title: "Confidential Product Chemistry", link: "https://www.epa.gov/test-guidelines-pesticides-and-toxic-substances/series-830-product-properties-test-guidelines" } },
-    { rd: "830.1550", bppd: "", name: "Product Identity and Composition", registrationFood: "R", eupFood: "NR", nonFood: "NR" },
-    { rd: "830.1600", bppd: "", name: "Description of Materials Used to Produce the Product", registrationFood: "R", eupFood: "NR", nonFood: "NR" },
-    { rd: "830.1620", bppd: "", name: "Description of Production Process", registrationFood: "R", eupFood: "NR", nonFood: "NR" },
-    { rd: "830.1650", bppd: "", name: "Description of formulation process", registrationFood: "R", eupFood: "R", nonFood: "R" },
-    { rd: "830.1670", bppd: "", name: "Discussion of Formation of Impurities", registrationFood: "R", eupFood: "R", nonFood: "R" },
-    { rd: "830.1700", bppd: "", name: "Preliminary Analysis", registrationFood: "CR", eupFood: "CR", nonFood: "CR" },
-    { rd: "830.1750", bppd: "", name: "Certified Limits", registrationFood: "R", eupFood: "NR", nonFood: "NR" },
-    { rd: "830.1800", bppd: "", name: "Enforcement Analytical Method", registrationFood: "R", eupFood: "NR", nonFood: "NR" },
-    { rd: "830.1900", bppd: "", name: "Submittal of Samples", registrationFood: "CR", eupFood: "R", nonFood: "R" }
-  ]
-};
-
-const fallbackBiochemical = {
-  tableTitle: "Biochemical",
-  tableLink: "https://www.epa.gov/pesticide-registration/biopesticide-registration",
-  rows: [
-    { group: { title: "Confidential Product Chemistry", link: "https://www.epa.gov/test-guidelines-pesticides-and-toxic-substances/series-880-biochemicals-test-guidelines" } },
-    { rd: "", bppd: "880.1100", name: "Product Identity and Composition", registrationFood: "R", eupFood: "R", nonFood: "R" },
-    { rd: "", bppd: "880.1200", name: "Description of Materials Used to Produce the Product", registrationFood: "R", eupFood: "R", nonFood: "R" },
-    { rd: "", bppd: "880.1200", name: "Description of Production Process", registrationFood: "R", eupFood: "R", nonFood: "R" },
-    { rd: "", bppd: "880.1200", name: "Description of formulation process", registrationFood: "R", eupFood: "R", nonFood: "R" },
-    { rd: "", bppd: "880.1400", name: "Discussion of Formation of Impurities", registrationFood: "R", eupFood: "R", nonFood: "R" }
-  ]
-};
-
-const fallbackMicrobial = {
-  tableTitle: "Microbial",
-  tableLink: "https://www.epa.gov/pesticide-registration/biopesticide-registration",
-  rows: [
-    { group: { title: "Confidential Microbiology", link: "https://www.epa.gov/test-guidelines-pesticides-and-toxic-substances/series-885-microbial-pesticide-test-guidelines" } },
-    { rd: "", bppd: "885.1400", name: "Analysis of Samples", registrationFood: "R", eupFood: "R", nonFood: "R" },
-    { rd: "", bppd: "885.1500", name: "Certification of Limits", registrationFood: "R", eupFood: "R", nonFood: "R" },
-    { rd: "", bppd: "885.1300", name: "Discussion of Formation of Unintentional Ingredients", registrationFood: "R", eupFood: "R", nonFood: "R" },
-    { rd: "", bppd: "885.1200", name: "Manufacturing Process", registrationFood: "R", eupFood: "R", nonFood: "R" },
-    { rd: "", bppd: "885.1100", name: "Product Identity", registrationFood: "R", eupFood: "R", nonFood: "R" }
-  ]
-};
-
-function requirementClass(value) {
-  if (value?.startsWith("R")) return "bg-[#fff2cc]";
-  if (value?.startsWith("CR")) return "bg-[#cfe2f3]";
-  return "bg-white";
-}
-
-function RequirementCell({ value }) {
-  return (
-    <td className={`border border-black px-1 py-1 align-middle text-[11px] leading-tight xl:px-1.5 xl:text-xs ${requirementClass(value)}`}>
-      {value || ""}
-    </td>
-  );
-}
-
-function TableHeadingLink({ href, children }) {
-  if (!href) return <span className="text-black">{children}</span>;
-  return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className="text-[#1155cc] underline underline-offset-2">
-      {children}
-    </a>
-  );
-}
-
-function RequirementTable({ tableData }) {
-  if (!tableData || !tableData.rows || tableData.rows.length === 0) return null;
-
-  return (
-    <div className="mb-10 w-full overflow-x-auto">
-      <table className="w-full min-w-[760px] table-fixed border-collapse border border-black text-left text-[11px] leading-tight text-black xl:text-xs">
-        <colgroup>
-          <col className="w-[8%]" />
-          <col className="w-[8%]" />
-          <col className="w-[43%]" />
-          <col className="w-[14%]" />
-          <col className="w-[15%]" />
-          <col className="w-[12%]" />
-        </colgroup>
-
-        <caption className="border border-b-0 border-black bg-[#f1f3f4] px-3 py-2 text-center text-sm font-normal text-black xl:text-base">
-          <TableHeadingLink href="https://www.epa.gov/pesticide-registration/data-requirements-pesticide-registration">
-            Data requirements and test methods for pesticide products by type.
-          </TableHeadingLink>
-        </caption>
-
-        <thead>
-          <tr>
-            <th colSpan="6" className="border border-black bg-white px-2 py-1.5 text-center text-[11px] font-bold xl:text-xs">
-              Adapted from EPA Data Requirements for Development and Registration of Pesticide End-Use Products (EPs) • Prepared by Cynthia Ann Smith of Conn &amp; Smith, Inc. • 1/31-25
-            </th>
-          </tr>
-          <tr>
-            <th colSpan="6" className="border border-black bg-white px-2 py-2 text-center text-lg font-bold xl:text-xl">
-              <TableHeadingLink href={tableData.tableLink}>
-                {tableData.tableTitle}
-              </TableHeadingLink>
-            </th>
-          </tr>
-          <tr>
-            <th className="border border-black bg-white px-1 py-1.5 text-left text-[11px] font-bold xl:text-xs">RD -<br />Registration<br />Division</th>
-            <th colSpan="2" className="border border-black bg-white px-1 py-1.5 text-left text-[11px] font-normal xl:text-xs">
-              <span className="font-bold">BPPD</span> - Biopesticides Division, unique tests for biopesticides, applicable to Biochemical and Microbial)
-            </th>
-            <th className="border border-black bg-white px-1 py-1.5 text-center text-xs font-bold xl:text-sm">REGISTRATION</th>
-            <th colSpan="2" className="border border-black bg-white px-1 py-1.5 text-center text-xs font-bold xl:text-sm">EXPERIMENTAL USE PERMIT</th>
-          </tr>
-          <tr>
-            <th colSpan="2" className="border border-black bg-white px-1 py-1.5 text-center text-xs font-bold xl:text-sm">Test Guideline<br />Series #</th>
-            <th className="border border-black bg-white px-1 py-1.5 text-left text-xs font-bold italic xl:text-sm">Required (R), Conditionally<br />Required (CR), Not Required (NR)</th>
-            <th className="border border-black bg-white px-1 py-1.5 text-left text-xs font-bold xl:text-sm">FOOD USE*<br />(Tolerance<br />Requirement)</th>
-            <th className="border border-black bg-white px-1 py-1.5 text-left text-xs font-bold xl:text-sm">FOOD USE* (Tolerance<br />Requirement)</th>
-            <th className="border border-black bg-white px-1 py-1.5 text-left text-xs font-bold xl:text-sm">NON-FOOD<br />USE</th>
-          </tr>
-          <tr>
-            <th className="border border-black bg-white px-1 py-1 text-left text-xs font-bold xl:text-sm">RD</th>
-            <th className="border border-black bg-white px-1 py-1 text-left text-xs font-bold xl:text-sm">BPPD</th>
-            <th className="border border-black bg-white px-1 py-1 text-left text-xs font-bold xl:text-sm">TEST/GUIDLINE NAME</th>
-            <th colSpan="3" className="border border-black bg-white px-1 py-1 text-center text-xs font-bold uppercase xl:text-sm">
-              <TableHeadingLink href={tableData.tableLink}>{tableData.tableTitle}</TableHeadingLink>
-            </th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {tableData.rows.map((row, index) => {
-            if (row.group) {
-              const groupTitle = typeof row.group === 'object' ? row.group.title : row.group;
-              const groupLink = typeof row.group === 'object' ? row.group.link : "";
-              return (
-                <tr key={`group-${index}`}>
-                  <td colSpan="6" className="border border-black bg-[#e6e6e6] px-2 py-1.5 text-center text-xs font-bold xl:text-sm">
-                    <TableHeadingLink href={groupLink}>{groupTitle}</TableHeadingLink>
-                  </td>
-                </tr>
-              );
-            }
-            return (
-              <tr key={`row-${row.name}-${index}`}>
-                <td className="border border-black bg-white px-1 py-1 align-middle text-right text-[11px] leading-tight xl:px-1.5 xl:text-xs">{row.rd}</td>
-                <td className="border border-black bg-white px-1 py-1 align-middle text-right text-[11px] leading-tight xl:px-1.5 xl:text-xs">{row.bppd}</td>
-                <td className="border border-black bg-white px-1 py-1 align-middle text-left text-[11px] leading-tight xl:px-1.5 xl:text-xs">{row.name}</td>
-                <RequirementCell value={row.registrationFood} />
-                <RequirementCell value={row.eupFood} />
-                <RequirementCell value={row.nonFood} />
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-export default function ResearchRequirementsPage() {
-  const [cms, setCms] = useState(null);
-  const [activeSection, setActiveSection] = useState("overview");
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function initFields() {
-      try {
-        const payload = await getResearchRequirementsFields();
-        setCms(payload);
-      } catch (err) {
-        console.error("Headless API fetch crash:", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    initFields();
-  }, []);
+export default function Fifra() {
+  const [activeSection, setActiveSection] = useState("background");
 
   const sections = [
-    { id: "overview", label: cms?.overviewTitle || "Overview" },
-    { id: "data-requirements", label: cms?.section01Title || "Data requirements and test methods for pesticide products by type" },
-    { id: "product-performance", label: cms?.section02Title || "Product Performance" },
-    { id: "additional-information", label: cms?.additionalTitle || "Additional Information" }
+    { id: "research-requirements", label: "Research Requirements" },
+    { id: "data-requirements", label: "EPA Data Requirements Table" },
+    {
+      id: "test-guidelines",
+      label: "Test Guidelines for Pesticide and Toxic Substances",
+    },
+    { id: "resources", label: "Resources" },
   ];
 
-  const getParsedPayload = (rawJson, fallback) => {
-    if (!rawJson) return fallback;
-    try {
-      return JSON.parse(rawJson);
-    } catch (e) {
-      console.error("JSON formatting error inside text area box parser:", e);
-      return fallback;
-    }
-  };
-
-  const conventionalData = getParsedPayload(cms?.conventionalJson, fallbackConventional);
-  const biochemicalData = getParsedPayload(cms?.biochemicalJson, fallbackBiochemical);
-  const microbialData = getParsedPayload(cms?.microbialJson, fallbackMicrobial);
-
   const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    window.history.pushState(null, "", `#${id}`);
+    document.getElementById(id).scrollIntoView({ behavior: "smooth" });
   };
 
+  // scroll event
   useEffect(() => {
-    if (loading) return;
     const handleScroll = () => {
       for (const section of sections) {
         const el = document.getElementById(section.id);
@@ -226,103 +33,441 @@ export default function ResearchRequirementsPage() {
       }
     };
     window.addEventListener("scroll", handleScroll);
-    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [loading, cms]);
-
-  if (loading) {
-    return <div className="p-20 text-center text-gray-500">Loading requirements matrix database...</div>;
-  }
-
-  // Fallbacks if the WordPress fields are blank
-  const defaultOverviewHtml = `<p class="mb-8 text-lg">Individual research data requirements and EPA-approved tests for Conventional, Biochemical, and Microbial pesticide end-use products.</p>`;
-  const defaultPerformanceHtml = `<p class="mb-8 text-lg">Efficacy Data (Series 810 – Product Performance Test Guidelines) is required for all pesticide types and registration situations, but tests will vary depending on the product’s intended performance as described in the label directions.</p>`;
-  const defaultAdditionalHtml = `
-    <ul class="ml-6 list-disc">
-      <li>For more information on the test guidelines, see the EPA's Final Test Guidelines for Pesticides and Toxic Substances.</li>
-      <li>For more information on the FIFRA registration process, see the Pesticide Registration page on this website.</li>
-    </ul>
-  `;
+  }, []);
 
   return (
-    <div className="px-4 py-10 tracking-wide sm:px-10 lg:px-20">
-      {/* Breadcrumbs */}
-      <div className="mb-8 flex flex-row items-center gap-2 text-sm text-gray-500">
-        <svg className="usa-icon text-gray-500 w-4 h-4" aria-hidden="true" focusable="false" role="img">
+    <div className="px-20 py-10 tracking-wide">
+      {/* Breadcrumb */}
+      <div className="flex flex-row items-center gap-2 text-sm text-gray-500 mb-8">
+        <svg
+          className="usa-icon text-gray-500"
+          aria-hidden="true"
+          focusable="false"
+          role="img"
+        >
           <use href="/assets/img/sprite.svg#arrow_back"></use>
         </svg>
-        <Link href="/" className="text-primary hover:underline">Home</Link>
+        <a href="/" className="text-primary hover:underline">
+          Home
+        </a>
         <span>›</span>
         <span className="text-primary">Laws and Permits</span>
         <span>›</span>
-        <span className="text-gray-800">Pesticide Registration Research Data Requirements</span>
+        <span className="text-gray-800">
+          Research Requirements and Guidelines
+        </span>
       </div>
 
+      {/* Page Hero Title */}
       <InternalPageHero
-        title={cms?.pageTitle || "Pesticide Registration Research"}
-        subtitle={cms?.pageSubtitle || "Data Requirements"}
-        link="https://www.epa.gov/pesticide-registration/data-requirements-pesticide-registration"
+        title="Research Requirements and Guidelines"
+        subtitle="Key research guidelines and requirements for aquatic use pesticide registration"
       />
 
-      <div className="flex flex-col lg:flex-row gap-10 mt-6">
-        {/* Navigation Sidebar */}
-        <div className="lg:mt-10 w-full lg:w-56 shrink-0">
+      {/* scroll left side */}
+      <div className="flex flex-row gap-10 mt-0">
+        <div className="w-56 shrink-0 mt-10">
           <div className="sticky top-8">
-            <p className="mb-3 font-bold text-black">On this page</p>
-            <div className="flex flex-col border-l-2 border-gray-200">
+            <p className="font-bold text-black mb-3">On this page</p>
+            <div className="border-l-2 border-gray-200 flex flex-col">
               {sections.map((section) => (
-                <button
-                  type="button"
+                <p
                   key={section.id}
                   onClick={() => scrollTo(section.id)}
-                  className={`py-2 pl-4 text-left text-sm transition-colors duration-200 hover:text-primary ${
+                  className={`pl-4 py-2 text-sm cursor-pointer transition-colors duration-200 hover:text-primary ${
                     activeSection === section.id
-                      ? "-ml-[2px] border-l-4 border-black font-semibold text-black"
+                      ? "text-black font-semibold border-l-4 border-black -ml-[2px]"
                       : "text-primary"
                   }`}
                 >
                   {section.label}
-                </button>
+                </p>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Dynamic Display Sections */}
-        <div className="min-w-0 flex-1 whitespace-normal breaks-words">
-          {/* Section 0: Overview */}
-          <div id="overview" className="mt-10 scroll-mt-28 border-b-4 border-primary-lighter pb-6 prose max-w-none">
-            <h1 className="font-bold text-primary text-2xl mb-4">{cms?.overviewTitle || "Overview"}</h1>
-            <div dangerouslySetInnerHTML={{ __html: cms?.overviewDescription || defaultOverviewHtml }} />
+        <div className="flex-1">
+          {/* requirements section */}
+          <div
+            id="research-requirements"
+            className="border-b-4 border-primary-lighter mt-10"
+          >
+            <h1 className="text-primary font-bold text-2xl!">
+              Research Requirements Based on Types of Harmful Algal Bloom
+              Control Technologies
+            </h1>
+            <p className="mb-8 text-sm">
+              EPA requires Good Laboratory Practices (GLPs), including:
+            </p>
+            <ol>
+              <li>
+                - Analytical confirmation of dose (typically HPLC data at ppm
+                level)
+              </li>
+              <li className="mt-5">
+                - Archiving of the original raw data and final reports
+              </li>
+              <li className="mt-5">
+                - Quality Assurance (QA) of the experiment and the report
+              </li>
+            </ol>
+            <span className="text-primary text-xl mt-10 inline-block ">
+              EPA test guidelines and recommended protocols for pesticides and
+              toxic substances can be found{" "}
+              <a
+                href="https://www.epa.gov/test-guidelines-pesticides-and-toxic-substances"
+                className="text-underline"
+              >
+                here
+              </a>
+              .
+            </span>
+            <div className="border-b-primary-lighter mt-8"></div>
           </div>
 
-          {/* Section 1: Tables Rendering Area */}
-          <div id="data-requirements" className="scroll-mt-28 border-b-4 border-primary-lighter pt-10 pb-6">
-            <h1 className="font-bold text-primary text-2xl mb-4">
-              {cms?.section01Title || "Data requirements and test methods for pesticide products by type."}
+          {/* EPA Data Table */}
+          <div
+            id="data-requirements"
+            className="border-b-4 border-primary-lighter text-lg"
+          >
+            <h1 className="text-primary font-bold text-2xl!">
+              Identify Data Requirements based on EPA Registration Type
             </h1>
-
-            <div className="mb-8 text-lg">
-              <RequirementTable tableData={conventionalData} />
-              <RequirementTable tableData={biochemicalData} />
-              <RequirementTable tableData={microbialData} />
-
-              <p className="mt-5 text-base font-bold leading-6 text-black">
-                *Note: “FOOD USE” does not necessarily mean a pesticide product that will be used directly on food products. Pesticides used in such a manner where residues may collect (establishing the need for a tolerance) on food products or organisms harvested for food would be classified as “FOOD USE.”
-              </p>
+            <div className="flex flex-row">
+              <p>Link:</p>
+              <a
+                className="text-underline hover:text-primary"
+                href="https://www.ecfr.gov/current/title-40/chapter-I/subchapter-E/part-158/subpart-U/section-158.2060"
+              >
+                {""}
+                https://www.ecfr.gov/current/title-40/chapter-I/subchapter-E/part-158/subpart-U/section-158.2060
+              </a>
+            </div>
+            <div className="flex flex-row mt-5">
+              <div className="border-gray-300! border-t-2 border-l-2 rounded px-20 py-20">
+                <div className="border-t-2 border-r-2 border-l-2 border-b-2 border-primary rounded flex flex-col h-40 w-80 shadow-lg">
+                  <p className="mt-3 font-bold">Type of Ingredient</p>
+                  <p className="text-sm">
+                    Choose how the ingredient functions in the product.
+                  </p>
+                  <div className="mt-4">
+                    <p>Active</p>
+                    <p>End-use</p>
+                  </div>
+                </div>
+                <div className="border-r-primary! border-2! mt-10 mb-10"></div>
+                <div className="border-t-2 border-r-2 border-l-2 border-b-2 border-primary rounded h-65 w-90 shadow-lg ">
+                  <p className="font-bold mt-3">Type of Chemical</p>
+                  <p className="text-sm">
+                    Choose how the chemical functions in the product.
+                  </p>
+                  <p className="border-t-2 border-r-2 border-b-2 border-l-2 border-gray-300 rounded mt-5">
+                    Conventional
+                  </p>
+                  <p className=" border-t-2 border-r-2 border-b-2 border-l-2 border-gray-300 rounded mt-3">
+                    Biochemical
+                  </p>
+                  <p className=" border-t-2 border-r-2 border-b-2 border-l-2 border-gray-300 rounded mt-3">
+                    Microbial
+                  </p>
+                  <p className=" border-t-2 border-r-2 border-b-2 border-l-2 border-gray-300 rounded mt-3">
+                    Minimal Risk
+                  </p>
+                </div>
+              </div>
+              <div
+                className="border-gray-300!
+               px-20 py-20 border-r-2 border-t-2 rounded bg-primary-lighter"
+              >
+                <b className="text-lg">Understand Your Choices</b>
+                <p className="text-sm">Definitions, guidance, and examples.</p>
+                <p className="mt-5 text-green-800 text-lg font-bold">
+                  Question
+                </p>
+                <p className="text-sm">
+                  What type of ingredient are you looking to register?
+                </p>
+                <p className="mt-10 text-primary text-lg font-bold">
+                  1. Active Ingredient
+                </p>
+                <p className="text-sm">
+                  The primary component that performs the function of
+                  controlling, killing, or disrupting harmful algal blooms.
+                </p>
+                <p className="mt-5">
+                  <b>When to choose this:</b> If your product directly affects
+                  HABs through chemical or biological action.
+                </p>
+                <p className="mt-5">
+                  <b>Example:</b> Copper sulfate solution, peroxide-based bloom
+                  disruptor.
+                </p>
+                <p className="mt-5 text-primary text-lg font-bold">
+                  2. End-use Ingredient
+                </p>
+                <p className="mt-3 text-sm">
+                  Substances that support the product's formulation or delivery
+                  but are not active in bloom control themselves.
+                </p>
+                <p className="mt-3">
+                  <b>When to choose this:</b> If your product only includes
+                  carriers, binders, or stabilizers.
+                </p>
+                <p className="mt-3">
+                  <b>Example:</b> Clay granules used to deliver active agents,
+                  inert materials with no direct impact on algae.
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Section 2: Product Performance */}
-          <div id="product-performance" className="scroll-mt-28 border-b-4 border-primary-lighter pt-10 pb-6 prose max-w-none">
-            <h1 className="font-bold text-primary text-2xl mb-4">{cms?.section02Title || "Product Performance"}</h1>
-            <div dangerouslySetInnerHTML={{ __html: cms?.section02Description || defaultPerformanceHtml }} />
+          {/* Test Guidelines */}
+          <div id="test-guidelines">
+            <div className="flex flex-row mt-10">
+              <h1 className="text-primary font-bold text-lg!">
+                EPA Data Requirements for Development and Registration of
+                Pesticide Active Ingredients
+              </h1>
+            </div>
           </div>
 
-          {/* Section 3: Additional Information */}
-          <div id="additional-information" className="scroll-mt-28 pt-10 prose max-w-none">
-            <h1 className="font-bold text-primary text-2xl mb-4">{cms?.additionalTitle || "Additional Information"}</h1>
-            <div dangerouslySetInnerHTML={{ __html: cms?.additionalDescription || defaultAdditionalHtml }} />
+          <div className="mt-6 overflow-x-auto rounded border border-gray-300! border-t-2 border-b-2 border-l-2 border-r-2">
+            <table className="w-full min-w-[700px] border-collapse text-sm text-black">
+              <thead>
+                <tr>
+                  <th
+                    colSpan="2"
+                    className="border-b border-r border-gray-200 px-6 py-4 text-center font-bold"
+                  >
+                    EPA Gldn No.
+                  </th>
+                  <th
+                    colSpan="1"
+                    className="border-b border-gray-200 px-6 py-4 text-left font-bold"
+                  >
+                    Selected Options:
+                  </th>
+                </tr>
+                <tr className="bg-[#f0f6ff]">
+                  <th className="border-b-2  px-6 py-3 text-center font-bold">
+                    RD
+                  </th>
+                  <th className="border-b-2 border-r-gray-200! border-r-2 px-6 py-3 text-center font-bold ">
+                    BPPD
+                  </th>
+                  <th className="border-b-2 px-6 py-3 text-center font-bold">
+                    EPA Guideline Name
+                  </th>
+                  <th className="border-b-2 px-6 py-3 text-center font-bold ">
+                    Requirement Status
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {/* Confidential Product Chemistry */}
+                <tr>
+                  <td
+                    colSpan="4"
+                    className="border-t px-6 py-3 text-center text-xs font-semibold uppercase border-b-2 border-gray-200"
+                  >
+                    Confidential Product Chemistry
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="border-r border-gray-100 px-6 py-4 text-center ">
+                    <span className="rounded bg-gray-100 px-2 py-0.5 text-xs">
+                      830.155
+                    </span>
+                  </td>
+                  <td className="border-r border-gray-100 px-6 py-4 text-center ">
+                    <span className="rounded bg-gray-100 px-2 py-0.5 text-xs">
+                      880.11
+                    </span>
+                  </td>
+                  <td className="border-r border-gray-100 px-6 py-4 text-center ">
+                    Product Identity and Composition
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-green-100 text-xs font-semibold text-green-700">
+                      R
+                    </span>
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="border-r border-gray-100 px-6 py-4 text-center ">
+                    <span className="rounded bg-gray-100 px-2 py-0.5 text-xs">
+                      830.155
+                    </span>
+                  </td>
+                  <td className="border-r border-gray-100 px-6 py-4 text-center">
+                    <span className="rounded bg-gray-100 px-2 py-0.5 text-xs">
+                      880.11
+                    </span>
+                  </td>
+                  <td className="border-r border-gray-100 px-6 py-4 text-center ">
+                    Description of Materials Used to Produce the Product
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-green-100 text-xs font-semibold text-green-700">
+                      R
+                    </span>
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="border-r border-gray-100 px-6 py-4 text-center ">
+                    <span className="rounded bg-gray-100 px-2 py-0.5 text-xs">
+                      830.155
+                    </span>
+                  </td>
+                  <td className="border-r border-gray-100 px-6 py-4 text-center ">
+                    <span className="rounded bg-gray-100 px-2 py-0.5 text-xs">
+                      880.11
+                    </span>
+                  </td>
+                  <td className="border-r border-gray-100 px-6 py-4 text-center ">
+                    Description of Production Process
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-green-100 text-xs font-semibold text-green-700">
+                      R
+                    </span>
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="border-r border-gray-100 px-6 py-4 text-center ">
+                    <span className="rounded bg-gray-100 px-2 py-0.5 text-xs">
+                      830.155
+                    </span>
+                  </td>
+                  <td className="border-r border-gray-100 px-6 py-4 text-center"></td>
+                  <td className="border-r border-gray-100 px-6 py-4 text-center ">
+                    Preliminary Analysis
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-orange-100 text-xs font-semibold text-orange-600">
+                      CR
+                    </span>
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="border-r border-gray-100 px-6 py-4 text-center ">
+                    <span className="rounded bg-gray-100 px-2 py-0.5 text-xs">
+                      830.155
+                    </span>
+                  </td>
+                  <td className="border-r border-gray-100 px-6 py-4 text-center"></td>
+                  <td className="border-r border-gray-100 px-6 py-4 text-center ">
+                    Certified Limits
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-green-100 text-xs font-semibold text-green-700">
+                      R
+                    </span>
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="border-r border-gray-100 px-6 py-4 text-center ">
+                    <span className="rounded bg-gray-100 px-2 py-0.5 text-xs">
+                      830.155
+                    </span>
+                  </td>
+                  <td className="border-r border-gray-100 px-6 py-4 text-center"></td>
+                  <td className="border-r border-gray-100 px-6 py-4 text-center ">
+                    Enforcement Analytical Method
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-green-100 text-xs font-semibold text-green-700">
+                      R
+                    </span>
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="border-r border-gray-100 px-6 py-4 text-center ">
+                    <span className="rounded bg-gray-100 px-2 py-0.5 text-xs">
+                      830.155
+                    </span>
+                  </td>
+                  <td className="border-r border-gray-100 px-6 py-4 text-center"></td>
+                  <td className="border-r border-gray-100 px-6 py-4 text-center ">
+                    Enforcement Analytical Method
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-green-100 text-xs font-semibold text-green-700">
+                      R
+                    </span>
+                  </td>
+                </tr>
+
+                {/* Physical and Chemical Properties */}
+                <tr>
+                  <td
+                    colSpan="4"
+                    className="border-t-gray-200 px-6 py-3 text-center text-xs font-bold uppercase border-b-2 border-b-gray-200"
+                  >
+                    Physical and Chemical Properties
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="border-r border-gray-100 px-6 py-4 text-center">
+                    <span className="rounded bg-gray-100 px-2 py-0.5 text-xs">
+                      830.155
+                    </span>
+                  </td>
+                  <td className="border-r border-gray-100 px-6 py-4 text-center"></td>
+                  <td className="border-r border-gray-100 px-6 py-4 text-center">
+                    Color
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-green-100 text-xs font-semibold text-green-700">
+                      R
+                    </span>
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-100">
+                  <td className="border-r border-gray-100 px-6 py-4 text-center">
+                    <span className="rounded bg-gray-100 px-2 py-0.5 text-xs">
+                      830.155
+                    </span>
+                  </td>
+                  <td className="border-r border-gray-100 px-6 py-4 text-center"></td>
+                  <td className="border-r border-gray-100 px-6 py-4 text-center">
+                    Physical State
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-green-100 text-xs font-semibold text-green-700">
+                      R
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="border-b-primary-lighter border-b-2 mt-10"></div>
+
+          {/* Data Partners */}
+          <div
+            id="resources"
+            className="border-b-4 border-primary-lighter mt-10"
+          />
+          <p className="font-bold text-primary-darker text-center mt-20 text-sm">
+            DATA PARTNERS
+          </p>
+          <div className="flex flex-row gap-30 items-center justify-center mt-5">
+            <img
+              src="/NOAA.svg"
+              className="w-20 h-20 rounded-full object-contain"
+            />
+            <img
+              src="/IMET.jpg"
+              className="w-20 h-20 rounded-full object-contain"
+            />
+            <img
+              src="/MOTE.png"
+              className="w-20 h-20 rounded-full object-contain"
+            />
           </div>
         </div>
       </div>
