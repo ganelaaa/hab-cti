@@ -466,7 +466,7 @@ export async function getDisclaimerFields() {
     
     if (!res.ok) throw new Error(`Status ${res.status}`);
     const { data } = await res.json();
-    return data?.page?.homepageDisclaimerFields || null;
+    return data?.page?.homepageDisclaimer || null;
   } catch (error) {
     console.error("Disclaimer Fetch Error:", error);
     return null; // Safe fallback returns null so the layout renders defaults gracefully
