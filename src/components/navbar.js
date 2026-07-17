@@ -14,7 +14,7 @@ export default function Navbar() {
     { label: "About", href: "/about" },
     { label: "Funding Resources", href: "/fundingResources" },
     { label: "HABs 101", href: "/habs101" },
-    { label: "FAQs", href: "#" },
+    { label: "FAQs", href: "/faq" },
     { label: "Glossary", href: "#" },
   ];
 
