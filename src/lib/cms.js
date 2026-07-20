@@ -303,6 +303,89 @@ query GetStateDetails($id: ID!) {
 }
 `;
 
+export const GET_FUNDING_PAGE_DATA = `
+query GetFundingPageData {
+  page(id: "572", idType: DATABASE_ID) {
+    fundingPageFields {
+      heroTitle
+      heroDescription
+      grantInfoTitle
+      grantInfoDescription
+      noticeTitle
+      noticeLoiDeadline
+      noticeProposalDeadline
+      noticeEmail
+      applyNowLink
+      webinarVideoUrl
+      webinarSlidesPdfUrl
+      
+      # Repeater with WYSIWYG for description
+      otherFundingOpportunities
+    }
+  }
+}
+`;
+
+// Query for Funding Tiers CPT
+export const GET_ALL_FUNDING_TIERS = `
+query GetAllFundingTiers {
+  fundingTiers(first: 20, where: { orderby: { field: MENU_ORDER, order: ASC } }) {
+    nodes {
+      databaseId
+      title
+      fundingTierConnector {
+        tierLabel
+        tierTitle
+        tierImage {
+          node {
+            sourceUrl
+          }
+        }
+        bulletPoints # Contains HTML from WYSIWYG
+      }
+    }
+  }
+}
+`;
+
+export async function getFundingPageFields() {
+  try {
+    const res = await fetch('https://cms.habctrl.info/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: GET_FUNDING_PAGE_DATA }),
+      cache: 'no-store',
+    });
+
+    if (!res.ok) throw new Error(`WordPress API returned status ${res.status}`);
+
+    const { data } = await res.json();
+    return data?.page?.fundingPageFields || null;
+  } catch (error) {
+    console.error("Funding Page Fetch Error:", error);
+    return null;
+  }
+}
+
+export async function getAllFundingTiers() {
+  try {
+    const res = await fetch('https://cms.habctrl.info/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: GET_ALL_FUNDING_TIERS }),
+      cache: 'no-store',
+    });
+
+    if (!res.ok) throw new Error(`WordPress API returned status ${res.status}`);
+
+    const { data } = await res.json();
+    return data?.fundingTiers?.nodes || [];
+  } catch (error) {
+    console.error("Error fetching dynamic funding tiers:", error);
+    return [];
+  }
+}
+
 export async function getStateDetails(stateName) {
   try {
     const res = await fetch('https://cms.habctrl.info/graphql', {
