@@ -104,9 +104,9 @@ export default async function About() {
           </a>
         </div>
 
-        <div className="bg-red-600 text-white font-mono text-xs px-3 py-1 rounded-full animate-pulse uppercase tracking-widest font-bold shadow-md">
+        {/* <div className="bg-red-600 text-white font-mono text-xs px-3 py-1 rounded-full animate-pulse uppercase tracking-widest font-bold shadow-md">
           GIT REPLACEMENT CHECK
-        </div>
+        </div> */}
       </div>
 
       <div className="relative text-white mt-4 overflow-hidden h-75 rounded-lg">
