@@ -138,7 +138,7 @@ export default function Hero({ slidesList = [] }) {
       title: fields.slideTitle || post.title,
       isWelcome: fields.isWelcomeSlide || false,
       // 2. FIXED: Grabs the WYSIWYG payload directly
-      htmlBody: fields.slideDescription01 || "", 
+      htmlBody: fields.slideDescription01 || "",
     };
   });
 
@@ -148,12 +148,16 @@ export default function Hero({ slidesList = [] }) {
     if (slides.length <= 1) return;
     const timer = setInterval(() => {
       setActiveSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    }, 10000);
     return () => clearInterval(timer);
   }, [slides.length]);
 
   if (!slides || slides.length === 0) {
-    return <div className="px-20 py-10 text-center italic text-gray-500">No slides configured.</div>;
+    return (
+      <div className="px-20 py-10 text-center italic text-gray-500">
+        No slides configured.
+      </div>
+    );
   }
 
   const slide = slides[activeSlide];
@@ -182,7 +186,7 @@ export default function Hero({ slidesList = [] }) {
             <p className="text-[#78a529] text-sm md:text-base font-bold uppercase tracking-widest mb-3">
               {slide.label}
             </p>
-            
+
             <div className="relative w-fit mx-auto pb-6 px-4">
               {/* 1. The missing US-HABCTI Title injected here */}
               {slide.title && (
@@ -192,7 +196,7 @@ export default function Hero({ slidesList = [] }) {
               )}
 
               {/* 2. Your WYSIWYG Description text */}
-              <div 
+              <div
                 className="text-lg md:text-xl font-bold text-white max-w-4xl mx-auto space-y-4 leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: slide.htmlBody }}
               />
@@ -209,7 +213,7 @@ export default function Hero({ slidesList = [] }) {
             <p className="text-[#78a529] font-bold text-sm">{slide.tag}</p>
             <h1 className="font-bold !mt-1 !mb-3">{slide.title}</h1>
             {/* 4. FIXED: Injects HTML and handles paragraph spacing automatically */}
-            <div 
+            <div
               className="text-gray-200 max-w-sm text-sm space-y-3 dynamic-slide-content"
               dangerouslySetInnerHTML={{ __html: slide.htmlBody }}
             />

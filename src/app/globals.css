@@ -39,7 +39,7 @@ input:not([disabled]):focus {
 }
 
 .slide-active {
-  animation: kenburns 5s ease-in-out forwards;
+  animation: kenburns 10s ease-in-out forwards;
 }
 
 /* KENBURNS loop aboutHero & funding */
