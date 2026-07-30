@@ -645,3 +645,109 @@ export async function getHomepageFields() {
     return null; 
   }
 }
+
+export const GET_ALL_GLOSSARY_POSTS = `
+query GetAllGlossaryPosts($first: Int!, $after: String) {
+  glossaryEntries(
+    first: $first
+    after: $after
+    where: {
+      orderby: {
+        field: TITLE
+        order: ASC
+      }
+    }
+  ) {
+    nodes {
+      databaseId
+      title
+      content(format: RENDERED)
+    }
+
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+`;
+
+export async function getAllGlossaryPosts() {
+  const allEntries = [];
+
+  let after = null;
+  let hasNextPage = true;
+
+  try {
+    while (hasNextPage) {
+      const res = await fetch(
+        'https://cms.habctrl.info/graphql',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            query: GET_ALL_GLOSSARY_POSTS,
+            variables: {
+              first: 100,
+              after,
+            },
+          }),
+          cache: 'no-store',
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error(
+          `WordPress responded with status ${res.status}`
+        );
+      }
+
+      const result = await res.json();
+
+      if (result.errors?.length) {
+        throw new Error(
+          result.errors
+            .map((error) => error.message)
+            .join(', ')
+        );
+      }
+
+      const connection =
+        result.data?.glossaryEntries;
+
+      if (!connection) {
+        break;
+      }
+
+      const entries = connection.nodes.map((node) => ({
+        id: node.databaseId,
+        term: node.title || '',
+        content: node.content || '',
+      }));
+
+      allEntries.push(...entries);
+
+      hasNextPage =
+        connection.pageInfo?.hasNextPage === true;
+
+      after =
+        connection.pageInfo?.endCursor || null;
+
+      // Prevent an accidental infinite request loop.
+      if (hasNextPage && !after) {
+        break;
+      }
+    }
+
+    return allEntries;
+  } catch (error) {
+    console.error(
+      'Error fetching glossary entries:',
+      error
+    );
+
+    return [];
+  }
+}

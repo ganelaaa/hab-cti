@@ -15,7 +15,7 @@ export default function Navbar() {
     { label: "Funding Resources", href: "/fundingResources" },
     { label: "HABs 101", href: "/habs101" },
     { label: "FAQs", href: "/faq" },
-    { label: "Glossary", href: "#" },
+    { label: "Glossary", href: "/glossary" },
   ];
 
   const isActiveLink = (href) => pathname === href;
