@@ -94,7 +94,7 @@ const externalLinks = {
   oecdSeawater:
     "https://www.oecd-ilibrary.org/environment/test-no-306-biodegradability-in-seawater_9789264070486-en",
   oecdMrl:
-    "https://www.oecd.org/en/topics/sub-issues/pesticides-biocides/maximum-residue-limit-calculator.html",
+    "https://www.epa.gov/pesticide-tolerances/oecd-maximum-residue-limit-calculator",
   series810:
     "https://www.epa.gov/test-guidelines-pesticides-and-toxic-substances/series-810-product-performance-test-guidelines",
   series830:
@@ -555,7 +555,7 @@ export default function PesticideRegistration() {
                 distributed in the United States. There are three major types of
                 pesticides:{" "}
                 <Link
-                  href={externalLinks.conventional}
+                  href="/conventionalPesticide"
                   className="text-primary text-underline"
                 >
                   conventional
@@ -565,12 +565,12 @@ export default function PesticideRegistration() {
                   antimicrobial
                 </ExternalLink>
                 , and{" "}
-                <ExternalLink
-                  className="text-primary text-underline"
+                <Link
                   href="/biopesticideRegistration"
+                  className="text-primary text-underline"
                 >
                   biopesticides
-                </ExternalLink>
+                </Link>
                 . Each type has a unique registration pathway, but the general
                 process is similar. If your product qualifies as a{" "}
                 <ExternalLink href={externalLinks.physicalDevices}>
