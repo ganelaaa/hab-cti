@@ -15,7 +15,7 @@ export default function ConsultantsDatabase() {
           Home
         </a>
         <span>›</span>
-        <span className="text-primary">Literature</span>
+        <span className="text-primary">Laws and Permits</span>
         <span>›</span>
         <span className="text-gray-800">Consultants Database</span>
       </div>
