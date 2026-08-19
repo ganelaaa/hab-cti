@@ -33,7 +33,7 @@ export async function getAllAgencyPosts() {
     });
 
     if (!res.ok) throw new Error(`WordPress responded with status ${res.status}`);
-    
+
     const { data } = await res.json();
     return data?.agencies?.nodes || [];
   } catch (error) {
@@ -270,34 +270,132 @@ query GetHomepageSectionHeaders {
 }
 `;
 
-export const GET_STATE_DETAILS = `
-query GetStateDetails($id: ID!) {
-  # Note: If your GraphQL schema named this CPT something else, change 'state' to 'usState' or 'stateDirectory'
+export const GET_REGULATIONS_DIRECTORY_DATA = `
+query GetRegulationsDirectoryData {
+  page(id: "regulations-directory", idType: URI) {
+    title
+    slug
+
+    regulationsDirectoryFields {
+      pageTitle
+      pageDescription
+      linkALabel
+      linkBLabel
+    }
+  }
+}
+`;
+
+export const GET_STATE_LINK_A_DETAILS = `
+query GetStateLinkADetails($id: ID!) {
   stateDirectory(id: $id, idType: SLUG) {
     title
     slug
+
     stateRegulationsConnector {
-      heroImageText
-      introText
-      
-      section01Title
-      section01Text
-      section02Title
-      section02Text
-      section03Title
-      section03Text
-      section04Title
-      section04Text
-      section05Title
-      section05Text
-      section06Title
-      section06Text
-      section07Title
-      section07Text
-      section08Title
-      section08Text
-      section09Title
-      section09Text
+      pageFields: linkAPage {
+        heroImageText
+        introText
+
+        section01Title
+        section01Text
+
+        section02Title
+        section02Text
+
+        section03Title
+        section03Text
+
+        section04Title
+        section04Text
+
+        section05Title
+        section05Text
+
+        section06Title
+        section06Text
+
+        section07Title
+        section07Text
+
+        section08Title
+        section08Text
+
+        section09Title
+        section09Text
+      }
+    }
+  }
+}
+`;
+
+export const GET_STATE_LINK_B_DETAILS = `
+query GetStateLinkBDetails($id: ID!) {
+  stateDirectory(id: $id, idType: SLUG) {
+    title
+    slug
+
+    stateRegulationsConnector {
+      pageFields: linkBPage {
+        heroImageText
+        introText
+
+        section01Title
+        section01Text
+
+        section02Title
+        section02Text
+
+        section03Title
+        section03Text
+
+        section04Title
+        section04Text
+
+        section05Title
+        section05Text
+
+        section06Title
+        section06Text
+
+        section07Title
+        section07Text
+
+        section08Title
+        section08Text
+
+        section09Title
+        section09Text
+      }
+    }
+  }
+}
+`;
+
+export const GET_FAQ_PAGE_DATA = `
+query GetFaqPage {
+  page(id: "faqs", idType: URI) {
+    faqPageFields {
+      faq01Question
+      faq01Answer
+
+      faq02Question
+      faq02Answer
+
+      faq03Question
+      faq03Answer
+
+      faq04Question
+      faq04Answer
+
+      faq05Question
+      faq05Answer
+
+      faq06Question
+      faq06Answer
+
+      faq07Question
+      faq07Answer
     }
   }
 }
@@ -434,27 +532,134 @@ export async function getAllFundingTiers() {
   }
 }
 
-export async function getStateDetails(stateName) {
+export async function getRegulationsDirectoryFields() {
   try {
-    const res = await fetch('https://cms.habctrl.info/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        query: GET_STATE_DETAILS,
-        // FIXED: Search directly by the slug (e.g., "massachusetts") instead of the URI folder path
-        variables: { id: stateName } 
-      }),
-      cache: 'no-store', 
-    });
+    const res = await fetch(
+      "https://cms.habctrl.info/graphql",
+      {
+        method: "POST",
 
-    if (!res.ok) throw new Error(`WordPress API error: ${res.status}`);
-    
-    const { data } = await res.json();
-    
-    // If it still fails, the GraphQL single name might be different. 
-    return data?.stateDirectory || null;
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+
+        body: JSON.stringify({
+          query:
+            GET_REGULATIONS_DIRECTORY_DATA,
+        }),
+
+        cache: "no-store",
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error(
+        `WordPress API error: ${res.status}`
+      );
+    }
+
+    const { data } =
+      await res.json();
+
+    return (
+      data?.page
+        ?.regulationsDirectoryFields ||
+      null
+    );
   } catch (error) {
-    console.error(`Error pulling CMS data for state [${stateName}]:`, error);
+    console.error(
+      "Error pulling Regulations Directory CMS data:",
+      error
+    );
+
+    return null;
+  }
+}
+
+export async function getStateLinkDetails(stateName, pageType) {
+  try {
+    const query =
+      pageType === "link-a"
+        ? GET_STATE_LINK_A_DETAILS
+        : pageType === "link-b"
+          ? GET_STATE_LINK_B_DETAILS
+          : null;
+
+    if (!query) {
+      console.error(`Invalid state page type: ${pageType}`);
+      return null;
+    }
+
+    const res = await fetch(
+      "https://cms.habctrl.info/graphql",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          query,
+          variables: {
+            id: stateName,
+          },
+        }),
+
+        cache: "no-store",
+      }
+    );
+
+    const responseText = await res.text();
+
+    let payload;
+
+    try {
+      payload = JSON.parse(responseText);
+    } catch {
+      throw new Error(
+        `WordPress returned a non-JSON response (${res.status}): ${responseText.slice(
+          0,
+          500
+        )}`
+      );
+    }
+
+    if (!res.ok || payload.errors?.length) {
+      const graphQLErrors = payload.errors
+        ?.map((error) => error.message)
+        .join(" | ");
+
+      throw new Error(
+        graphQLErrors ||
+          `WordPress API error: ${res.status}`
+      );
+    }
+
+    const state =
+      payload.data?.stateDirectory || null;
+
+    if (!state) {
+      console.error(
+        `No State Directory post found for slug [${stateName}]`
+      );
+
+      return null;
+    }
+
+    console.log(
+      `[State CMS] ${stateName}/${pageType}:`,
+      state.stateRegulationsConnector?.pageFields
+    );
+
+    return state;
+  } catch (error) {
+    console.error(
+      `Error pulling ${pageType} CMS data for state [${stateName}]:`,
+      error
+    );
+
     return null;
   }
 }
@@ -469,12 +674,12 @@ export async function getHomepageSectionHeaders() {
     });
 
     if (!res.ok) throw new Error(`WordPress API returned status ${res.status}`);
-    
+
     const { data } = await res.json();
     return data?.page?.homepageSectionHeaders || null;
   } catch (error) {
     console.error("Homepage Section Headers Fetch Error:", error);
-    return null; 
+    return null;
   }
 }
 
@@ -484,16 +689,16 @@ export async function getAllSlides() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query: GET_ALL_SLIDES }),
-      cache: 'no-store', 
+      cache: 'no-store',
     });
 
     if (!res.ok) throw new Error(`WordPress API returned status ${res.status}`);
-    
+
     const { data } = await res.json();
     return data?.slides?.nodes || [];
   } catch (error) {
     console.error("Slideshow Fetch Error:", error);
-    return []; 
+    return [];
   }
 }
 
@@ -594,7 +799,7 @@ export async function getDisclaimerFields() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query: GET_DISCLAIMER_DATA }),
     });
-    
+
     if (!res.ok) throw new Error(`Status ${res.status}`);
     const { data } = await res.json();
     return data?.page?.homepageDisclaimer || null;
@@ -621,6 +826,51 @@ export async function getStrategiesFields() {
   }
 }
 
+export async function getFaqPageFields() {
+  try {
+    const res = await fetch(
+      "https://cms.habctrl.info/graphql",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: GET_FAQ_PAGE_DATA,
+        }),
+        cache: "no-store",
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error(
+        `WordPress API error: ${res.status}`
+      );
+    }
+
+    const result = await res.json();
+
+    if (result.errors?.length) {
+      throw new Error(
+        result.errors
+          .map((error) => error.message)
+          .join(" | ")
+      );
+    }
+
+    return (
+      result.data?.page?.faqPageFields ||
+      null
+    );
+  } catch (error) {
+    console.error(
+      "Error fetching FAQ page data:",
+      error
+    );
+
+    return null;
+  }
+}
 
 export async function getHomepageFields() {
   try {
@@ -630,7 +880,7 @@ export async function getHomepageFields() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ query: GET_HOMEPAGE_DATA }),
-      cache: 'no-store', 
+      cache: 'no-store',
     });
 
     if (!res.ok) {
@@ -642,7 +892,7 @@ export async function getHomepageFields() {
     return data?.page?.homepageSlideshowFields || null;
   } catch (error) {
     console.error("CMS Fetch Error:", error);
-    return null; 
+    return null;
   }
 }
 
