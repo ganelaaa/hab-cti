@@ -58,6 +58,23 @@ function DynamicAgencyCard({ agency }) {
   // Maps directly onto your verified nested structure from the GQL IDE
   const imagePath = cms?.featuredImage?.node?.sourceUrl || "/USEPA.svg.png";
 
+  /*
+   * State Policies and Permits has its own dedicated page.
+   * Every other agency continues using the existing dynamic agency route.
+   */
+  const normalizedTitle = agency.title
+    ?.toLowerCase()
+    .trim()
+    .replace(/\s+/g, " ");
+
+  const isStatePoliciesAndPermits =
+    normalizedTitle === "state policies and permits" ||
+    normalizedTitle === "state policies & permits";
+
+  const learnMoreHref = isStatePoliciesAndPermits
+    ? "/statePoliciesandPermits"
+    : `/agency/${agency.databaseId}`;
+
   return (
     <div className={`relative flex flex-col rounded border border-gray-300 p-4 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_15px_rgba(0,94,162,0.3)] ${
       cms?.isPrimary ? 'bg-primary-lighter' : 'bg-white'
@@ -83,7 +100,7 @@ function DynamicAgencyCard({ agency }) {
       </div>
 
       <Link
-        href={`/agency/${agency.databaseId}`}
+        href={learnMoreHref}
         className="mt-auto inline-block pt-4 text-sm font-bold text-black underline transition-colors duration-200 hover:text-primary"
       >
         Learn More

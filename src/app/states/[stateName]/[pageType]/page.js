@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { use, useEffect, useMemo, useState } from "react";
 import InternalPageHero from "@/components/InternalPageHero";
 import {
-  getRegulationsDirectoryFields,
+  getstatePoliciesandPermitsFields,
   getStateLinkDetails,
 } from "@/lib/cms";
 
@@ -50,7 +50,7 @@ export default function DynamicStateResourcePage({
           params.stateName,
           params.pageType
         ),
-        getRegulationsDirectoryFields(),
+        getstatePoliciesandPermitsFields(),
       ]);
 
       setStateRecord(stateData);
@@ -214,7 +214,7 @@ export default function DynamicStateResourcePage({
   if (loading) {
     return (
       <div className="p-20 text-center text-gray-500">
-        Loading regulatory framework...
+        Loading policies...
       </div>
     );
   }
@@ -232,10 +232,10 @@ export default function DynamicStateResourcePage({
 
         <div className="mt-10 text-center">
           <Link
-            href="/regulationsDirectory"
+            href="/statePoliciesandPermits"
             className="text-sm font-semibold text-primary underline"
           >
-            Return to Regulations Directory
+            Return to State Policies and Permits
           </Link>
         </div>
       </div>
@@ -299,10 +299,10 @@ export default function DynamicStateResourcePage({
           <span>›</span>
 
           <Link
-            href="/regulationsDirectory"
+            href="/statePoliciesandPermits"
             className="text-primary hover:underline"
           >
-            Regulations Directory
+            State Policies and Permits
           </Link>
 
           <span>›</span>
@@ -329,10 +329,10 @@ export default function DynamicStateResourcePage({
           </p>
 
           <Link
-            href="/regulationsDirectory"
+            href="/statePoliciesandPermits"
             className="mt-6 inline-block text-sm font-semibold text-primary underline"
           >
-            Return to Regulations Directory
+            Return to State Policies and Permits
           </Link>
         </div>
       </div>
@@ -395,10 +395,10 @@ export default function DynamicStateResourcePage({
         <span>›</span>
 
         <Link
-          href="/regulationsDirectory"
+          href="/statePoliciesandPermits"
           className="text-primary hover:underline"
         >
-          Regulations Directory
+          State Policies and Permits
         </Link>
 
         <span>›</span>

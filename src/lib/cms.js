@@ -270,13 +270,10 @@ query GetHomepageSectionHeaders {
 }
 `;
 
-export const GET_REGULATIONS_DIRECTORY_DATA = `
-query GetRegulationsDirectoryData {
-  page(id: "regulations-directory", idType: URI) {
-    title
-    slug
-
-    regulationsDirectoryFields {
+export const GET_STATE_POLICIES_DATA = `
+query GetStatePoliciesandPermitsData {
+  page(id: "840", idType: DATABASE_ID) {
+    statePoliciesandPermitsFields {
       pageTitle
       pageDescription
       linkALabel
@@ -372,30 +369,22 @@ query GetStateLinkBDetails($id: ID!) {
 }
 `;
 
-export const GET_FAQ_PAGE_DATA = `
-query GetFaqPage {
-  page(id: "faqs", idType: URI) {
-    faqPageFields {
-      faq01Question
-      faq01Answer
-
-      faq02Question
-      faq02Answer
-
-      faq03Question
-      faq03Answer
-
-      faq04Question
-      faq04Answer
-
-      faq05Question
-      faq05Answer
-
-      faq06Question
-      faq06Answer
-
-      faq07Question
-      faq07Answer
+export const GET_FAQ_ITEMS = `
+query GetFaqs {
+  faqItems(
+    first: 100
+    where: {
+      orderby: {
+        field: MENU_ORDER
+        order: ASC
+      }
+    }
+  ) {
+    nodes {
+      id
+      title
+      content
+      menuOrder
     }
   }
 }
@@ -532,7 +521,7 @@ export async function getAllFundingTiers() {
   }
 }
 
-export async function getRegulationsDirectoryFields() {
+export async function getstatePoliciesandPermitsFields() {
   try {
     const res = await fetch(
       "https://cms.habctrl.info/graphql",
@@ -546,7 +535,7 @@ export async function getRegulationsDirectoryFields() {
 
         body: JSON.stringify({
           query:
-            GET_REGULATIONS_DIRECTORY_DATA,
+            GET_STATE_POLICIES_DATA,
         }),
 
         cache: "no-store",
@@ -564,12 +553,12 @@ export async function getRegulationsDirectoryFields() {
 
     return (
       data?.page
-        ?.regulationsDirectoryFields ||
+        ?.statePoliciesandPermitsFields ||
       null
     );
   } catch (error) {
     console.error(
-      "Error pulling Regulations Directory CMS data:",
+      "Error pulling State Policies and Permits CMS data:",
       error
     );
 
@@ -826,7 +815,7 @@ export async function getStrategiesFields() {
   }
 }
 
-export async function getFaqPageFields() {
+export async function getFaqItems() {
   try {
     const res = await fetch(
       "https://cms.habctrl.info/graphql",
@@ -836,7 +825,7 @@ export async function getFaqPageFields() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          query: GET_FAQ_PAGE_DATA,
+          query: GET_FAQ_ITEMS,
         }),
         cache: "no-store",
       }
@@ -858,17 +847,14 @@ export async function getFaqPageFields() {
       );
     }
 
-    return (
-      result.data?.page?.faqPageFields ||
-      null
-    );
+    return result.data?.faqItems?.nodes || [];
   } catch (error) {
     console.error(
-      "Error fetching FAQ page data:",
+      "Error fetching FAQ items:",
       error
     );
 
-    return null;
+    return [];
   }
 }
 
