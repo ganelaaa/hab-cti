@@ -117,77 +117,6 @@ const externalLinks = {
     "https://www.epa.gov/test-guidelines-pesticides-and-toxic-substances/series-885-microbial-pesticide-test-guidelines",
 };
 
-const immediateOfficeContacts = [
-  {
-    name: 'Charles "Billy" Smith',
-    email: "smith.charles@epa.gov",
-    responsibility: "Division Director",
-  },
-  {
-    name: "Dan Rosenblatt",
-    email: "rosenblatt.dan@epa.gov",
-    responsibility: "Deputy Director",
-  },
-  {
-    name: "Jennifer Saunders",
-    email: "saunders.jennifer@epa.gov",
-    responsibility: "(Acting) Associate Division Director",
-  },
-  {
-    name: "Kable (Bo) Davis",
-    email: "davis.kable@epa.gov",
-    responsibility: "Senior Regulatory Specialist",
-  },
-  {
-    name: "Alexandra Boukedes",
-    email: "boukedes.alexandra@epa.gov",
-    responsibility: "Acting Senior Regulatory Specialist",
-  },
-  {
-    name: "RD Ombudsman",
-    email: "OPP_RD_Ombudsman@epa.gov",
-    responsibility: "RD Ombudsman",
-  },
-  {
-    name: "CRP Team",
-    email: "ChildResistantPackaging@epa.gov",
-    responsibility: "Child-Resistant Packaging (CRP)",
-  },
-  {
-    name: "Invert Efficacy Team",
-    email: "OPP_RD_INVERT_EFFICACY@epa.gov",
-    responsibility: "Invertebrate Efficacy Team",
-  },
-  {
-    name: "Inerts Mailbox",
-    email: "inertsbranch@epa.gov",
-    responsibility: "Inert Ingredients Team",
-  },
-];
-
-const herbicideBranchContacts = [
-  {
-    name: "Lindsay Roe",
-    email: "roe.lindsay@epa.gov",
-    responsibility: "Branch Chief",
-  },
-  {
-    name: "Mindy Ondish",
-    email: "ondish.mindy@epa.gov",
-    responsibility: "PM Team 23",
-  },
-  {
-    name: "Sarah Meadows",
-    email: "meadows.sarah@epa.gov",
-    responsibility: "Senior Regulatory Specialist",
-  },
-  {
-    name: "Emily Schmid",
-    email: "schmid.emily@epa.gov",
-    responsibility: "PM Team 25",
-  },
-];
-
 function ExternalLink({ href, children, className = "" }) {
   return (
     <a
@@ -547,6 +476,25 @@ export default function PesticideRegistration() {
             id="overview"
             className="mt-10 scroll-mt-28 border-b-4 border-primary-lighter"
           >
+            <p className="mt-8">
+              This information presented on this webpage was collected from the{" "}
+              <a
+                href="https://www.epa.gov/pesticide-registration/how-register-pesticide-guide-applicants-new-process#overview"
+                className="text-underline text-primary"
+              >
+                EPA’s Pesticide Registration webpage
+              </a>{" "}
+              and/or the{" "}
+              <a
+                href="https://www.epa.gov/test-guidelines-pesticides-and-toxic-substances"
+                className="text-underline text-primary"
+              >
+                EPA’s Test Guidelines for Pesticides and Toxic Substances
+                webpage
+              </a>{" "}
+              unless otherwise noted.
+            </p>
+
             <h1 className="font-bold text-primary">Overview</h1>
 
             <div className="mb-8 text-lg">
@@ -784,8 +732,12 @@ export default function PesticideRegistration() {
                       product.
                     </li>
                     <li>
-                      If you are a small business, academic institution,
-                      non-profit, or state/federal office, you may qualify for a{" "}
+                      If you are a{" "}
+                      <a href="https://www.epa.gov/pria-fees/pria-fee-waivers-small-businesses">
+                        small business
+                      </a>
+                      , academic institution, non-profit, or state/federal
+                      office, you may qualify for a{" "}
                       <ExternalLink href={externalLinks.feeWaiver}>
                         fee waiver
                       </ExternalLink>
@@ -807,7 +759,7 @@ export default function PesticideRegistration() {
                   <ExternalLink href={externalLinks.appropriateDivision}>
                     contact the appropriate division
                   </ExternalLink>{" "}
-                  based on product type and schedule a meeting.
+                  (based on product type) and schedule a meeting.
                 </p>
               </div>
 
@@ -934,8 +886,13 @@ export default function PesticideRegistration() {
                           .
                         </li>
                         <li>
-                          Restricted Use Pesticide (RUP) Classification, if
-                          applicable
+                          <a
+                            href="https://www.epa.gov/pesticide-worker-safety/restricted-use-products-rup-report"
+                            className="text-primary text-underline"
+                          >
+                            Restricted Use Pesticide (RUP)
+                          </a>{" "}
+                          Classification, if applicable
                         </li>
                         <li>
                           Statement concerning{" "}
@@ -1013,8 +970,14 @@ export default function PesticideRegistration() {
                   Good Laboratory Practices
                 </Link>
                 , including standardized methods set forth by the EPA or the
-                Organization for Economic Co-operation and Development (OECD).
-                Each required data category has an accompanying series of
+                <a
+                  href="https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/publications-on-testing-and-assessment-of-chemicals.html"
+                  className="text-primary text-underline"
+                >
+                  {" "}
+                  Organization for Economic Co-operation and Development (OECD)
+                </a>
+                . Each required data category has an accompanying series of
                 necessary tests. The various series identify and detail the data
                 required for registration, as well as the test methodology.
                 Additional EPA-accepted standardized test methods can be found
@@ -1027,13 +990,19 @@ export default function PesticideRegistration() {
               <p className="mt-5">
                 Collection of the required pesticide registration data may
                 require field trials. Unregistered pesticides may be applicable
-                for an Experimental Use Permit (EUP). Although the complete set
-                of registration data may not be available at the time of an EUP
-                request, most studies and resulting data must have been
-                collected before the EPA will grant an EUP. An EUP must also be
-                approved by the state in which the experimental use is to take
-                place. To determine the policy of an individual state, use the
-                external link to the{" "}
+                for an{" "}
+                <a
+                  href="/https://habctrl.info/dev/experimentalUse"
+                  className="text-primary text-underline"
+                >
+                  Experimental Use Permit (EUP)
+                </a>
+                . Although the complete set of registration data may not be
+                available at the time of an EUP request, most studies and
+                resulting data must have been collected before the EPA will
+                grant an EUP. An EUP must also be approved by the state in which
+                the experimental use is to take place. To determine the policy
+                of an individual state, use the external link to the{" "}
                 <ExternalLink href={externalLinks.npicStateAgencies}>
                   National Pesticide Information Center
                 </ExternalLink>{" "}
@@ -1103,23 +1072,78 @@ export default function PesticideRegistration() {
             <h1 className="font-bold text-primary">
               Questions about FIFRA Pesticide Product Registration?
             </h1>
+            <p className="font-bold">Antimicrobial</p>
+            <a
+              href="https://www.epa.gov/pesticide-contacts/contacts-office-pesticide-programs-antimicrobials-division#io"
+              className="text-primary text-underline"
+            >
+              Office of Pesticide Programs (OPP), Antimicrobial Division (AD)
+              Contacts
+            </a>
+            <p className="mt-2">
+              General registration questions: AD Ombudsman,{" "}
+              <span className="text-primary text-underline mt-2">
+                pesticidequestions@epa.gov
+              </span>{" "}
+            </p>
+            <p className="font-bold mt-5">Biopesticides</p>
+            <p className="text-underline text-primary">BPPDQuestions@epa.gov</p>
+            <p className="font-bold mt-5">Conventional</p>
+            <a
+              href="https://www.epa.gov/pesticide-contacts/contacts-office-pesticide-programs-registration-division"
+              className="text-primary text-underline"
+            >
+              Office of Pesticide Registration Programs (OPP), Registration
+              Division (RD) Contacts
+            </a>
+            <p className="mt-2">
+              General registration questions: RD Ombudsman,{" "}
+              <span className="text-underline text-primary">
+                OPP_RD_Ombudsman@epa.gov
+              </span>
+            </p>
 
-            <div className="mb-8 text-lg">
-              <p>
-                Contact Information for the EPA&apos;s Pesticide Registration
-                Division
-              </p>
+            <p className="font-bold mt-5">Regional EPA Office Contacts</p>
+            <span>
+              Contact your{" "}
+              <a
+                href="https://www.epa.gov/aboutepa/regional-and-geographic-offices"
+                className="text-underline text-primary"
+              >
+                regional EPA office
+              </a>
+            </span>
 
-              <p className="mt-6 font-bold">Immediate Office</p>
-              <ContactTable rows={immediateOfficeContacts} />
+            <p className="font-bold mt-5">EPA Contacts</p>
+            <span>
+              For a full list of contact emails for individuals, offices, and
+              topics, visit the{" "}
+              <a
+                href="https://www.epa.gov/pesticide-contacts/contacting-epa-about-regulating-pesticides-issues"
+                className="text-underline text-primary"
+              >
+                EPA’s Pesticide Contacts Page.
+              </a>
+            </span>
 
-              <p className="mt-6 font-bold">Herbicide Branch</p>
-              <p>
-                Herbicides including phenoxys, aquatics, desiccants and
-                defoliants
-              </p>
-              <ContactTable rows={herbicideBranchContacts} />
-            </div>
+            <p className="mt-8">
+              This information presented on this webpage was collected from the{" "}
+              <a
+                href="https://www.epa.gov/pesticide-registration/how-register-pesticide-guide-applicants-new-process#overview"
+                className="text-underline text-primary"
+              >
+                EPA’s Pesticide Registration webpage
+              </a>{" "}
+              and/or the{" "}
+              <a
+                href="https://www.epa.gov/test-guidelines-pesticides-and-toxic-substances"
+                className="text-underline text-primary"
+              >
+                EPA’s Test Guidelines for Pesticides and Toxic Substances
+                webpage
+              </a>{" "}
+              unless otherwise noted.
+            </p>
           </div>
         </div>
       </div>

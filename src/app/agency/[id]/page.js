@@ -34,9 +34,21 @@ export default function DynamicAgencyPage({ params }) {
   // The rendering sidebar list maps conditions smoothly to incoming content blocks
   const sections = [
     { id: "background", label: "Background", content: cms?.backgroundText },
-    { id: "implementing-agency", label: "Implementing Agency", content: cms?.implementingAgency },
-    { id: "regulatory-application", label: "Regulatory Application", content: cms?.regulatoryApplication },
-    { id: "permits", label: "Permit(s) applicable to algaecide use", content: cms?.permitsApplicable },
+    {
+      id: "implementing-agency",
+      label: "Implementing Agency",
+      content: cms?.implementingAgency,
+    },
+    {
+      id: "regulatory-application",
+      label: "Regulatory Application",
+      content: cms?.regulatoryApplication,
+    },
+    {
+      id: "permits",
+      label: "Permit(s) applicable to algaecide use",
+      content: cms?.permitsApplicable,
+    },
     { id: "contacts", label: "Contacts", content: cms?.contacts },
   ];
 
@@ -63,18 +75,31 @@ export default function DynamicAgencyPage({ params }) {
   }, [loading, agency]);
 
   if (loading) {
-    return <div className="p-20 text-center text-gray-500">Retrieving agency regulatory fields...</div>;
+    return (
+      <div className="p-20 text-center text-gray-500">
+        Retrieving agency regulatory fields...
+      </div>
+    );
   }
 
   if (!agency) {
-    return <div className="p-20 text-center text-gray-500">Statute profile matching ID not found.</div>;
+    return (
+      <div className="p-20 text-center text-gray-500">
+        Statute profile matching ID not found.
+      </div>
+    );
   }
 
   return (
     <div className="px-20 py-10 tracking-wide">
       {/* Dynamic Breadcrumbs */}
       <div className="flex flex-row items-center gap-2 text-sm text-gray-500 mb-8">
-        <svg className="usa-icon text-gray-500 w-4 h-4" aria-hidden="true" focusable="false" role="img">
+        <svg
+          className="usa-icon text-gray-500 w-4 h-4"
+          aria-hidden="true"
+          focusable="false"
+          role="img"
+        >
           <use href="/assets/img/sprite.svg#arrow_back"></use>
         </svg>
         <Link href="/" className="text-primary hover:underline">
@@ -88,8 +113,8 @@ export default function DynamicAgencyPage({ params }) {
 
       <InternalPageHero
         title={agency.title || "Acts and Regulatory Agencies"}
-        subtitle="Overview"
-        link="https://www.epa.gov"
+        subtitle={cms?.agencySubtitle || "Overview"}
+        link={cms?.agencyhomepagelink || "https://www.epa.gov"}
       />
 
       <div className="flex flex-row gap-10 mt-0">
@@ -123,17 +148,19 @@ export default function DynamicAgencyPage({ params }) {
           {sections.map((section) => {
             if (!section.content) return null;
             return (
-              <div 
-                key={section.id} 
-                id={section.id} 
+              <div
+                key={section.id}
+                id={section.id}
                 className="border-b-4 border-primary-lighter pb-6 mt-10 scroll-mt-28"
               >
                 {/* We render the title heading only if it wasn't pre-rendered inside the WYSIWYG editor input block */}
                 {!section.content.includes(`id="${section.id}"`) && (
-                  <h1 className="text-primary font-bold text-2xl mb-4">{section.label}</h1>
+                  <h1 className="text-primary font-bold text-2xl mb-4">
+                    {section.label}
+                  </h1>
                 )}
-                <div 
-                  dangerouslySetInnerHTML={{ __html: section.content }} 
+                <div
+                  dangerouslySetInnerHTML={{ __html: section.content }}
                   className="text-lg text-gray-800 leading-relaxed"
                 />
               </div>

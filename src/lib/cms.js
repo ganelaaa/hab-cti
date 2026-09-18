@@ -1,4 +1,3 @@
-
 export const GET_ALL_AGENCY_POSTS = `
 query GetAllAgencyPosts {
   agencies(first: 100, where: { orderby: { field: MENU_ORDER, order: ASC } }) {
@@ -25,14 +24,15 @@ query GetAllAgencyPosts {
 
 export async function getAllAgencyPosts() {
   try {
-    const res = await fetch('https://cms.habctrl.info/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: GET_ALL_AGENCY_POSTS }),
-      cache: 'no-store',
+      cache: "no-store",
     });
 
-    if (!res.ok) throw new Error(`WordPress responded with status ${res.status}`);
+    if (!res.ok)
+      throw new Error(`WordPress responded with status ${res.status}`);
 
     const { data } = await res.json();
     return data?.agencies?.nodes || [];
@@ -41,7 +41,6 @@ export async function getAllAgencyPosts() {
     return []; // Return empty array so Promise.all won't crash the homepage
   }
 }
-
 
 export const GET_HOMEPAGE_DATA = `
 query GetHomepageData {
@@ -94,11 +93,6 @@ query GetHomepageData {
 }
 `;
 
-
-
-
-
-
 export const GET_DISCLAIMER_DATA = `
 query GetDisclaimerData {
   page(id: "324", idType: DATABASE_ID) {
@@ -114,7 +108,7 @@ query GetDisclaimerData {
 
 // export const GET_RESEARCH_PAGE_DATA = `
 // query GetResearchPageData {
-//   page(id: "335", idType: DATABASE_ID) { 
+//   page(id: "335", idType: DATABASE_ID) {
 //     researchRequirements{
 //       pageTitle
 //       pageSubtitle
@@ -166,6 +160,8 @@ query GetAgencyBySlug($slug: ID!) {
       regulatoryApplication
       permitsApplicable
       contacts
+      agencyhomepagelink
+      agencySubtitle
     }
   }
 }
@@ -466,11 +462,11 @@ query GetResearchPageData {
 
 export async function getResearchRequirementsFields() {
   try {
-    const res = await fetch('https://cms.habctrl.info/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: GET_RESEARCH_PAGE_DATA }),
-      cache: 'no-store',
+      cache: "no-store",
     });
 
     if (!res.ok) throw new Error(`WordPress API error: ${res.status}`);
@@ -485,11 +481,11 @@ export async function getResearchRequirementsFields() {
 
 export async function getFundingPageFields() {
   try {
-    const res = await fetch('https://cms.habctrl.info/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: GET_FUNDING_PAGE_DATA }),
-      cache: 'no-store',
+      cache: "no-store",
     });
 
     if (!res.ok) throw new Error(`WordPress API returned status ${res.status}`);
@@ -504,11 +500,11 @@ export async function getFundingPageFields() {
 
 export async function getAllFundingTiers() {
   try {
-    const res = await fetch('https://cms.habctrl.info/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: GET_ALL_FUNDING_TIERS }),
-      cache: 'no-store',
+      cache: "no-store",
     });
 
     if (!res.ok) throw new Error(`WordPress API returned status ${res.status}`);
@@ -523,44 +519,29 @@ export async function getAllFundingTiers() {
 
 export async function getstatePoliciesandPermitsFields() {
   try {
-    const res = await fetch(
-      "https://cms.habctrl.info/graphql",
-      {
-        method: "POST",
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
 
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
+      headers: {
+        "Content-Type": "application/json",
+      },
 
-        body: JSON.stringify({
-          query:
-            GET_STATE_POLICIES_DATA,
-        }),
+      body: JSON.stringify({
+        query: GET_STATE_POLICIES_DATA,
+      }),
 
-        cache: "no-store",
-      }
-    );
+      cache: "no-store",
+    });
 
     if (!res.ok) {
-      throw new Error(
-        `WordPress API error: ${res.status}`
-      );
+      throw new Error(`WordPress API error: ${res.status}`);
     }
 
-    const { data } =
-      await res.json();
+    const { data } = await res.json();
 
-    return (
-      data?.page
-        ?.statePoliciesandPermitsFields ||
-      null
-    );
+    return data?.page?.statePoliciesandPermitsFields || null;
   } catch (error) {
-    console.error(
-      "Error pulling State Policies and Permits CMS data:",
-      error
-    );
+    console.error("Error pulling State Policies and Permits CMS data:", error);
 
     return null;
   }
@@ -580,25 +561,22 @@ export async function getStateLinkDetails(stateName, pageType) {
       return null;
     }
 
-    const res = await fetch(
-      "https://cms.habctrl.info/graphql",
-      {
-        method: "POST",
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
 
-        headers: {
-          "Content-Type": "application/json",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        query,
+        variables: {
+          id: stateName,
         },
+      }),
 
-        body: JSON.stringify({
-          query,
-          variables: {
-            id: stateName,
-          },
-        }),
-
-        cache: "no-store",
-      }
-    );
+      cache: "no-store",
+    });
 
     const responseText = await res.text();
 
@@ -610,8 +588,8 @@ export async function getStateLinkDetails(stateName, pageType) {
       throw new Error(
         `WordPress returned a non-JSON response (${res.status}): ${responseText.slice(
           0,
-          500
-        )}`
+          500,
+        )}`,
       );
     }
 
@@ -620,33 +598,27 @@ export async function getStateLinkDetails(stateName, pageType) {
         ?.map((error) => error.message)
         .join(" | ");
 
-      throw new Error(
-        graphQLErrors ||
-          `WordPress API error: ${res.status}`
-      );
+      throw new Error(graphQLErrors || `WordPress API error: ${res.status}`);
     }
 
-    const state =
-      payload.data?.stateDirectory || null;
+    const state = payload.data?.stateDirectory || null;
 
     if (!state) {
-      console.error(
-        `No State Directory post found for slug [${stateName}]`
-      );
+      console.error(`No State Directory post found for slug [${stateName}]`);
 
       return null;
     }
 
     console.log(
       `[State CMS] ${stateName}/${pageType}:`,
-      state.stateRegulationsConnector?.pageFields
+      state.stateRegulationsConnector?.pageFields,
     );
 
     return state;
   } catch (error) {
     console.error(
       `Error pulling ${pageType} CMS data for state [${stateName}]:`,
-      error
+      error,
     );
 
     return null;
@@ -655,11 +627,11 @@ export async function getStateLinkDetails(stateName, pageType) {
 
 export async function getHomepageSectionHeaders() {
   try {
-    const res = await fetch('https://cms.habctrl.info/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: GET_HOMEPAGE_SECTION_HEADERS }),
-      cache: 'no-store', // Ensures fresh data is fetched instantly when updated in WP
+      cache: "no-store", // Ensures fresh data is fetched instantly when updated in WP
     });
 
     if (!res.ok) throw new Error(`WordPress API returned status ${res.status}`);
@@ -674,11 +646,11 @@ export async function getHomepageSectionHeaders() {
 
 export async function getAllSlides() {
   try {
-    const res = await fetch('https://cms.habctrl.info/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: GET_ALL_SLIDES }),
-      cache: 'no-store',
+      cache: "no-store",
     });
 
     if (!res.ok) throw new Error(`WordPress API returned status ${res.status}`);
@@ -691,14 +663,13 @@ export async function getAllSlides() {
   }
 }
 
-
 export async function getAllKeyTools() {
   try {
-    const res = await fetch('https://cms.habctrl.info/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: GET_ALL_KEY_TOOLS }),
-      cache: 'no-store',
+      cache: "no-store",
     });
     if (!res.ok) throw new Error(`Status ${res.status}`);
     const { data } = await res.json();
@@ -711,11 +682,11 @@ export async function getAllKeyTools() {
 
 export async function getAllStrategyPosts() {
   try {
-    const res = await fetch('https://cms.habctrl.info/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: GET_ALL_STRATEGY_POSTS }),
-      cache: 'no-store',
+      cache: "no-store",
     });
     if (!res.ok) throw new Error(`Status ${res.status}`);
     const { data } = await res.json();
@@ -728,14 +699,14 @@ export async function getAllStrategyPosts() {
 
 export async function getAgencyData(id) {
   try {
-    const res = await fetch('https://cms.habctrl.info/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         query: GET_AGENCY_BY_ID,
-        variables: { slug: id }
+        variables: { slug: id },
       }),
-      cache: 'no-store',
+      cache: "no-store",
     });
     if (!res.ok) throw new Error(`Status ${res.status}`);
     const { data } = await res.json();
@@ -748,11 +719,11 @@ export async function getAgencyData(id) {
 
 export async function getExperimentalUseFields() {
   try {
-    const res = await fetch('https://cms.habctrl.info/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: GET_EXPERIMENTAL_USE_DATA }),
-      cache: 'no-store',
+      cache: "no-store",
     });
     if (!res.ok) throw new Error(`Status ${res.status}`);
     const { data } = await res.json();
@@ -762,7 +733,6 @@ export async function getExperimentalUseFields() {
     return null;
   }
 }
-
 
 // export async function getResearchRequirementsFields() {
 //   try {
@@ -783,9 +753,9 @@ export async function getExperimentalUseFields() {
 
 export async function getDisclaimerFields() {
   try {
-    const res = await fetch('https://cms.habctrl.info/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: GET_DISCLAIMER_DATA }),
     });
 
@@ -800,9 +770,9 @@ export async function getDisclaimerFields() {
 
 export async function getStrategiesFields() {
   try {
-    const res = await fetch('https://cms.habctrl.info/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: GET_STRATEGIES_DATA }),
       signal: AbortSignal.timeout(5000), // Drop connection if it hangs over 5 seconds
     });
@@ -810,49 +780,39 @@ export async function getStrategiesFields() {
     const { data } = await res.json();
     return data?.page?.homepageStrategiesFields || null;
   } catch (error) {
-    console.warn("Strategies fetch timed out, using frontend defaults instead.");
+    console.warn(
+      "Strategies fetch timed out, using frontend defaults instead.",
+    );
     return null; // Return null so the component safely reads its static fallback variables
   }
 }
 
 export async function getFaqItems() {
   try {
-    const res = await fetch(
-      "https://cms.habctrl.info/graphql",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          query: GET_FAQ_ITEMS,
-        }),
-        cache: "no-store",
-      }
-    );
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query: GET_FAQ_ITEMS,
+      }),
+      cache: "no-store",
+    });
 
     if (!res.ok) {
-      throw new Error(
-        `WordPress API error: ${res.status}`
-      );
+      throw new Error(`WordPress API error: ${res.status}`);
     }
 
     const result = await res.json();
 
     if (result.errors?.length) {
-      throw new Error(
-        result.errors
-          .map((error) => error.message)
-          .join(" | ")
-      );
+      throw new Error(result.errors.map((error) => error.message).join(" | "));
     }
 
     return result.data?.faqItems?.nodes || [];
   } catch (error) {
-    console.error(
-      "Error fetching FAQ items:",
-      error
-    );
+    console.error("Error fetching FAQ items:", error);
 
     return [];
   }
@@ -860,13 +820,13 @@ export async function getFaqItems() {
 
 export async function getHomepageFields() {
   try {
-    const res = await fetch('https://cms.habctrl.info/graphql', {
-      method: 'POST',
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ query: GET_HOMEPAGE_DATA }),
-      cache: 'no-store',
+      cache: "no-store",
     });
 
     if (!res.ok) {
@@ -916,42 +876,32 @@ export async function getAllGlossaryPosts() {
 
   try {
     while (hasNextPage) {
-      const res = await fetch(
-        'https://cms.habctrl.info/graphql',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+      const res = await fetch("https://cms.habctrl.info/graphql", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: GET_ALL_GLOSSARY_POSTS,
+          variables: {
+            first: 100,
+            after,
           },
-          body: JSON.stringify({
-            query: GET_ALL_GLOSSARY_POSTS,
-            variables: {
-              first: 100,
-              after,
-            },
-          }),
-          cache: 'no-store',
-        }
-      );
+        }),
+        cache: "no-store",
+      });
 
       if (!res.ok) {
-        throw new Error(
-          `WordPress responded with status ${res.status}`
-        );
+        throw new Error(`WordPress responded with status ${res.status}`);
       }
 
       const result = await res.json();
 
       if (result.errors?.length) {
-        throw new Error(
-          result.errors
-            .map((error) => error.message)
-            .join(', ')
-        );
+        throw new Error(result.errors.map((error) => error.message).join(", "));
       }
 
-      const connection =
-        result.data?.glossaryEntries;
+      const connection = result.data?.glossaryEntries;
 
       if (!connection) {
         break;
@@ -959,17 +909,15 @@ export async function getAllGlossaryPosts() {
 
       const entries = connection.nodes.map((node) => ({
         id: node.databaseId,
-        term: node.title || '',
-        content: node.content || '',
+        term: node.title || "",
+        content: node.content || "",
       }));
 
       allEntries.push(...entries);
 
-      hasNextPage =
-        connection.pageInfo?.hasNextPage === true;
+      hasNextPage = connection.pageInfo?.hasNextPage === true;
 
-      after =
-        connection.pageInfo?.endCursor || null;
+      after = connection.pageInfo?.endCursor || null;
 
       // Prevent an accidental infinite request loop.
       if (hasNextPage && !after) {
@@ -979,10 +927,7 @@ export async function getAllGlossaryPosts() {
 
     return allEntries;
   } catch (error) {
-    console.error(
-      'Error fetching glossary entries:',
-      error
-    );
+    console.error("Error fetching glossary entries:", error);
 
     return [];
   }
