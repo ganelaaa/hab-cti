@@ -12,14 +12,14 @@ const sections = [
     label: "Additional Information required when submitting GLP-compliant data",
   },
   { id: "data-exempt", label: "Data Exempt from GLP compliance" },
+  { id: "additional-resources", label: "Additional Resources" },
   { id: "questions", label: "Questions about Good Laboratory Practices?" },
 ];
 
 const externalLinks = {
-  cfrPart160:
-    "https://www.ecfr.gov/current/title-40/chapter-I/subchapter-E/part-160",
-  cfrPart160Full:
-    "https://www.govinfo.gov/content/pkg/CFR-2011-title40-vol24/xml/CFR-2011-title40-vol24-part160.xml",
+  heroLink:
+    "https://www.epa.gov/compliance/good-laboratory-practices-standards-compliance-monitoring-program",
+  cfr: "https://www.ecfr.gov/current/title-40/chapter-I/subchapter-E/part-160",
 };
 
 function ExternalLink({ href, children, className = "" }) {
@@ -103,8 +103,8 @@ export default function GoodLaboratoryPracticesPage() {
       <InternalPageHero
         title="Good Laboratory Practices"
         subtitle="Compliance"
-        link={externalLinks.cfrPart160}
-      />      
+        link={externalLinks.heroLink}
+      />
 
       {/* scroll left side */}
       <div className="mt-0 flex flex-row gap-10">
@@ -131,6 +131,25 @@ export default function GoodLaboratoryPracticesPage() {
         </div>
 
         <div className="flex-1">
+          <p className="mt-10">
+            The information presented on this webpage was collected from{" "}
+            <a
+              className="text-underline text-primary"
+              href="https://www.govinfo.gov/content/pkg/CFR-2011-title40-vol24/xml/CFR-2011-title40-vol24-part160.xml"
+            >
+              40 CFR Part 160
+            </a>
+            , unless otherwise specified. For more details, please visit the
+            agency’s website. For a full list of contact information for
+            individuals, offices, and topics, visit the{" "}
+            <a
+              className="text-underline text-primary"
+              href="https://www.epa.gov/pesticide-contacts/contacting-epa-about-regulating-pesticides-issues"
+            >
+              EPA’s Pesticide Contacts Page
+            </a>
+            .{" "}
+          </p>
           {/* overview section */}
           <div
             id="overview"
@@ -144,12 +163,12 @@ export default function GoodLaboratoryPracticesPage() {
                 integrity of data submitted to the government for regulatory
                 decisions. The GLP standards include, but are not limited to,
                 logs of equipment maintenance and calibration, reagent use and
-                storage, personnel qualifications and training, quality assurance
-                investigations and reports, and adherence to respective standard
-                operating procedures (SOP) for all laboratory activities. Data
-                collected to support FIFRA product registration must follow GLPs
-                as defined in{" "}
-                <ExternalLink href={externalLinks.cfrPart160}>
+                storage, personnel qualifications and training, quality
+                assurance investigations and reports, and adherence to
+                respective standard operating procedures (SOP) for all
+                laboratory activities. Data collected to support FIFRA product
+                registration must follow GLPs as defined in{" "}
+                <ExternalLink href={externalLinks.cfr}>
                   40 CFR Part 160
                 </ExternalLink>
                 .
@@ -163,6 +182,12 @@ export default function GoodLaboratoryPracticesPage() {
             className="scroll-mt-28 border-b-4 border-primary-lighter"
           >
             <h1 className="font-bold text-primary">
+              <a
+                className="text-underline text-primary hover:text-primary-darker"
+                href="/pesticideRegistration"
+              >
+                Pesticide Registration
+              </a>{" "}
               Data requiring GLP compliance
             </h1>
 
@@ -206,8 +231,8 @@ export default function GoodLaboratoryPracticesPage() {
                 </li>
                 <li className="mt-3">Substance characterization</li>
                 <li className="mt-3">
-                  SOP and protocol lists, including all amendments and deviations
-                  from SOPs
+                  SOP and protocol lists, including all amendments and
+                  deviations from SOPs
                 </li>
                 <li className="mt-3">
                   Logs of equipment maintenance and calibration
@@ -229,20 +254,75 @@ export default function GoodLaboratoryPracticesPage() {
               <ul className="ml-6 list-disc">
                 <li>Basic exploratory research</li>
                 <li className="mt-3">Screening tests</li>
-                <li className="mt-3">Minimum risk pesticides</li>
+                <li className="mt-3">
+                  <a
+                    className="text-underline text-primary"
+                    href="/minimumRiskPesticides"
+                  >
+                    Minimum risk pesticides
+                  </a>
+                </li>
               </ul>
+            </div>
+          </div>
 
-              <p className="mt-6 text-base font-bold">
-                This information was collected from{" "}
-                <ExternalLink href={externalLinks.cfrPart160Full}>
-                  40 CFR Part 160
-                </ExternalLink>{" "}
-                (this link leads to a table of contents with links to the
-                various subsections of 40 CFR Part 160) (unless otherwise
-                specified. For more details, please visit the website. Note,
-                there are two links to 40 CFR part 160 on this page. The link in
-                the Overview section leads to the full 40 CFR Part 160 document.
-              </p>
+          {/* additional resources */}
+          <div
+            id="additional-resources"
+            className="scroll-mt-28 border-b-4 border-primary-lighter"
+          >
+            <h1 className="font-bold text-primary">Additional Resources</h1>
+
+            <div className="mb-8 text-lg">
+              <ul className="ml-6 list-disc">
+                <li>
+                  <a
+                    className="text-primary text-underline"
+                    href="https://www.epa.gov/compliance/resources-and-guidance-documents-compliance-monitoring#cwa"
+                  >
+                    Compliance Monitoring Resources and Guidance Documents
+                  </a>
+                </li>
+                <li className="mt-3">
+                  Compliance Assurance Program
+                  <ul className="mt-2 ml-6 list-disc">
+                    <li>
+                      <a
+                        className="text-primary text-underline"
+                        href="https://www.epa.gov/compliance/compliance-assistance-centers"
+                      >
+                        Compliance Assistance Centers
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="text-primary text-underline"
+                        href="https://www.epa.gov/compliance/resources-and-guidance-documents-compliance-assistance"
+                      >
+                        Resources and Guidance Documents for Compliance
+                        Assistance
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a
+                    className="text-primary text-underline"
+                    href="https://www.epa.gov/compliance/guidance-federal-insecticide-fungicide-and-rodenticide-act-fifra-inspection-manual"
+                  >
+                    FIFRA Inspection Manual
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="text-primary text-underline"
+                    href="https://www.epa.gov/compliance/epa-good-laboratory-practices-inspections"
+                  >
+                    List of laboratories that have undergone EPA’s Good
+                    Laboratory Practices Inspections
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
 
@@ -253,31 +333,58 @@ export default function GoodLaboratoryPracticesPage() {
             </h1>
 
             <div className="mb-8 text-lg">
-              <ul className="ml-6 list-disc">
-                <li>
-                  Ricardo Jones (
-                  <MailLink email="jones.ricardo@epa.gov">
-                    jones.ricardo@epa.gov
-                  </MailLink>
-                  ), 202-566-1948
-                </li>
+              <p>
+                <b>General Good Laboratory Practice Questions</b>
+              </p>
+              <p>
+                Email:{" "}
+                <a
+                  className="text-primary text-underline"
+                  href="mailto:GLP@epa.gov"
+                >
+                  GLP@epa.gov
+                </a>
+              </p>
 
-                <li className="mt-3">
-                  Rafael Sanchez (
-                  <MailLink email="sanchez.rafael@epa.gov">
-                    sanchez.rafael@epa.gov
-                  </MailLink>
-                  ), 202-564-7028
-                </li>
+              <p className="mt-5">
+                <b>Regional EPA Office Contacts</b>
+              </p>
+              <p>
+                Contact your{" "}
+                <a
+                  className="text-primary text-underline"
+                  href="https://www.epa.gov/aboutepa/regional-and-geographic-offices"
+                >
+                  regional EPA office
+                </a>
+              </p>
 
-                <li className="mt-3">
-                  Leslie Cronkhite (
-                  <MailLink email="cronkhite.leslie@epa.gov">
-                    cronkhite.leslie@epa.gov
-                  </MailLink>
-                  )
-                </li>
-              </ul>
+              <p className="mt-5">
+                <b>EPA Contacts</b>
+              </p>
+              <p>
+                For a full list of contact emails for individuals, offices, and
+                topics, visit the{" "}
+                <a
+                  className="text-primary text-underline"
+                  href="https://www.epa.gov/pesticide-contacts/contacting-epa-about-regulating-pesticides-issues"
+                >
+                  EPA’s Pesticide Contacts Page
+                </a>
+                .{" "}
+              </p>
+
+              <p className="mt-10">
+                The information presented on this webpage was collected from{" "}
+                <a
+                  className="text-primary text-underline"
+                  href="https://www.govinfo.gov/content/pkg/CFR-2011-title40-vol24/xml/CFR-2011-title40-vol24-part160.xml"
+                >
+                  40 CFR Part 160
+                </a>
+                , unless otherwise specified. For more details, please visit the
+                agency’s website.{" "}
+              </p>
             </div>
           </div>
         </div>

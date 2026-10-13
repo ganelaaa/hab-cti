@@ -14,6 +14,8 @@ const sections = [
 
 const externalLinks = {
   pesticideTolerances: "https://www.epa.gov/pesticide-tolerances",
+  heroLink:
+    "https://www.epa.gov/pesticide-tolerances/about-pesticide-tolerances",
   ffdca:
     "https://www.epa.gov/laws-regulations/summary-federal-food-drug-and-cosmetic-act",
   cfr15250:
@@ -343,7 +345,7 @@ export default function TolerancesPage() {
         {/* Content */}
         <div className="relative z-10 px-1 py-4 text-center duration-300 hover:scale-105">
           <a
-            href={externalLinks.pesticideTolerances}
+            href={externalLinks.heroLink}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block text-white no-underline hover:no-underline"
@@ -384,6 +386,32 @@ export default function TolerancesPage() {
         </div>
 
         <div className="min-w-0 flex-1">
+          <p className="mt-10">
+            This information presented on this webpage was collected from the{" "}
+            <a
+              className="text-underline text-primary"
+              href="https://www.epa.gov/pesticide-tolerances"
+            >
+              EPA Regulation of Pesticide Residues on Food webpage
+            </a>{" "}
+            or the{" "}
+            <a
+              className="text-underline text-primary"
+              href="https://www.epa.gov/test-guidelines-pesticides-and-toxic-substances"
+            >
+              EPA Test Guidelines for Pesticides and Toxic Substances webpage
+            </a>
+            , unless otherwise specified. For more details, please visit the
+            website. For a full list of contact information for individuals,
+            offices, and topics, visit the{" "}
+            <a
+              className="text-underline text-primary"
+              href="https://www.epa.gov/pesticide-contacts/contacting-epa-about-regulating-pesticides-issues"
+            >
+              EPA’s Pesticide Contacts Page
+            </a>
+            .{" "}
+          </p>
           {/* overview section */}
           <div
             id="overview"
@@ -411,8 +439,14 @@ export default function TolerancesPage() {
                 <ExternalLink href={externalLinks.ffdca}>
                   Section 408 of the Federal Food, Drug, and Cosmetic Act
                 </ExternalLink>{" "}
-                (FFDCA), both the active and inert ingredients in a pesticide
-                need a tolerance or an exemption from tolerance.{" "}
+                <a
+                  className="text-underline text-primary"
+                  href="https://habctrl.info/agency/413"
+                >
+                  (FFDCA)
+                </a>
+                , both the active and inert ingredients in a pesticide need a
+                tolerance or an exemption from tolerance.{" "}
                 <ExternalLink href={externalLinks.cfr15250}>
                   40 CFR 152.50(i)
                 </ExternalLink>{" "}
@@ -455,7 +489,9 @@ export default function TolerancesPage() {
                 <li className="mt-3">
                   Factors considered in setting a tolerance
                   <ul className="mt-3 ml-6 list-[circle]">
-                    <li>Toxicity of the pesticide and its breakdown products</li>
+                    <li>
+                      Toxicity of the pesticide and its breakdown products
+                    </li>
                     <li className="mt-3">
                       The frequency and amount of pesticide application
                       necessary to treat the pest
@@ -472,13 +508,13 @@ export default function TolerancesPage() {
 
                 <li className="mt-3">
                   ENFORCEMENT - Food products produced in the US are regulated
-                  by the Food and Drug Administration (FDA), the US Department of
-                  Agriculture (USDA), and state enforcement agencies.
+                  by the Food and Drug Administration (FDA), the US Department
+                  of Agriculture (USDA), and state enforcement agencies.
                 </li>
 
                 <li className="mt-3">
-                  Before the establishment of pesticide tolerances, the pesticide
-                  registrant must provide the EPA with{" "}
+                  Before the establishment of pesticide tolerances, the
+                  pesticide registrant must provide the EPA with{" "}
                   <InternalAnchor href={externalLinks.productData}>
                     product data
                   </InternalAnchor>{" "}
@@ -524,8 +560,8 @@ export default function TolerancesPage() {
             <div className="mb-8 text-lg">
               <p>
                 The EPA Guideline Series contains information on data
-                requirements but not test procedures. Standardized procedures for
-                the prescribed tests can be found on the Organisation for
+                requirements but not test procedures. Standardized procedures
+                for the prescribed tests can be found on the Organisation for
                 Economic Co-operation and Development’s{" "}
                 <ExternalLink href={externalLinks.oecdGuidelines}>
                   (OECD) Guidelines for the Testing of Chemicals webpage.
@@ -542,7 +578,8 @@ export default function TolerancesPage() {
                 </ExternalLink>{" "}
                 or the{" "}
                 <ExternalLink href={externalLinks.testGuidelinesBase}>
-                  EPA Test Guidelines for Pesticides and Toxic Substances webpage
+                  EPA Test Guidelines for Pesticides and Toxic Substances
+                  webpage
                 </ExternalLink>
                 , unless otherwise specified. For more details, please visit the
                 website.
@@ -594,8 +631,11 @@ export default function TolerancesPage() {
             </h1>
 
             <div className="mb-8 text-lg">
-              <ul className="ml-6 list-disc">
-                <li>
+              <p>
+                <b>General Questions</b>
+              </p>
+              <ul className="list-disc ml-6">
+                <li className="mt-3">
                   Contact{" "}
                   <MailLink email="pesticidequestions@epa.gov">
                     pesticidequestions@epa.gov
@@ -610,20 +650,57 @@ export default function TolerancesPage() {
                 </li>
 
                 <li className="mt-3">
-                  Active Ingredients: Eric Bohnenblust,{" "}
-                  <MailLink email="Bohnenblust.Eric@epa.gov">
-                    Bohnenblust.Eric@epa.gov
-                  </MailLink>{" "}
-                  , 202-566-2506
-                </li>
-
-                <li className="mt-3">
                   Inert Ingredients:{" "}
                   <MailLink email="InertsBranch@epa.gov">
                     InertsBranch@epa.gov
                   </MailLink>
                 </li>
               </ul>
+              <p className="mt-5">
+                <b>Regional EPA Office Contacts</b>
+              </p>
+              <ul className="list-disc ml-6">
+                <li className="mt-3">
+                  Contact your{" "}
+                  <a
+                    className="text-underline text-primary"
+                    href="https://www.epa.gov/aboutepa/regional-and-geographic-offices"
+                  >
+                    regional EPA office
+                  </a>
+                </li>
+              </ul>
+              <p className="mt-5">
+                <b>EPA Contacts</b>
+              </p>
+              For a full list of contact emails for individuals, offices, and
+              topics, visit the{" "}
+              <a
+                className="text-underline text-primary"
+                href="https://www.epa.gov/pesticide-contacts/contacting-epa-about-regulating-pesticides-issues"
+              >
+                EPA’s Pesticide Contacts Page
+              </a>
+              .
+              <p className="mt-10">
+                This information was collected from the{" "}
+                <a
+                  className="text-underline text-primary"
+                  href="https://www.epa.gov/pesticide-tolerances"
+                >
+                  EPA Regulation of Pesticide Residues on Food webpage
+                </a>{" "}
+                or the{" "}
+                <a
+                  className="text-underline text-primary"
+                  href="https://www.epa.gov/test-guidelines-pesticides-and-toxic-substances"
+                >
+                  EPA Test Guidelines for Pesticides and Toxic Substances
+                  webpage
+                </a>
+                , unless otherwise specified. For more details, please visit the
+                website.
+              </p>
             </div>
           </div>
         </div>

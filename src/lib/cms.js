@@ -162,6 +162,8 @@ query GetAgencyBySlug($slug: ID!) {
       contacts
       agencyhomepagelink
       agencySubtitle
+      beginningCitation
+      endCitation
     }
   }
 }

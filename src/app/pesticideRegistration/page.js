@@ -19,8 +19,12 @@ const sections = [
 ];
 
 const externalLinks = {
+  additionalAntimicrobial:
+    "https://www.epa.gov/pesticide-registration/data-requirements-pesticide-registration#antimcicrobial",
+  applicator:
+    "https://www.epa.gov/pesticide-registration/data-requirements-pesticide-registration#auep",
   pesticideRegistration:
-    "https://www.epa.gov/pesticide-registration/about-pesticide-registration",
+    "https://www.epa.gov/pesticide-registration/how-register-pesticide-guide-applicants-new-process#overview",
   registrationManual:
     "https://www.epa.gov/pesticide-registration/pesticide-registration-manual",
   chapter1:
@@ -43,58 +47,63 @@ const externalLinks = {
   antimicrobial:
     "https://www.epa.gov/pesticide-registration/antimicrobial-pesticide-registration",
   minimumRisk: "/minimumRiskPesticides",
-  physicalDevices:
-    "https://www.epa.gov/pesticide-registration/pesticide-devices-guide-consumers",
+  physicalDevices: "/physicalDevices",
   consultants:
     "https://www.epa.gov/pesticide-registration/list-pesticide-regulatory-consultants",
+  domesticAnimals:
+    "https://www.epa.gov/pesticide-registration/data-requirements-pesticide-registration#dh",
   testGuidelines:
     "https://www.epa.gov/test-guidelines-pesticides-and-toxic-substances/final-test-guidelines-pesticides-and-toxic",
   dataRequirements: "/researchRequirements",
   existingStudies:
-    "https://www.epa.gov/pesticide-registration/pesticide-registration-manual-chapter-10-data-compensation-requirements",
-  priaFees:
-    "https://www.epa.gov/pesticide-registration/pesticide-registration-fees-and-fee-waivers",
+    "https://www.epa.gov/pesticide-registration/pesticide-data-submitters-list-pdsl",
+  environmentalFate:
+    "https://www.epa.gov/pesticide-registration/data-requirements-pesticide-registration#ef",
   priaDecisionTree:
-    "https://www.epa.gov/pesticide-registration/pria-fee-determination-decision-tree",
-  feeWaiver:
-    "https://www.epa.gov/pesticide-registration/pesticide-registration-fees-and-fee-waivers",
+    "https://www.epa.gov/pria-fees/pria-5-fee-determination-decision-tree",
+  productChemistry:
+    "https://www.epa.gov/pesticide-registration/data-requirements-pesticide-registration#chemistry",
+  productPerformance:
+    "https://www.epa.gov/pesticide-registration/data-requirements-pesticide-registration#pp",
   appropriateDivision:
-    "https://www.epa.gov/pesticide-registration/pesticide-registration-manual-chapter-21-directions-submitting-applications",
-  companyNumber:
-    "https://www.epa.gov/pesticide-registration/pesticide-establishment-and-company-numbers",
+    "https://www.epa.gov/pesticide-registration/forms/contact-us-about-pesticide-registration",
   form85701:
-    "https://www.epa.gov/sites/default/files/2013-07/documents/8570-1.pdf",
+    "https://www.epa.gov/pesticide-registration/pesticide-registration-manual-blank-forms",
   form85704:
-    "https://www.epa.gov/sites/default/files/2013-07/documents/8570-4_0.pdf",
+    "https://www.epa.gov/pesticide-registration/pesticide-registration-manual-blank-forms",
   form857034:
-    "https://www.epa.gov/sites/default/files/2013-07/documents/8570-34.pdf",
+    "https://www.epa.gov/pesticide-registration/pesticide-registration-manual-blank-forms",
   form857035:
-    "https://www.epa.gov/sites/default/files/2021-01/documents/8570-35.pdf",
+    "https://www.epa.gov/pesticide-registration/pesticide-registration-manual-blank-forms",
   form857027:
-    "https://www.epa.gov/sites/default/files/2013-07/documents/8570-27.pdf",
+    "https://www.epa.gov/pesticide-registration/pesticide-registration-manual-blank-forms",
   form857036:
     "https://www.epa.gov/sites/default/files/2013-07/documents/8570-36.pdf",
   cfr152119:
-    "https://www.ecfr.gov/current/title-40/chapter-I/subchapter-E/part-152/subpart-G/section-152.119",
+    "https://www.ecfr.gov/current/title-40/chapter-I/subchapter-E/part-152#sp40.26.152.f",
   cfr157:
     "https://www.ecfr.gov/current/title-40/chapter-I/subchapter-E/part-157",
   tolerances: "https://www.epa.gov/pesticide-tolerances",
-  oecd: "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html",
+  oecd: "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/publications-on-testing-and-assessment-of-chemicals.html",
   npicStateAgencies: "https://npic.orst.edu/reg/state_agencies.html",
+  nonTarget:
+    "https://www.epa.gov/pesticide-registration/data-requirements-pesticide-registration#nto",
   oecdPhysicalChemical:
-    "https://www.oecd-ilibrary.org/environment/oecd-guidelines-for-the-testing-of-chemicals-section-1-physical-chemical-properties_20745753",
+    "https://www.oecd.org/en/publications/serials/oecd-guidelines-for-the-testing-of-chemicals-section-1_g1gha292.html",
   oecdHealth:
-    "https://www.oecd-ilibrary.org/environment/oecd-guidelines-for-the-testing-of-chemicals-section-4-health-effects_20745788",
+    "https://www.oecd.org/en/publications/serials/oecd-guidelines-for-the-testing-of-chemicals-section-4_g1gha298.html",
   oecdBiotic:
-    "https://www.oecd-ilibrary.org/environment/oecd-guidelines-for-the-testing-of-chemicals-section-2-effects-on-biotic-systems_20745761",
+    "https://www.oecd.org/en/publications/serials/oecd-guidelines-for-the-testing-of-chemicals-section-2_g1gha294.html",
   oecdEnvironmental:
-    "https://www.oecd-ilibrary.org/environment/oecd-guidelines-for-the-testing-of-chemicals-section-3-environmental-fate-and-behaviour_2074577x",
+    "https://www.oecd.org/en/publications/serials/oecd-guidelines-for-the-testing-of-chemicals-section-3_g1gha296.html",
   oecdOther:
-    "https://www.oecd-ilibrary.org/environment/oecd-guidelines-for-the-testing-of-chemicals-section-5-other-test-guidelines_20745796",
+    "https://www.oecd.org/en/publications/serials/oecd-guidelines-for-the-testing-of-chemicals-section-5_g1gha351.html",
   oecdSeawater:
-    "https://www.oecd-ilibrary.org/environment/test-no-306-biodegradability-in-seawater_9789264070486-en",
+    "https://www.oecd.org/en/publications/test-no-306-biodegradability-in-seawater_9789264070486-en.html",
   oecdMrl:
     "https://www.epa.gov/pesticide-tolerances/oecd-maximum-residue-limit-calculator",
+  postApplication:
+    "https://www.epa.gov/pesticide-registration/data-requirements-pesticide-registration#papp",
   series810:
     "https://www.epa.gov/test-guidelines-pesticides-and-toxic-substances/series-810-product-performance-test-guidelines",
   series830:
@@ -115,6 +124,10 @@ const externalLinks = {
     "https://www.epa.gov/test-guidelines-pesticides-and-toxic-substances/series-880-biochemicals-test-guidelines",
   series885:
     "https://www.epa.gov/test-guidelines-pesticides-and-toxic-substances/series-885-microbial-pesticide-test-guidelines",
+  sprayDrift:
+    "https://www.epa.gov/pesticide-registration/data-requirements-pesticide-registration#spray",
+  residueChemistry:
+    "https://www.epa.gov/pesticide-registration/data-requirements-pesticide-registration#rc",
 };
 
 function ExternalLink({ href, children, className = "" }) {
@@ -492,7 +505,14 @@ export default function PesticideRegistration() {
                 EPA’s Test Guidelines for Pesticides and Toxic Substances
                 webpage
               </a>{" "}
-              unless otherwise noted.
+              unless otherwise noted. For a full list of contact information for
+              individuals, offices, and topics, visit the{" "}
+              <a
+                href="https://www.epa.gov/pesticide-contacts/contacting-epa-about-regulating-pesticides-issues "
+                className="text-underline text-primary"
+              >
+                EPA’s Pesticide Contacts Page.
+              </a>
             </p>
 
             <h1 className="font-bold text-primary">Overview</h1>
@@ -521,7 +541,10 @@ export default function PesticideRegistration() {
                 </Link>
                 . Each type has a unique registration pathway, but the general
                 process is similar. If your product qualifies as a{" "}
-                <ExternalLink href={externalLinks.physicalDevices}>
+                <ExternalLink
+                  href={externalLinks.physicalDevices}
+                  className="text-primary text-underline"
+                >
                   physical device
                 </ExternalLink>
                 , living plant, or{" "}
@@ -600,54 +623,56 @@ export default function PesticideRegistration() {
 
                   <ul className="mt-3 ml-6 list-disc">
                     <li>
-                      <ExternalLink href={externalLinks.series830}>
+                      <ExternalLink href={externalLinks.productChemistry}>
                         Product Chemistry
                       </ExternalLink>
                     </li>
                     <li>
-                      <ExternalLink href={externalLinks.series810}>
+                      <ExternalLink href={externalLinks.productPerformance}>
                         Product Performance
                       </ExternalLink>
                     </li>
                     <li>
-                      <ExternalLink href={externalLinks.series870}>
+                      <ExternalLink href={externalLinks.domesticAnimals}>
                         Data from studies that determine hazard to humans and
                         domestic animals
                       </ExternalLink>
                     </li>
                     <li>
-                      <ExternalLink href={externalLinks.series850}>
+                      <ExternalLink href={externalLinks.nonTarget}>
                         Data from studies that determine hazard to non-target
                         organisms
                       </ExternalLink>
                     </li>
                     <li>
-                      <ExternalLink href={externalLinks.series875}>
+                      <ExternalLink href={externalLinks.postApplication}>
                         Post application exposure studies
                       </ExternalLink>
                     </li>
                     <li>
-                      <ExternalLink href={externalLinks.series875}>
+                      <ExternalLink href={externalLinks.applicator}>
                         Applicator/user exposure studies
                       </ExternalLink>
                     </li>
                     <li>
-                      <ExternalLink href={externalLinks.series840}>
+                      <ExternalLink href={externalLinks.sprayDrift}>
                         Pesticide spray drift evaluation
                       </ExternalLink>
                     </li>
                     <li>
-                      <ExternalLink href={externalLinks.series835}>
+                      <ExternalLink href={externalLinks.environmentalFate}>
                         Environmental fate
                       </ExternalLink>
                     </li>
                     <li>
-                      <ExternalLink href={externalLinks.series860}>
+                      <ExternalLink href={externalLinks.residueChemistry}>
                         Residue chemistry
                       </ExternalLink>
                     </li>
                     <li>
-                      <ExternalLink href={externalLinks.antimicrobial}>
+                      <ExternalLink
+                        href={externalLinks.additionalAntimicrobial}
+                      >
                         Additional information for antimicrobial products
                       </ExternalLink>
                       <ul className="mt-3 ml-6 list-[circle]">
@@ -688,20 +713,11 @@ export default function PesticideRegistration() {
                 <div>
                   <p>Consider using a consultant</p>
                   <ul className="mt-3 ml-6 list-disc">
-                    <li>
-                      <ExternalLink href={externalLinks.consultants}>
+                    <li className="whitespace-nowrap">
+                      <ExternalLink href="https://www.epa.gov/pesticide-registration/list-pesticide-regulatory-consultants">
                         List of Pesticide Regulatory Consultants
                       </ExternalLink>{" "}
                       - provided by EPA
-                    </li>
-                    <li>
-                      <Link
-                        href="/consultantsDatabase"
-                        className="text-primary text-underline"
-                      >
-                        List of consultants
-                      </Link>{" "}
-                      - provided by this website
                     </li>
                   </ul>
                 </div>
@@ -716,12 +732,9 @@ export default function PesticideRegistration() {
                   </p>
                   <ul className="mt-3 ml-6 list-disc">
                     <li>
-                      The{" "}
-                      <ExternalLink href={externalLinks.priaFees}>
-                        Pesticide Registration Improvement Act
-                      </ExternalLink>{" "}
-                      (PRIA, aka PRIA 5) requires the submission of fees
-                      associated with EPA assessments of pesticide data.
+                      The Pesticide Registration Improvement Act (PRIA, aka PRIA
+                      5) requires the submission of fees associated with EPA
+                      assessments of pesticide data.
                     </li>
                     <li>
                       Use the{" "}
@@ -733,15 +746,11 @@ export default function PesticideRegistration() {
                     </li>
                     <li>
                       If you are a{" "}
-                      <a href="https://www.epa.gov/pria-fees/pria-fee-waivers-small-businesses">
+                      <ExternalLink href="https://www.epa.gov/pria-fees/pria-fee-waivers-small-businesses">
                         small business
-                      </a>
-                      , academic institution, non-profit, or state/federal
-                      office, you may qualify for a{" "}
-                      <ExternalLink href={externalLinks.feeWaiver}>
-                        fee waiver
                       </ExternalLink>
-                      .
+                      , academic institution, non-profit, or state/federal
+                      office, you may qualify for a fee waiver.
                     </li>
                   </ul>
                 </div>
@@ -750,12 +759,8 @@ export default function PesticideRegistration() {
               <div className="mt-5 flex gap-4">
                 <StepNumber>5</StepNumber>
                 <p>
-                  Schedule a{" "}
-                  <ExternalLink href={externalLinks.chapter2}>
-                    pre-registration
-                  </ExternalLink>{" "}
-                  meeting with the EPA. After reviewing the pesticide
-                  registration process,{" "}
+                  Schedule a pre-registration meeting with the EPA. After
+                  reviewing the pesticide registration process,{" "}
                   <ExternalLink href={externalLinks.appropriateDivision}>
                     contact the appropriate division
                   </ExternalLink>{" "}
@@ -765,13 +770,7 @@ export default function PesticideRegistration() {
 
               <div className="mt-5 flex gap-4">
                 <StepNumber>6</StepNumber>
-                <p>
-                  Obtain an{" "}
-                  <ExternalLink href={externalLinks.companyNumber}>
-                    EPA company number
-                  </ExternalLink>
-                  .
-                </p>
+                <p>Obtain an EPA company number.</p>
               </div>
 
               <div className="mt-5 flex gap-4">
@@ -803,7 +802,7 @@ export default function PesticideRegistration() {
                         <li>Company number</li>
                         <li>
                           Summary of Application, including:
-                          <ul className="mt-3 ml-6 list-disc">
+                          <ul className="ml-6 list-disc">
                             <li>
                               A list of included data with a brief description
                               of the results
@@ -939,14 +938,6 @@ export default function PesticideRegistration() {
                   </ul>
                 </div>
               </div>
-
-              <p className="mt-6 text-base font-bold">
-                This information was collected from the{" "}
-                <ExternalLink href={externalLinks.pesticideRegistration}>
-                  EPA&apos;s Pesticide Registration webpage
-                </ExternalLink>
-                , unless otherwise noted.
-              </p>
             </div>
           </div>
 
@@ -992,7 +983,7 @@ export default function PesticideRegistration() {
                 require field trials. Unregistered pesticides may be applicable
                 for an{" "}
                 <a
-                  href="/https://habctrl.info/dev/experimentalUse"
+                  href="/experimentalUse"
                   className="text-primary text-underline"
                 >
                   Experimental Use Permit (EUP)
@@ -1002,26 +993,17 @@ export default function PesticideRegistration() {
                 resulting data must have been collected before the EPA will
                 grant an EUP. An EUP must also be approved by the state in which
                 the experimental use is to take place. To determine the policy
-                of an individual state, use the external link to the{" "}
+                of an individual state, use the{" "}
                 <ExternalLink href={externalLinks.npicStateAgencies}>
-                  National Pesticide Information Center
+                  external link to the National Pesticide Information Center
                 </ExternalLink>{" "}
                 or the internal link to the{" "}
                 <Link
-                  href="/regulationsDirectory"
+                  href="/statePoliciesandPermits"
                   className="text-primary text-underline"
                 >
                   US Regulatory Map
                 </Link>
-                .
-              </p>
-
-              <p className="mt-6 text-base font-bold">
-                This information was collected from the{" "}
-                <ExternalLink href={externalLinks.testGuidelines}>
-                  EPA&apos;s Test Guidelines for Pesticides and Toxic Substances
-                  webpage
-                </ExternalLink>
                 .
               </p>
             </div>

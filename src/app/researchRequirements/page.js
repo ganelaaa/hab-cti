@@ -27,11 +27,19 @@ export default function ResearchRequirementsPage() {
   }, []);
 
   const sections = [
-    { id: "research-requirements", label: cms?.section1Title || "Research Requirements" },
-    { id: "data-requirements", label: cms?.section2Title || "EPA Data Requirements Table" },
+    {
+      id: "research-requirements",
+      label: cms?.section1Title || "Research Requirements",
+    },
+    {
+      id: "data-requirements",
+      label: cms?.section2Title || "EPA Data Requirements Table",
+    },
     {
       id: "test-guidelines",
-      label: cms?.section3Title || "Test Guidelines for Pesticide and Toxic Substances",
+      label:
+        cms?.section3Title ||
+        "Test Guidelines for Pesticide and Toxic Substances",
     },
     { id: "resources", label: cms?.resourcesTitle || "Resources" },
   ];
@@ -120,7 +128,10 @@ export default function ResearchRequirementsPage() {
       {/* Page Hero Title */}
       <InternalPageHero
         title={cms?.pageTitle ?? "Research Requirements and Guidelines"}
-        subtitle={cms?.pageSubtitle ?? "Key research guidelines and requirements for aquatic use pesticide registration"}
+        subtitle={
+          cms?.pageSubtitle ??
+          "Key research guidelines and requirements for aquatic use pesticide registration"
+        }
       />
 
       {/* Main Content Layout */}
@@ -149,14 +160,14 @@ export default function ResearchRequirementsPage() {
 
         {/* Content Body */}
         <div className="flex-1 min-w-0">
-          
           {/* SECTION 1: Overview */}
           <div
             id="research-requirements"
             className="border-b-4 border-primary-lighter mt-10 pb-8"
           >
             <h1 className="text-primary font-bold text-2xl!">
-              {cms?.section1Title ?? "Research Requirements Based on Types of Harmful Algal Bloom Control Technologies"}
+              {cms?.section1Title ??
+                "Research Requirements Based on Types of Harmful Algal Bloom Control Technologies"}
             </h1>
 
             {cms?.section1Body ? (
@@ -171,7 +182,8 @@ export default function ResearchRequirementsPage() {
                 </p>
                 <ol>
                   <li>
-                    - Analytical confirmation of dose (typically HPLC data at ppm level)
+                    - Analytical confirmation of dose (typically HPLC data at
+                    ppm level)
                   </li>
                   <li className="mt-5">
                     - Archiving of the original raw data and final reports
@@ -181,7 +193,8 @@ export default function ResearchRequirementsPage() {
                   </li>
                 </ol>
                 <span className="text-primary text-xl mt-10 inline-block ">
-                  EPA test guidelines and recommended protocols for pesticides and toxic substances can be found{" "}
+                  EPA test guidelines and recommended protocols for pesticides
+                  and toxic substances can be found{" "}
                   <a
                     href="https://www.epa.gov/test-guidelines-pesticides-and-toxic-substances"
                     className="text-underline"
@@ -203,35 +216,43 @@ export default function ResearchRequirementsPage() {
             className="border-b-4 border-primary-lighter text-lg pt-10 pb-10"
           >
             <h1 className="text-primary font-bold text-2xl!">
-              {cms?.section2Title ?? "Identify Data Requirements based on EPA Registration Type"}
+              {cms?.section2Title ??
+                "Identify Data Requirements based on EPA Registration Type"}
             </h1>
             <div className="flex flex-row gap-2 mt-2 text-sm">
               <p className="font-bold">Link:</p>
               <a
                 className="text-underline hover:text-primary break-all"
-                href={cms?.section2LinkUrl || "https://www.ecfr.gov/current/title-40/chapter-I/subchapter-E/part-158/subpart-U/section-158.2060"}
+                href={
+                  cms?.section2LinkUrl ||
+                  "https://www.ecfr.gov/current/title-40/chapter-I/subchapter-E/part-158/subpart-U/section-158.2060"
+                }
                 target="_blank"
                 rel="noreferrer"
               >
-                {cms?.section2LinkText || cms?.section2LinkUrl || "https://www.ecfr.gov/current/title-40/chapter-I/subchapter-E/part-158/subpart-U/section-158.2060"}
+                {cms?.section2LinkText ||
+                  cms?.section2LinkUrl ||
+                  "https://www.ecfr.gov/current/title-40/chapter-I/subchapter-E/part-158/subpart-U/section-158.2060"}
               </a>
             </div>
 
             {/* Split Flowchart Layout Container */}
             <div className="grid grid-cols-2 gap-0 border border-gray-300 rounded-lg mt-6 max-lg:grid-cols-1 overflow-hidden shadow-sm">
-              
               {/* Left Side: Dot Grid Flowchart */}
               <div className="p-8 bg-slate-50 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:16px_16px] flex flex-col items-center">
-                
                 {/* 1. Type of Ingredient Card */}
-                <div 
+                <div
                   className="w-full max-w-sm rounded-xl p-5 bg-white shadow-xs relative"
                   style={{ border: "2px solid #005EA2" }}
                 >
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="font-bold text-gray-900 text-base">Type of Ingredient</h3>
-                      <p className="text-xs text-gray-500 mt-1">Choose how the ingredient functions in the product.</p>
+                      <h3 className="font-bold text-gray-900 text-base">
+                        Type of Ingredient
+                      </h3>
+                      <p className="text-xs text-gray-500 mt-1">
+                        Choose how the ingredient functions in the product.
+                      </p>
                     </div>
                     <span className="text-xs text-gray-400">▲</span>
                   </div>
@@ -265,14 +286,18 @@ export default function ResearchRequirementsPage() {
                 <div className="w-0.5 h-8 bg-gray-300"></div>
 
                 {/* 2. Type of Chemical Card */}
-                <div 
+                <div
                   className="w-full max-w-sm rounded-xl p-5 bg-white shadow-xs relative"
                   style={{ border: "2px solid #005EA2" }}
                 >
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="font-bold text-gray-900 text-base">Type of Chemical</h3>
-                      <p className="text-xs text-gray-500 mt-1">Choose how the chemical functions in the product.</p>
+                      <h3 className="font-bold text-gray-900 text-base">
+                        Type of Chemical
+                      </h3>
+                      <p className="text-xs text-gray-500 mt-1">
+                        Choose how the chemical functions in the product.
+                      </p>
                     </div>
                     <span className="text-xs text-gray-400">▲</span>
                   </div>
@@ -303,14 +328,18 @@ export default function ResearchRequirementsPage() {
                 <div className="w-0.5 h-8 bg-gray-300"></div>
 
                 {/* 3. Registration Type Card */}
-                <div 
+                <div
                   className="w-full max-w-sm rounded-xl p-5 bg-white shadow-xs relative"
                   style={{ border: "2px solid #005EA2" }}
                 >
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="font-bold text-gray-900 text-base">Registration type</h3>
-                      <p className="text-xs text-gray-500 mt-1">Select experimental vs full registration.</p>
+                      <h3 className="font-bold text-gray-900 text-base">
+                        Registration type
+                      </h3>
+                      <p className="text-xs text-gray-500 mt-1">
+                        Select experimental vs full registration.
+                      </p>
                     </div>
                     <span className="text-xs text-gray-400">▲</span>
                   </div>
@@ -339,14 +368,18 @@ export default function ResearchRequirementsPage() {
                 <div className="w-0.5 h-8 bg-gray-300"></div>
 
                 {/* 4. Food-Use? Card */}
-                <div 
+                <div
                   className="w-full max-w-sm rounded-xl p-5 bg-white shadow-xs relative"
                   style={{ border: "2px solid #005EA2" }}
                 >
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="font-bold text-gray-900 text-base">Food-Use?</h3>
-                      <p className="text-xs text-gray-500 mt-1">EPA's mandate to consider this.</p>
+                      <h3 className="font-bold text-gray-900 text-base">
+                        Food-Use?
+                      </h3>
+                      <p className="text-xs text-gray-500 mt-1">
+                        EPA's mandate to consider this.
+                      </p>
                     </div>
                     <span className="text-xs text-gray-400">▲</span>
                   </div>
@@ -367,14 +400,12 @@ export default function ResearchRequirementsPage() {
                     ))}
                   </div>
                 </div>
-
               </div>
 
               {/* Right Side: Persistent Guidance Panel */}
               <div className="p-8 bg-[#eaf4fc] border-l border-gray-200 flex flex-col justify-start">
-                
                 {/* Header Badge */}
-                <div 
+                <div
                   className="bg-white rounded-lg p-3 inline-flex items-center gap-3 w-fit shadow-2xs mb-6"
                   style={{ border: "1.5px solid #005EA2" }}
                 >
@@ -382,19 +413,27 @@ export default function ResearchRequirementsPage() {
                     💡
                   </div>
                   <div>
-                    <h4 className="font-bold text-gray-900 text-sm">Understand Your Choices</h4>
-                    <p className="text-xs text-gray-500">Definitions, guidance, and examples.</p>
+                    <h4 className="font-bold text-gray-900 text-sm">
+                      Understand Your Choices
+                    </h4>
+                    <p className="text-xs text-gray-500">
+                      Definitions, guidance, and examples.
+                    </p>
                   </div>
                 </div>
 
                 {/* Question Label */}
-                <p className="text-green-800 font-bold text-sm uppercase tracking-wide mb-1">Question</p>
-                <p className="font-bold text-gray-900 text-base mb-6">What type of ingredient are you looking to register?</p>
+                <p className="text-green-800 font-bold text-sm uppercase tracking-wide mb-1">
+                  Question
+                </p>
+                <p className="font-bold text-gray-900 text-base mb-6">
+                  What type of ingredient are you looking to register?
+                </p>
 
                 {/* Section 1: Active Ingredient Guidance */}
                 <div className="mb-6 pb-6 border-b border-blue-200/70">
-                  <h4 
-                    className="font-bold text-base mb-2" 
+                  <h4
+                    className="font-bold text-base mb-2"
                     style={{ color: "#005EA2" }}
                   >
                     1. Active Ingredient
@@ -402,21 +441,33 @@ export default function ResearchRequirementsPage() {
                   {cms?.guidanceActiveText ? (
                     <div
                       className="[&>p]:mb-2 [&>b]:text-black [&>p>b]:text-black text-sm text-gray-800"
-                      dangerouslySetInnerHTML={{ __html: cms.guidanceActiveText }}
+                      dangerouslySetInnerHTML={{
+                        __html: cms.guidanceActiveText,
+                      }}
                     />
                   ) : (
                     <div className="text-sm text-gray-800">
-                      <p className="mt-1 text-gray-700">The primary component that performs the function of controlling, killing, or disrupting harmful algal blooms.</p>
-                      <p className="mt-3"><b>When to choose this:</b> If your product directly affects HABs through chemical or biological action.</p>
-                      <p className="mt-2"><b>Example:</b> Copper sulfate solution, peroxide-based bloom disruptor.</p>
+                      <p className="mt-1 text-gray-700">
+                        The primary component that performs the function of
+                        controlling, killing, or disrupting harmful algal
+                        blooms.
+                      </p>
+                      <p className="mt-3">
+                        <b>When to choose this:</b> If your product directly
+                        affects HABs through chemical or biological action.
+                      </p>
+                      <p className="mt-2">
+                        <b>Example:</b> Copper sulfate solution, peroxide-based
+                        bloom disruptor.
+                      </p>
                     </div>
                   )}
                 </div>
 
                 {/* Section 2: End-use Ingredient Guidance */}
                 <div>
-                  <h4 
-                    className="font-bold text-base mb-2" 
+                  <h4
+                    className="font-bold text-base mb-2"
                     style={{ color: "#005EA2" }}
                   >
                     2. End-use Ingredient
@@ -424,33 +475,49 @@ export default function ResearchRequirementsPage() {
                   {cms?.guidanceEnduseText ? (
                     <div
                       className="[&>p]:mb-2 [&>b]:text-black [&>p>b]:text-black text-sm text-gray-800"
-                      dangerouslySetInnerHTML={{ __html: cms.guidanceEnduseText }}
+                      dangerouslySetInnerHTML={{
+                        __html: cms.guidanceEnduseText,
+                      }}
                     />
                   ) : (
                     <div className="text-sm text-gray-800">
-                      <p className="mt-1 text-gray-700">Substances that support the product's formulation or delivery but are not active in bloom control themselves.</p>
-                      <p className="mt-3"><b>When to choose this:</b> If your product only includes carriers, binders, or stabilizers.</p>
-                      <p className="mt-2"><b>Example:</b> Clay granules used to deliver active agents, inert materials with no direct impact on algae.</p>
+                      <p className="mt-1 text-gray-700">
+                        Substances that support the product's formulation or
+                        delivery but are not active in bloom control themselves.
+                      </p>
+                      <p className="mt-3">
+                        <b>When to choose this:</b> If your product only
+                        includes carriers, binders, or stabilizers.
+                      </p>
+                      <p className="mt-2">
+                        <b>Example:</b> Clay granules used to deliver active
+                        agents, inert materials with no direct impact on algae.
+                      </p>
                     </div>
                   )}
                 </div>
-
               </div>
-
             </div>
           </div>
 
           {/* SECTION 3: Dynamic EPA Data Requirements Table */}
-          <div id="test-guidelines" className="pt-10 pb-10 border-b-4 border-primary-lighter">
+          <div
+            id="test-guidelines"
+            className="pt-10 pb-10 border-b-4 border-primary-lighter"
+          >
             <div className="flex flex-row justify-between items-end mb-4 flex-wrap gap-2">
               <h1 className="text-primary font-bold text-lg!">
-                {cms?.section3Title ?? "EPA Data Requirements for Development and Registration of Pesticide Active Ingredients"}
+                {cms?.section3Title ??
+                  "EPA Data Requirements for Development and Registration of Pesticide Active Ingredients"}
               </h1>
 
               {/* Number of table entries indicator */}
               <div className="bg-[#eaf4fc] text-[#005EA2] border border-[#005EA2]/30 px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5">
                 <span className="inline-block w-2 h-2 rounded-full bg-[#005EA2]"></span>
-                Total Requirements: <span className="text-gray-900 font-extrabold">{tableRows.length}</span>
+                Total Requirements:{" "}
+                <span className="text-gray-900 font-extrabold">
+                  {tableRows.length}
+                </span>
               </div>
             </div>
 
@@ -469,7 +536,16 @@ export default function ResearchRequirementsPage() {
                       colSpan="2"
                       className="border-b border-gray-200 px-6 py-4 text-left font-bold"
                     >
-                      Selected Options: <span className="capitalize text-primary">{chemicalType}</span> ({ingredientType}) | Reg: <span className="capitalize text-primary">{registrationType === 'full' ? 'Full Reg' : 'Exp Use'}</span> | Food-Use: <span className="uppercase text-primary">{foodUse}</span>
+                      Selected Options:{" "}
+                      <span className="capitalize text-primary">
+                        {chemicalType}
+                      </span>{" "}
+                      ({ingredientType}) | Reg:{" "}
+                      <span className="capitalize text-primary">
+                        {registrationType === "full" ? "Full Reg" : "Exp Use"}
+                      </span>{" "}
+                      | Food-Use:{" "}
+                      <span className="uppercase text-primary">{foodUse}</span>
                     </th>
                   </tr>
                   <tr className="bg-[#f0f6ff]">
@@ -490,57 +566,63 @@ export default function ResearchRequirementsPage() {
 
                 <tbody>
                   {Object.keys(groupedCategories).length > 0 ? (
-                    Object.entries(groupedCategories).map(([categoryName, rows]) => (
-                      <Fragment key={categoryName}>
-                        {/* Category Subheader */}
-                        <tr>
-                          <td
-                            colSpan="4"
-                            className="border-t px-6 py-3 text-center text-xs font-semibold uppercase border-b-2 border-gray-200"
-                          >
-                            {categoryName}
-                          </td>
-                        </tr>
-                        {rows.map((row, idx) => (
-                          <tr key={idx} className="border-b border-gray-100">
-                            <td className="border-r border-gray-100 px-6 py-4 text-center">
-                              {row.rd ? (
-                                <span className="rounded bg-gray-100 px-2 py-0.5 text-xs">
-                                  {row.rd}
-                                </span>
-                              ) : null}
-                            </td>
-                            <td className="border-r border-gray-100 px-6 py-4 text-center">
-                              {row.bppd ? (
-                                <span className="rounded bg-gray-100 px-2 py-0.5 text-xs">
-                                  {row.bppd}
-                                </span>
-                              ) : null}
-                            </td>
-                            <td className="border-r border-gray-100 px-6 py-4 text-center">
-                              {row.name}
-                            </td>
-                            <td className="px-6 py-4 text-center">
-                              <span
-                                className={`inline-flex h-7 w-7 items-center justify-center rounded-full text-xs font-semibold ${
-                                  row.status?.startsWith("R")
-                                    ? "bg-green-100 text-green-700"
-                                    : row.status?.startsWith("CR")
-                                    ? "bg-orange-100 text-orange-600"
-                                    : "bg-gray-100 text-gray-600"
-                                }`}
-                              >
-                                {row.status}
-                              </span>
+                    Object.entries(groupedCategories).map(
+                      ([categoryName, rows]) => (
+                        <Fragment key={categoryName}>
+                          {/* Category Subheader */}
+                          <tr>
+                            <td
+                              colSpan="4"
+                              className="border-t px-6 py-3 text-center text-xs font-semibold uppercase border-b-2 border-gray-200"
+                            >
+                              {categoryName}
                             </td>
                           </tr>
-                        ))}
-                      </Fragment>
-                    ))
+                          {rows.map((row, idx) => (
+                            <tr key={idx} className="border-b border-gray-100">
+                              <td className="border-r border-gray-100 px-6 py-4 text-center">
+                                {row.rd ? (
+                                  <span className="rounded bg-gray-100 px-2 py-0.5 text-xs">
+                                    {row.rd}
+                                  </span>
+                                ) : null}
+                              </td>
+                              <td className="border-r border-gray-100 px-6 py-4 text-center">
+                                {row.bppd ? (
+                                  <span className="rounded bg-gray-100 px-2 py-0.5 text-xs">
+                                    {row.bppd}
+                                  </span>
+                                ) : null}
+                              </td>
+                              <td className="border-r border-gray-100 px-6 py-4 text-center">
+                                {row.name}
+                              </td>
+                              <td className="px-6 py-4 text-center">
+                                <span
+                                  className={`inline-flex h-7 w-7 items-center justify-center rounded-full text-xs font-semibold ${
+                                    row.status?.startsWith("R")
+                                      ? "bg-green-100 text-green-700"
+                                      : row.status?.startsWith("CR")
+                                        ? "bg-orange-100 text-orange-600"
+                                        : "bg-gray-100 text-gray-600"
+                                  }`}
+                                >
+                                  {row.status}
+                                </span>
+                              </td>
+                            </tr>
+                          ))}
+                        </Fragment>
+                      ),
+                    )
                   ) : (
                     <tr>
-                      <td colSpan="4" className="text-center py-6 text-gray-500">
-                        No data requirements found for this selection combination.
+                      <td
+                        colSpan="4"
+                        className="text-center py-6 text-gray-500"
+                      >
+                        No data requirements found for this selection
+                        combination.
                       </td>
                     </tr>
                   )}
@@ -551,7 +633,10 @@ export default function ResearchRequirementsPage() {
           </div>
 
           {/* SECTION 4: Resources Section */}
-          <div id="resources" className="py-8 border-b-4 border-primary-lighter mt-10">
+          <div
+            id="resources"
+            className="py-8 border-b-4 border-primary-lighter mt-10"
+          >
             <h1 className="text-primary font-bold text-2xl!">
               {cms?.resourcesTitle ?? "Resources"}
             </h1>
@@ -563,7 +648,8 @@ export default function ResearchRequirementsPage() {
               />
             ) : (
               <p className="mt-2 text-sm text-gray-600">
-                Additional EPA regulatory guidance documents and testing guidelines.
+                Additional EPA regulatory guidance documents and testing
+                guidelines.
               </p>
             )}
           </div>
@@ -589,7 +675,6 @@ export default function ResearchRequirementsPage() {
               className="w-20 h-20 rounded-full object-contain"
             />
           </div>
-
         </div>
       </div>
     </div>

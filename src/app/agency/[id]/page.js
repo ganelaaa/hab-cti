@@ -145,11 +145,17 @@ export default function DynamicAgencyPage({ params }) {
 
         {/* Dynamic HTML Presentation Outlets */}
         <div className="flex-1 min-w-0 prose max-w-none space-y-10 whitespace-normal break-words">
-          {sections.map((section) => {
-            if (!section.content) return null;
-            return (
+          {cms?.beginningCitation && (
+            <div
+            className="text-sm text-gray-600 mt-8 mb-4"
+            dangerouslySetInnerHTML={{ __html: cms.beginningCitation }}
+            />
+            )}
+            {sections.map((section) => {
+              if (!section.content) return null;
+              return (
               <div
-                key={section.id}
+              key={section.id}
                 id={section.id}
                 className="border-b-4 border-primary-lighter pb-6 mt-10 scroll-mt-28"
               >
@@ -166,6 +172,12 @@ export default function DynamicAgencyPage({ params }) {
               </div>
             );
           })}
+          {cms?.endCitation && (
+            <div
+            className="text-sm text-gray-600 mt-6"
+            dangerouslySetInnerHTML={{ __html: cms.endCitation }}
+            />
+            )}
         </div>
       </div>
     </div>
