@@ -770,6 +770,36 @@ export async function getDisclaimerFields() {
   }
 }
 
+export const GET_PRIVACY_DATA = `
+query GetPrivacyData {
+  page(id: "1048", idType: DATABASE_ID) {
+    homepagePrivacyPolicy {
+      privacyHeader
+      privacyDate
+      privacyInformation
+    }
+  }
+}
+`;
+
+export async function getPrivacyFields() {
+  try {
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: GET_PRIVACY_DATA }),
+      cache: "no-store",
+    });
+
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const { data } = await res.json();
+    return data?.page?.homepagePrivacyPolicy || null;
+  } catch (error) {
+    console.error("Privacy Fetch Error:", error);
+    return null;
+  }
+}
+
 export async function getStrategiesFields() {
   try {
     const res = await fetch("https://cms.habctrl.info/graphql", {
@@ -932,5 +962,53 @@ export async function getAllGlossaryPosts() {
     console.error("Error fetching glossary entries:", error);
 
     return [];
+  }
+}
+
+export const GET_PRIVACY_PAGE_DATA = `
+query GetPrivacyPageData {
+  page(id: "1057", idType: DATABASE_ID) {
+    fullPrivacyPolicy {
+      title
+      lastUpdated
+      introText
+      sectionOneTitle
+      sectionOneInformation
+      sectionTwoTitle
+      sectionTwoInformation
+      sectionThreeTitle
+      sectionThreeInformation
+      sectionFourTitle
+      sectionFourInformation
+      sectionFiveTitle
+      sectionFiveInformation
+      sectionSixTitle
+      sectionSixInformation
+      contactUs
+      contactUsInformation
+    }
+  }
+}
+`;
+
+export async function getPrivacyPageFields() {
+  try {
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: GET_PRIVACY_PAGE_DATA }),
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const json = await res.json();
+    if (json.errors)
+      console.error(
+        "Privacy GraphQL errors:",
+        json.errors.map((e) => e.message).join(" | "),
+      );
+    return json.data?.page?.fullPrivacyPolicy || null;
+  } catch (error) {
+    console.error("Privacy Page Fetch Error:", error);
+    return null;
   }
 }
