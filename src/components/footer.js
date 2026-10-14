@@ -49,10 +49,10 @@ export default function Footer() {
           <div className="flex flex-row justify-between items-center text-sm font-bold">
             <p> © UMD HCIM'25 + US-HABCTI.2024-25. All rights reserved.</p>
             <div className="flex gap-12">
-              <a className="underline hover:text-primary-lighter">
-                Legal Notice
-              </a>
-              <a className="underline hover:text-primary-lighter">
+              <a
+                className="underline hover:text-primary-lighter"
+                href="/privacyPolicy"
+              >
                 Privacy Policy
               </a>
             </div>

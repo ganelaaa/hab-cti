@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import InternalPageHero from "@/components/InternalPageHero";
 
-
 const sections = [
   { id: "overview", label: "Overview" },
   { id: "state-policies", label: "State Specific Minimum Risk Policies" },
@@ -669,7 +668,7 @@ export default function MinimumRiskPesticides() {
         <span>›</span>
         <span className="text-primary">Processing Permits</span>
         <span>›</span>
-        <Link href="/fifra" className="text-primary hover:underline">
+        <Link href="/agency/405" className="text-primary hover:underline">
           FIFRA
         </Link>
         <span>›</span>
@@ -688,7 +687,7 @@ export default function MinimumRiskPesticides() {
         title="Minimum Risk Pesticides"
         subtitle="Active and Inert Pesticide Ingredients"
         link={externalLinks.minimumRiskEPA}
-      />     
+      />
 
       {/* Body */}
       <div className="mt-0 flex flex-row gap-10">

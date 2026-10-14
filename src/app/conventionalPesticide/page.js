@@ -1495,7 +1495,7 @@ export default function ConventionalPesticide() {
         <span>›</span>
         <span className="text-primary">Processing Permits</span>
         <span>›</span>
-        <Link href="/fifra" className="text-primary hover:underline">
+        <Link href="/agency/405" className="text-primary hover:underline">
           FIFRA
         </Link>
         <span>›</span>
@@ -1529,10 +1529,11 @@ export default function ConventionalPesticide() {
                 <p
                   key={section.id}
                   onClick={() => scrollTo(section.id)}
-                  className={`cursor-pointer py-2 pl-4 text-sm transition-colors duration-200 hover:text-primary ${activeSection === section.id
+                  className={`cursor-pointer py-2 pl-4 text-sm transition-colors duration-200 hover:text-primary ${
+                    activeSection === section.id
                       ? "-ml-[2px] border-l-4 border-black font-semibold text-black"
                       : "text-primary"
-                    }`}
+                  }`}
                 >
                   {section.label}
                 </p>
