@@ -50,7 +50,7 @@ export default function Fifra() {
           Home
         </a>
         <span>›</span>
-        <span className="text-primary">Permiting Laws</span>
+        <span className="text-primary">Permitting Laws</span>
         <span>›</span>
         <span className="text-gray-800">FIFRA</span>
       </div>
@@ -72,10 +72,11 @@ export default function Fifra() {
                 <p
                   key={section.id}
                   onClick={() => scrollTo(section.id)}
-                  className={`pl-4 py-2 text-sm cursor-pointer transition-colors duration-200 hover:text-primary ${activeSection === section.id
+                  className={`pl-4 py-2 text-sm cursor-pointer transition-colors duration-200 hover:text-primary ${
+                    activeSection === section.id
                       ? "text-black font-semibold border-l-4 border-black -ml-[2px]"
                       : "text-primary"
-                    }`}
+                  }`}
                 >
                   {section.label}
                 </p>
@@ -110,6 +111,12 @@ export default function Fifra() {
               indicate a pesticide can be used with "reasonable certainty of no
               harm."
             </p>
+            <a
+              href="https://docs.google.com/spreadsheets/d/1WzWoZS27Thq1dQwqhclEeIkMvKfg8TT7uLEPLObPwmk/edit?gid=0#gid=0"
+              className="usa-button mb-8 text-primary"
+            >
+              View FIFRA Registration Data Requirements
+            </a>
           </div>
 
           {/* implementing agency section */}

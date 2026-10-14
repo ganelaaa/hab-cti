@@ -11,21 +11,21 @@ const options = [
         <p>
           Biological products include{" "}
           <a
-            href="https://habctrl.info/dev/glossary"
+            href="/glossary#biochemical-pesticides"
             className="text-primary text-underline"
           >
             biochemical pesticides
           </a>
           ,{" "}
           <a
-            href="https://habctrl.info/dev/glossary"
+            href="/glossary#microbial-pesticides"
             className="text-primary text-underline"
           >
             microbial pesticides
           </a>
           ,{" "}
           <a
-            href="https://habctrl.info/dev/glossary"
+            href="/glossary#plant-incorporated-protectants-pip"
             className="text-primary text-underline"
           >
             plant-incorporated protectants (PIPs)
@@ -44,7 +44,7 @@ const options = [
           Conventional pesticides are all active ingredients other than
           biological pesticides and{" "}
           <a
-            href="https://habctrl.info/dev/glossary"
+            href="/glossary#antimicrobial-pesticide"
             className="text-primary text-underline"
           >
             antimicrobial pesticides
@@ -65,7 +65,7 @@ const options = [
         <p className="mt-4">
           Conventional pesticides may also be considered{" "}
           <a
-            href="https://hab-cti.vercel.app/minimumRiskPesticides"
+            href="/minimumRiskPesticides"
             className="text-primary text-underline"
           >
             minimum risk
@@ -94,9 +94,11 @@ const options = [
             href="https://www.ecfr.gov/current/title-40/chapter-I/subchapter-E/part-152/subpart-Z/section-152.500"
             className="text-underline text-primary"
           >
-            40 C.F.R. & 152.500(a)
+            40 C.F.R. & 152.500(a).
           </a>
-          . Some physical devices currently approved to combat HABs include
+        </p>
+        <p className="mt-5">
+          Some physical devices currently approved to combat HABs include
           nanobubble technology, ultrasonic technology, and ozone treatment.
         </p>
       </>
@@ -132,7 +134,7 @@ export default function GettingApproval() {
 
       {/* Page Hero Title */}
       <InternalPageHero
-        title="Determine Applicable Regulatory Requirements"
+        title="Determine Product Classification"
         subtitle="Guide to getting an approval on your own"
       />
 

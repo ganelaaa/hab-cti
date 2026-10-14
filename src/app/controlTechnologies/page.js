@@ -1,4 +1,4 @@
-export default function ControlTechnologies() {
+export default function ControlStrategies() {
   return (
     <div className="px-20 py-10 tracking-wide">
       {/* Breadcrumb */}
@@ -17,15 +17,29 @@ export default function ControlTechnologies() {
         <span>›</span>
         <span className="text-primary">Literature</span>
         <span>›</span>
-        <span className="text-gray-800">Control Technologies</span>
+        <span className="text-gray-800">Control Strategies</span>
       </div>
 
       {/* WIP */}
       <div className="text-center mb-8 mt-10">
         <h1 className="text-3xl text-primary font-bold">
-          This page is currently under development
+          General Control Strategies - Under Construction
         </h1>
-        <p>Please check back soon!</p>
+        <p>Page is currently under construction</p>
+        <p className="mt-10">
+          For information about general cyanobacteria control strategies for
+          freshwater,
+          <p className="mt-5">
+            please visit the{" "}
+            <a
+              className="text-primary text-underline"
+              href="https://hcb-2.itrcweb.org/management-criteria-tool/"
+            >
+              Interstate Technology Regulatory Council’s Management Criteria
+              Tool
+            </a>
+          </p>
+        </p>
       </div>
     </div>
   );

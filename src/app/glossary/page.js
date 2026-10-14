@@ -2,12 +2,8 @@ import GlossaryClient from "./GlossaryClient";
 import { getAllGlossaryPosts } from "@/lib/cms";
 
 export default async function GlossaryPage() {
-  const glossaryEntries =
-    await getAllGlossaryPosts();
+  const glossaryEntries = await getAllGlossaryPosts();
 
-  return (
-    <GlossaryClient
-      entries={glossaryEntries}
-    />
-  );
+  return <GlossaryClient entries={glossaryEntries} />;
+  a;
 }

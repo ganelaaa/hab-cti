@@ -7,7 +7,9 @@ US HAB-CTI makes no representations and specifically disclaims all liabilities a
   return (
     <div className="px-20 py-10 tracking-wide">
       {/* Warning Title */}
-      <p className="text-green font-bold text-sm">{headerData?.label || "Warning & Report"}</p>
+      <p className="text-green font-bold text-sm">
+        {headerData?.label || "Warning & Report"}
+      </p>
       <p className="font-bold text-3xl text-black mt-1">
         {headerData?.title || "Warning & Report"}
       </p>
@@ -28,11 +30,12 @@ US HAB-CTI makes no representations and specifically disclaims all liabilities a
               {cms?.attentionTitleHeader || "Attention!"}
             </div>
             <h3 className="mt-3">
-              {cms?.contentUpdatedText || "Content last updated as of: March 04, 2025, Monday"}
+              {cms?.contentUpdatedText ||
+                "Content last updated as of: March 04, 2025, Monday"}
             </h3>
           </div>
 
-          {/* ADDED: whitespace-pre-line maintains all spacing and line breaks naturally */}
+          {/* whitespace-pre-line maintains all spacing and line breaks naturally */}
           <div className="whitespace-pre-line mt-5 text-light leading-relaxed">
             {cms?.attentionDescriptionText || defaultText}
           </div>
@@ -58,7 +61,10 @@ US HAB-CTI makes no representations and specifically disclaims all liabilities a
             File a report below. We'll look into it and get it sorted.
           </p>
           <div className="flex flex-col gap-3 mt-10">
-            <button className="usa-button bg-blue-700 mb-3.5">
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSfxhK8zVe6VEiGgJkjCDIkCYyaS90hcSmQv6DFE55M7NmaaZw/viewform"
+              className="usa-button bg-blue-700"
+            >
               File a Report
               <svg
                 className="usa-icon"
@@ -68,10 +74,7 @@ US HAB-CTI makes no representations and specifically disclaims all liabilities a
               >
                 <use href="/assets/img/sprite.svg#arrow_forward"></use>
               </svg>
-            </button>
-            <button className="usa-button bg-white text-primary border">
-              View Status of a Report
-            </button>
+            </a>
           </div>
         </div>
       </div>
