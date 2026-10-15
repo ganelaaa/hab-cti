@@ -1012,3 +1012,67 @@ export async function getPrivacyPageFields() {
     return null;
   }
 }
+
+
+// Questions shown in the "Identify Data Requirements" flowchart on /researchRequirements.
+// One "researchQuestions" entry per box. Each entry has up to 6 answer buttons,
+// stored as flat ACF fields: option1Label, option1Key, option1Heading,
+// option1Description, option1IsDefault ... option6IsDefault.
+const RESEARCH_OPTION_SLOTS = [1, 2, 3, 4, 5, 6];
+
+export const GET_RESEARCH_QUESTIONS = `
+query GetResearchQuestions {
+  researchQuestions(first: 50, where: { orderby: [{ field: MENU_ORDER, order: ASC }, { field: DATE, order: ASC }] }) {
+      nodes {
+      databaseId
+      title
+      researchQuestionConnector {
+        boxHelperText
+        panelQuestion
+        tableRole
+        ${RESEARCH_OPTION_SLOTS.map(
+  (n) =>
+    `option${n}Label option${n}Key option${n}Heading option${n}Description option${n}IsDefault`,
+).join("\n        ")}
+      }
+    }
+  }
+}
+`;
+
+export async function getResearchQuestions() {
+  try {
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: GET_RESEARCH_QUESTIONS }),
+      cache: "no-store",
+    });
+
+    if (!res.ok) throw new Error(`WordPress API error: ${res.status}`);
+
+    const { data } = await res.json();
+
+    // Turn the flat option fields into an "options" list; empty slots are skipped.
+    return (data?.researchQuestions?.nodes || []).map((node) => {
+      const fields = node.researchQuestionConnector || {};
+
+      const options = RESEARCH_OPTION_SLOTS.map((n) => ({
+        optionLabel: fields[`option${n}Label`],
+        optionKey: fields[`option${n}Key`],
+        optionPanelHeading: fields[`option${n}Heading`],
+        optionDescription: fields[`option${n}Description`],
+        isDefault: fields[`option${n}IsDefault`],
+      })).filter((option) => option.optionLabel);
+
+      return {
+        ...node,
+        researchQuestionConnector: { ...fields, options },
+      };
+    });
+  } catch (error) {
+    // The page falls back to its built-in questions when this is empty.
+    console.error("Research Questions Fetch Error:", error);
+    return [];
+  }
+}
