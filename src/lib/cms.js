@@ -1012,3 +1012,38 @@ export async function getPrivacyPageFields() {
     return null;
   }
 }
+export const GET_HABS101_DATA = `
+query GetHabs101Data {
+  page(id: "1162", idType: DATABASE_ID) {
+    habs101FullPage {
+      pageTitle
+      overviewTitle
+      overviewText
+      learnMoreTitle
+      learnMoreText
+    }
+  }
+}
+`;
+
+export async function getHabs101Fields() {
+  try {
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: GET_HABS101_DATA }),
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const json = await res.json();
+    if (json.errors)
+      console.error(
+        "HABs 101 GraphQL errors:",
+        json.errors.map((e) => e.message).join(" | "),
+      );
+    return json.data?.page?.habs101FullPage || null;
+  } catch (error) {
+    console.error("HABs 101 Fetch Error:", error);
+    return null;
+  }
+}

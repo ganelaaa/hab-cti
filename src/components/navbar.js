@@ -2,12 +2,24 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const router = useRouter();
+  const [query, setQuery] = useState("");
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    const q = query.trim();
+    if (!q) return;
+    setIsMenuOpen(false);
+    router.push(`/search?q=${encodeURIComponent(q)}`);
+    setQuery("");
+  };
 
   const links = [
     { label: "Home", href: "/" },
@@ -83,7 +95,11 @@ export default function Navbar() {
         </nav>
 
         {/* Search Bar - visible from medium screens */}
-        <div className="ml-auto hidden w-40 flex-row items-center gap-2 rounded-lg border border-primary bg-white px-3 py-2 md:flex lg:w-44 xl:w-56 2xl:w-72">
+        <form
+          role="search"
+          onSubmit={handleSearch}
+          className="ml-auto hidden w-40 flex-row items-center gap-2 rounded-lg border border-primary bg-white px-3 py-2 md:flex lg:w-44 xl:w-56 2xl:w-72"
+        >
           <svg
             className="h-5 w-5 shrink-0"
             aria-hidden="true"
@@ -96,9 +112,12 @@ export default function Navbar() {
           <input
             type="search"
             placeholder="Quick search"
+            aria-label="Quick search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
             className="navbar-search min-w-0 flex-1 bg-transparent text-xs text-gray-600 outline-none"
           />
-        </div>
+        </form>
 
         {/* Mobile Menu Button */}
         <button
@@ -144,9 +163,12 @@ export default function Navbar() {
               <NavLink key={link.label} link={link} mobile />
             ))}
           </nav>
-
           {/* Search Bar inside menu only for small screens */}
-          <div className="flex w-full flex-row items-center gap-2 rounded-lg border border-primary bg-white px-3 py-2 md:hidden">
+          <form
+            role="search"
+            onSubmit={handleSearch}
+            className="flex w-full flex-row items-center gap-2 rounded-lg border border-primary bg-white px-3 py-2 md:hidden"
+          >
             <svg
               className="h-5 w-5 shrink-0"
               aria-hidden="true"
@@ -159,9 +181,12 @@ export default function Navbar() {
             <input
               type="search"
               placeholder="Quick search"
+              aria-label="Quick search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
               className="navbar-search min-w-0 flex-1 bg-transparent text-xs text-gray-600 outline-none"
             />
-          </div>
+          </form>
         </div>
       </div>
     </header>

@@ -73,3 +73,52 @@ input:not([disabled]):focus {
   list-style: disc !important;
   padding-left: 1.5rem !important;
 }
+
+/*  */
+.term-tooltip {
+  position: relative;
+  display: inline;
+  cursor: help;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+  border-radius: 4px;
+  transition:
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.term-tooltip:hover,
+.term-tooltip:focus {
+  outline: none;
+  background-color: rgba(0, 94, 162, 0.08);
+  box-shadow: 0 0 8px 2px rgba(0, 94, 162, 0.45);
+}
+
+.term-tooltip .term-tooltip-text {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 10px);
+  width: max-content;
+  max-width: 280px;
+  padding: 10px 14px;
+  background: #1b1b1b;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: normal;
+  border-radius: 8px;
+  box-shadow: 0 0 12px 2px rgba(0, 94, 162, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.1s ease;
+  z-index: 50;
+}
+
+.term-tooltip:hover .term-tooltip-text,
+.term-tooltip:focus .term-tooltip-text {
+  opacity: 1;
+  visibility: visible;
+}
