@@ -1012,7 +1012,6 @@ export async function getPrivacyPageFields() {
     return null;
   }
 }
-<<<<<<< HEAD
 export const GET_HABS101_DATA = `
 query GetHabs101Data {
   page(id: "1162", idType: DATABASE_ID) {
@@ -1022,8 +1021,32 @@ query GetHabs101Data {
       overviewText
       learnMoreTitle
       learnMoreText
-=======
+    }
+  }
+}
+`;
 
+export async function getHabs101Fields() {
+  try {
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: GET_HABS101_DATA }),
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const json = await res.json();
+    if (json.errors)
+      console.error(
+        "HABs 101 GraphQL errors:",
+        json.errors.map((e) => e.message).join(" | "),
+      );
+    return json.data?.page?.habs101FullPage || null;
+  } catch (error) {
+    console.error("HABs 101 Fetch Error:", error);
+    return null;
+  }
+}
 
 // Questions shown in the "Identify Data Requirements" flowchart on /researchRequirements.
 // One "researchQuestions" entry per box. Each entry has up to 6 answer buttons,
@@ -1042,43 +1065,20 @@ query GetResearchQuestions {
         panelQuestion
         tableRole
         ${RESEARCH_OPTION_SLOTS.map(
-  (n) =>
-    `option${n}Label option${n}Key option${n}Heading option${n}Description option${n}IsDefault`,
-).join("\n        ")}
+          (n) =>
+            `option${n}Label option${n}Key option${n}Heading option${n}Description option${n}IsDefault`,
+        ).join("\n        ")}
       }
->>>>>>> 0d9347a97612d7c094d5a5ca29f0fb44a4462d08
     }
   }
 }
 `;
 
-<<<<<<< HEAD
-export async function getHabs101Fields() {
-=======
 export async function getResearchQuestions() {
->>>>>>> 0d9347a97612d7c094d5a5ca29f0fb44a4462d08
   try {
     const res = await fetch("https://cms.habctrl.info/graphql", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-<<<<<<< HEAD
-      body: JSON.stringify({ query: GET_HABS101_DATA }),
-      cache: "no-store",
-    });
-    if (!res.ok) throw new Error(`Status ${res.status}`);
-    const json = await res.json();
-    if (json.errors)
-      console.error(
-        "HABs 101 GraphQL errors:",
-        json.errors.map((e) => e.message).join(" | "),
-      );
-    return json.data?.page?.habs101FullPage || null;
-  } catch (error) {
-    console.error("HABs 101 Fetch Error:", error);
-    return null;
-  }
-}
-=======
       body: JSON.stringify({ query: GET_RESEARCH_QUESTIONS }),
       cache: "no-store",
     });
@@ -1110,4 +1110,3 @@ export async function getResearchQuestions() {
     return [];
   }
 }
->>>>>>> 0d9347a97612d7c094d5a5ca29f0fb44a4462d08
