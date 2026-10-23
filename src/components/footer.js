@@ -1,6 +1,5 @@
 "use client";
 export default function Footer() {
-  const contactEmail = "info@agency.gov";
   return (
     <div className="mt-5 tracking-wide">
       {/* Return to top */}
@@ -38,7 +37,12 @@ export default function Footer() {
               <div>
                 For questions, updates, or website feedback, contact us at:
               </div>
-              <div>{contactEmail}</div>
+              <a
+                className="text-underline hover:text-primary-lighter"
+                href="mailto:ushabcti@umces.edu"
+              >
+                ushabcti@umces.edu
+              </a>
             </div>
           </div>
 

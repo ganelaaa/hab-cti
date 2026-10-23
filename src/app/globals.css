@@ -74,6 +74,16 @@ input:not([disabled]):focus {
   padding-left: 1.5rem !important;
 }
 
+.cms-rich a,
+.cms-rich a:visited {
+  color: #005ea2 !important;
+  text-decoration: underline !important;
+}
+
+.cms-rich a:hover {
+  color: #1a4480 !important;
+}
+
 /*  */
 .term-tooltip {
   position: relative;

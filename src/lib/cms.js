@@ -1110,3 +1110,166 @@ export async function getResearchQuestions() {
     return [];
   }
 }
+
+export const GET_BIOPESTICIDE_DATA = `
+query GetBiopesticideData {
+  page(id: "1256", idType: DATABASE_ID) {
+    biopesticideRegistrationInfoPage {
+      pageTitle
+      pageSubtitle
+      introText
+      overviewText
+      dataTopText
+      figureCaption
+      dataBottomText
+      tableFootNotes
+      additionalDetailsText
+      eupText
+      additionalInfoText
+    }
+  }
+}
+`;
+
+export async function getBiopesticideFields() {
+  try {
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: GET_BIOPESTICIDE_DATA }),
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const json = await res.json();
+    if (json.errors)
+      console.error(
+        "Biopesticide GraphQL errors:",
+        json.errors.map((e) => e.message).join(" | "),
+      );
+    return json.data?.page?.biopesticideRegistrationInfoPage || null;
+  } catch (error) {
+    console.error("Biopesticide Fetch Error:", error);
+    return null;
+  }
+}
+
+export const GET_CONVENTIONAL_DATA = `
+query GetConventionalData {
+  page(id: "1274", idType: DATABASE_ID) {
+    conventionalPesticideRegistrationInfoPage {
+      introText
+      pageTitle
+      pageSubtitle
+      overviewText
+      dataTopText
+      tableFootNotes
+      eupText
+      additionalInfoText
+      endangeredSpeciesText
+    }
+  }
+}
+`;
+
+export async function getConventionalFields() {
+  try {
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        query: GET_CONVENTIONAL_DATA,
+      }),
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const json = await res.json();
+    if (json.errors)
+      console.error(
+        "Conventional GraphQL errors:",
+        json.errors.map((e) => e.message).join(" | "),
+      );
+    return json.data?.page?.conventionalPesticideRegistrationInfoPage || null;
+  } catch (error) {
+    console.error("Conventional Fetch Error:", error);
+    return null;
+  }
+}
+
+export const GET_PHYSICAL_DEVICES_DATA = `
+query GetPhysicalDevicesData {
+  page(id: "1276", idType: DATABASE_ID) {
+    physicalDevicesInfoPage {
+      pageTitle
+      pageSubtitle
+      introText
+      overviewText
+      regulationText
+      labelingText
+      determinationText
+      additionalInfoText
+      questionsText
+    }
+  }
+}
+`;
+
+export async function getPhysicalDevicesFields() {
+  try {
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: GET_PHYSICAL_DEVICES_DATA }),
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const json = await res.json();
+    if (json.errors)
+      console.error(
+        "Physical Devices GraphQL errors:",
+        json.errors.map((e) => e.message).join(" | "),
+      );
+    return json.data?.page?.physicalDevicesInfoPage || null;
+  } catch (error) {
+    console.error("Physical Devices Fetch Error:", error);
+    return null;
+  }
+}
+
+export const GET_MINIMUM_RISK_DATA = `
+query GetMinimumRiskData {
+  page(id: "1278", idType: DATABASE_ID) {
+      minimumRiskPesticideRegistrationInfoPage {
+      pageTitle
+      pageSubtitle
+      introText
+      overviewText
+      statePoliciesText
+      tableFooter
+      additionalInfoText
+      questionsText
+    }
+  }
+}
+`;
+
+export async function getMinimumRiskFields() {
+  try {
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: GET_MINIMUM_RISK_DATA }),
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const json = await res.json();
+    if (json.errors)
+      console.error(
+        "Minimum Risk GraphQL errors:",
+        json.errors.map((e) => e.message).join(" | "),
+      );
+    return json.data?.page?.minimumRiskPesticideRegistrationInfoPage || null;
+  } catch (error) {
+    console.error("Minimum Risk Fetch Error:", error);
+    return null;
+  }
+}
