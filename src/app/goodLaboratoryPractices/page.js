@@ -193,7 +193,14 @@ export default function GoodLaboratoryPracticesPage() {
 
             <div className="mb-8 text-lg">
               <ul className="ml-6 list-disc">
-                <li>Toxicology</li>
+                <li>
+                  <a
+                    className="text-underline text-primary"
+                    href="/toxicologyData"
+                  >
+                    Toxicology
+                  </a>
+                </li>
                 <li className="mt-3">Environmental fate</li>
                 <li className="mt-3">Ecological effects</li>
                 <li className="mt-3">Residue chemistry</li>
