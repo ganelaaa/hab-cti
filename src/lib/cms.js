@@ -1304,6 +1304,7 @@ export async function getPesticideIngredientsFields() {
     const res = await fetch("https://cms.habctrl.info/graphql", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+
       body: JSON.stringify({ query: GET_PESTICIDE_INGREDIENTS_DATA }),
       cache: "no-store",
     });
@@ -1523,6 +1524,43 @@ export async function getGlpFields() {
     return json.data?.page?.glpInfoPage || null;
   } catch (error) {
     console.error("GLP Fetch Error:", error);
+    return null;
+  }
+}
+
+// ---- Toxicology Data page ----
+const TOXICOLOGY_PAGE_ID = "1248";
+
+export const GET_TOXICOLOGY_PAGE_DATA = `
+query GetToxicologyPageData {
+  page(id: "${TOXICOLOGY_PAGE_ID}", idType: DATABASE_ID) {
+    toxicologyPage {
+      pageTitle pageSubtitle sourceNote
+      overviewTitle overviewDescription
+      dataRequirementsTitle dataRequirementsDescription
+      categoriesTitle categoriesDescription
+      tableTitle tableSource tableJson tableFootnote1 tableFootnote2
+      labsTitle labsDescription
+      additionalInfoTitle additionalInfoDescription
+      questionsTitle questionsDescription
+      citationTitle citationDescription
+    }
+  }
+}`;
+
+export async function getToxicologyPageFields() {
+  try {
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: GET_TOXICOLOGY_PAGE_DATA }),
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const { data } = await res.json();
+    return data?.page?.toxicologyPage || null;
+  } catch (error) {
+    console.error("Toxicology Page Fetch Error:", error);
     return null;
   }
 }
