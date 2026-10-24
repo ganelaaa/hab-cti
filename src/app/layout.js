@@ -2,6 +2,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar.js";
 import Footer from "@/components/footer.js";
 import ScrollToTop from "@/components/scrollToTop.js";
+import MobileNotice from "@/components/MobileNotice.js";
 
 export const metadata = {
   title: "US HAB-CTI",
@@ -17,6 +18,7 @@ export default function RootLayout({ children }) {
 
       <body id="top" className="min-h-screen flex flex-col">
         <ScrollToTop />
+        <MobileNotice />
         <Navbar />
 
         <main className="flex-1">{children}</main>

@@ -868,15 +868,11 @@ export default function MinimumRiskPesticides({ cms }) {
               Pesticide Products
             </h1>
             <div className="mb-8">
-              <IngredientTable
-                caption="Table 1. Active Ingredients Permitted in Exempted Minimum Risk Pesticide Products"
-                columns={[
-                  "Label Display Name",
-                  "Chemical Name",
-                  "Specifications",
-                  "CAS No.",
-                ]}
-                rows={activeIngredients}
+              <div
+                className={richText}
+                dangerouslySetInnerHTML={{
+                  __html: cms?.activeIngredientsTable || "",
+                }}
               />
             </div>
           </div>
@@ -891,10 +887,11 @@ export default function MinimumRiskPesticides({ cms }) {
               Pesticide Products
             </h1>
             <div className="mb-8">
-              <IngredientTable
-                caption="Table 2. Inert Ingredients Permitted in Exempted Minimum Risk Pesticide Products"
-                columns={["Label Display Name", "Chemical Name", "CAS No."]}
-                rows={inertIngredients}
+              <div
+                className={richText}
+                dangerouslySetInnerHTML={{
+                  __html: cms?.inertIngredientsTable || "",
+                }}
               />
               <div
                 className={`${richText} text-base`}

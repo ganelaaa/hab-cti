@@ -186,7 +186,9 @@ function normalizeQuestions(nodes = []) {
 // key / label looks like ("Minimal Risk", "minimum-risk", "Experimental Use",
 // "Yes, food-use"...), map it to the value the table logic expects.
 function canonicalTableValue(role, rawKey) {
-  const text = String(rawKey ?? "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  const text = String(rawKey ?? "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "");
   switch (role) {
     case "ingredientType":
       if (text.includes("end")) return "enduse";
@@ -345,7 +347,11 @@ export default function ResearchRequirementsPage() {
   const [flowRestored, setFlowRestored] = useState(false);
   const returningRef = useRef(null);
 
-  const getAnswer = (step) => answers[step.id] ?? getDefaultKey(step);
+  const NO_DEFAULT_ROLES = ["ingredientType"];
+
+  const getAnswer = (step) =>
+    answers[step.id] ??
+    (NO_DEFAULT_ROLES.includes(step.role) ? null : getDefaultKey(step));
 
   // Value of the question that drives the data table (falls back to the
   // default when the CMS has no question with that role).
@@ -601,7 +607,7 @@ export default function ResearchRequirementsPage() {
           {/* SECTION 1: Overview */}
           <div
             id="research-requirements"
-            className="border-b-4 border-primary-lighter mt-10 pb-8"
+            className="border-b-4 border-primary-lighter mt-10 pb-2"
           >
             <h1 className="text-primary font-bold text-2xl!">
               {cms?.section1Title ??
@@ -610,7 +616,7 @@ export default function ResearchRequirementsPage() {
 
             {cms?.section1Body ? (
               <div
-                className="mt-4 text-sm [&>p]:mb-3 [&>ol]:list-disc [&>ol]:pl-5 [&>ol]:space-y-2 [&_a]:text-[color:var(--primary)] [&_a]:underline [&_a:visited]:text-[color:var(--primary)] [&_a:hover]:text-[color:var(--primary-darker)]"
+                className="mt-4 text-sm [&>p]:mb-3 [&>ol]:list-disc [&>ol]:pl-5 [&>ol]:space-y-2 [&_a]:text-[color:var(--primary)] [&_a]:underline [&_a:visited]:text-[color:var(--primary)] [&_a:hover]:text-[color:var(--primary-darker)] [&>*:last-child]:mb-0"
                 dangerouslySetInnerHTML={{ __html: cms.section1Body }}
               />
             ) : (
@@ -645,13 +651,12 @@ export default function ResearchRequirementsPage() {
                 </span>
               </div>
             )}
-            <div className="border-b-primary-lighter mt-8"></div>
           </div>
 
           {/* SECTION 2: Flowchart Selector */}
           <div
             id="data-requirements"
-            className="border-b-4 border-primary-lighter text-lg pt-10 pb-10"
+            className="border-b-4 border-primary-lighter text-lg pt-4 pb-10"
           >
             <h1 className="text-primary font-bold text-2xl!">
               {cms?.section2Title ??
@@ -675,7 +680,7 @@ export default function ResearchRequirementsPage() {
             </div>
 
             {/* Split Flowchart Layout Container */}
-            <div className="grid grid-cols-2 gap-0 border border-gray-300 rounded-lg mt-6 max-lg:grid-cols-1 overflow-hidden shadow-sm">
+            <div className="grid grid-cols-2 gap-0 border border-gray-300 rounded-lg mt-6 max-lg:grid-cols-1 overflow-clip shadow-sm">
               {/* Left Side: Dot Grid Flowchart */}
               <div className="p-8 bg-slate-50 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:16px_16px] flex flex-col items-center">
                 {cmsQuestionSteps === null ? (
@@ -683,7 +688,9 @@ export default function ResearchRequirementsPage() {
                 ) : (
                   steps.slice(0, revealedSteps).map((step, index) => (
                     <Fragment key={step.id}>
-                      {index > 0 && <div className="w-0.5 h-8 bg-gray-300"></div>}
+                      {index > 0 && (
+                        <div className="w-0.5 h-8 bg-gray-300"></div>
+                      )}
                       <StepCard
                         title={step.title}
                         helper={step.helper}
@@ -695,7 +702,9 @@ export default function ResearchRequirementsPage() {
                           <OptionButton
                             key={option.key}
                             selected={getAnswer(step) === option.key}
-                            onClick={() => selectOption(index, step, option.key)}
+                            onClick={() =>
+                              selectOption(index, step, option.key)
+                            }
                             className={
                               option.label === option.label.toLowerCase()
                                 ? "capitalize"
@@ -713,38 +722,40 @@ export default function ResearchRequirementsPage() {
 
               {/* Right Side: Persistent Guidance Panel */}
               <div className="p-8 bg-[#eaf4fc] border-l border-gray-200 flex flex-col justify-start">
-                {/* Header Badge */}
-                <div
-                  className="bg-white rounded-lg p-3 inline-flex items-center gap-3 w-fit shadow-2xs mb-6"
-                  style={{ border: "1.5px solid #005EA2" }}
-                >
-                  <div className="w-8 h-8 rounded-md bg-[#005EA2] flex items-center justify-center text-white text-sm">
-                    💡
+                <div className="sticky top-28">
+                  {/* Header Badge */}
+                  <div
+                    className="bg-white rounded-lg p-3 inline-flex items-center gap-3 w-fit shadow-2xs mb-6"
+                    style={{ border: "1.5px solid #005EA2" }}
+                  >
+                    <div className="w-8 h-8 rounded-md bg-[#005EA2] flex items-center justify-center text-white text-sm">
+                      💡
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 text-sm">
+                        Understand Your Choices
+                      </h4>
+                      <p className="text-xs text-gray-500">
+                        Definitions, guidance, and examples.
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-bold text-gray-900 text-sm">
-                      Understand Your Choices
-                    </h4>
-                    <p className="text-xs text-gray-500">
-                      Definitions, guidance, and examples.
-                    </p>
-                  </div>
+
+                  {cmsQuestionSteps !== null && (
+                    <>
+                      <GuidanceQuestion html={currentStep.questionHtml} />
+
+                      {currentItems.map((option, index) => (
+                        <GuidanceItem
+                          key={option.key}
+                          title={`${index + 1}. ${option.heading || option.label}`}
+                          html={option.html}
+                          last={index === currentItems.length - 1}
+                        />
+                      ))}
+                    </>
+                  )}
                 </div>
-
-                {cmsQuestionSteps !== null && (
-                  <>
-                    <GuidanceQuestion html={currentStep.questionHtml} />
-
-                    {currentItems.map((option, index) => (
-                      <GuidanceItem
-                        key={option.key}
-                        title={`${index + 1}. ${option.heading || option.label}`}
-                        html={option.html}
-                        last={index === currentItems.length - 1}
-                      />
-                    ))}
-                  </>
-                )}
               </div>
             </div>
           </div>
@@ -752,7 +763,7 @@ export default function ResearchRequirementsPage() {
           {/* SECTION 3: Dynamic EPA Data Requirements Table */}
           <div
             id="test-guidelines"
-            className="pt-10 pb-10 border-b-4 border-primary-lighter"
+            className="pt-4 pb-10 border-b-4 border-primary-lighter"
           >
             <div className="flex flex-row justify-between items-end mb-4 flex-wrap gap-2">
               <h1 className="text-primary font-bold text-lg!">
@@ -789,7 +800,7 @@ export default function ResearchRequirementsPage() {
                       <span className="capitalize text-primary">
                         {chemicalType}
                       </span>{" "}
-                      ({ingredientType}) | Reg:{" "}
+                      ({ingredientType || "none selected"}) | Reg:{" "}
                       <span className="capitalize text-primary">
                         {registrationType === "full" ? "Full Reg" : "Exp Use"}
                       </span>{" "}
@@ -878,13 +889,12 @@ export default function ResearchRequirementsPage() {
                 </tbody>
               </table>
             </div>
-            <div className="border-b-primary-lighter border-b-2 mt-10"></div>
           </div>
 
           {/* SECTION 4: Resources Section */}
           <div
             id="resources"
-            className="py-8 border-b-4 border-primary-lighter mt-10"
+            className="pt-4 pb-8 border-b-4 border-primary-lighter"
           >
             <h1 className="text-primary font-bold text-2xl!">
               {cms?.resourcesTitle ?? "Resources"}
@@ -892,7 +902,7 @@ export default function ResearchRequirementsPage() {
 
             {cms?.resourcesBody ? (
               <div
-                className="mt-4 text-sm [&>p]:mb-3 [&>ul]:list-disc [&>ul]:pl-5 [&>a]:text-primary [&>a]:underline"
+                className="cms-rich mt-4 text-sm [&_p]:mb-3 [&_p]:mt-0 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-3 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-3 [&_li]:mt-2 [&_li]:mb-0 [&>*:last-child]:mb-0"
                 dangerouslySetInnerHTML={{ __html: cms.resourcesBody }}
               />
             ) : (

@@ -38,14 +38,16 @@ export default async function Home() {
   return (
     <main>
       <Hero slidesList={allSlides} />
-      <Navigation
-        toolsList={allKeyTools}
-        headerData={{
-          label: sectionHeaders?.section01Label,
-          title: sectionHeaders?.section01Title,
-          description: sectionHeaders?.section01Description,
-        }}
-      />
+      <div className="relative">
+        <Navigation
+          toolsList={allKeyTools}
+          headerData={{
+            label: sectionHeaders?.section01Label,
+            title: sectionHeaders?.section01Title,
+            description: sectionHeaders?.section01Description,
+          }}
+        />
+      </div>
       {/* <Agencies permittingCms={permittingData} complianceCms={complianceData} /> */}
       <Agencies
         allAgencies={allAgencies}

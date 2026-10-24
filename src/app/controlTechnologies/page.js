@@ -25,21 +25,23 @@ export default function ControlStrategies() {
         <h1 className="text-3xl text-primary font-bold">
           General Control Strategies - Under Construction
         </h1>
-        <p>Page is currently under construction</p>
-        <p className="mt-10">
-          For information about general cyanobacteria control strategies for
-          freshwater,
-          <p className="mt-5">
-            please visit the{" "}
-            <a
-              className="text-primary text-underline"
-              href="https://hcb-2.itrcweb.org/management-criteria-tool/"
-            >
-              Interstate Technology Regulatory Council’s Management Criteria
-              Tool
-            </a>
-          </p>
-        </p>
+
+        <div>
+          <span className="mt-10">
+            For information about general cyanobacteria control strategies for
+            freshwater,
+            <p className="mt-5">
+              please visit the{" "}
+              <a
+                className="text-primary text-underline"
+                href="https://hcb-2.itrcweb.org/management-criteria-tool/"
+              >
+                Interstate Technology Regulatory Council’s Management Criteria
+                Tool
+              </a>
+            </p>
+          </span>
+        </div>
       </div>
     </div>
   );

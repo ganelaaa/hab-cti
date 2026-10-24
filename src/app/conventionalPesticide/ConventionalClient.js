@@ -1579,47 +1579,10 @@ export default function ConventionalPesticide({ cms }) {
                 dangerouslySetInnerHTML={{ __html: cms?.dataTopText || "" }}
               />
 
-              <DataTable
-                caption="Scientific Data Specifications and Methods"
-                rows={productPerformanceRows}
+              <div
+                className={richText}
+                dangerouslySetInnerHTML={{ __html: cms.dataRequirementsTable }}
               />
-              <DataTable
-                caption="Confidential Product Chemistry"
-                rows={confidentialProductChemistryRows}
-              />
-              <DataTable
-                caption="Physical & Chemical Properties"
-                rows={physicalChemicalRows}
-              />
-              <DataTable
-                caption="Environmental Fate"
-                rows={environmentalFateRows}
-              />
-              <DataTable
-                caption="Ecological Effects"
-                rows={ecologicalEffectsRows}
-              />
-              <DataTable
-                caption="Nontarget Plants"
-                rows={nontargetPlantsRows}
-              />
-              <DataTable
-                caption="Residue Chemistry"
-                rows={residueChemistryRows}
-              />
-              <DataTable
-                caption="Mammalian Toxicology Data"
-                rows={mammalianToxicologyRows}
-              />
-              <DataTable
-                caption="Application Exposure (Occupational & Residential)"
-                rows={applicationExposureRows}
-              />
-              <DataTable
-                caption="Post-Application Exposure (Occupational & Residential)"
-                rows={postApplicationRows}
-              />
-              <DataTable caption="Spray Drift" rows={sprayDriftRows} />
 
               <div
                 className={`${richText} text-base`}
@@ -1682,18 +1645,10 @@ export default function ConventionalPesticide({ cms }) {
               Questions about Conventional Pesticide Registration?
             </h1>
             <div className="mb-8 text-lg">
-              <p>
-                Contact Information for the EPA's Pesticide Registration
-                Division
-              </p>
-              <p className="mt-6 font-bold">Immediate Office</p>
-              <ContactTable rows={immediateOfficeContacts} />
-              <p className="mt-6 font-bold">Herbicide Branch</p>
-              <p>
-                Herbicides including phenoxys, aquatics, desiccants and
-                defoliants
-              </p>
-              <ContactTable rows={herbicideBranchContacts} />
+              <div
+                className={richText}
+                dangerouslySetInnerHTML={{ __html: cms.contactsTable }}
+              />
             </div>
           </div>
         </div>

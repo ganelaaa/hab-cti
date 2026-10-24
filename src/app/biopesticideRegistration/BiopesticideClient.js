@@ -1091,7 +1091,12 @@ export default function BiopesticideClient({ cms }) {
                 dangerouslySetInnerHTML={{ __html: cms?.dataBottomText || "" }}
               />
 
-              <DataRequirementsTable />
+              <div
+                className={richText}
+                dangerouslySetInnerHTML={{
+                  __html: cms?.dataRequirementsTable || "",
+                }}
+              />
 
               <div
                 className={`${richText} text-base`}
@@ -1158,21 +1163,10 @@ export default function BiopesticideClient({ cms }) {
             </h1>
 
             <div className="mb-8 text-lg">
-              {contactGroups.map((group) => (
-                <div key={group.title}>
-                  <p className="mt-6 font-bold">{group.title}</p>
-
-                  <p>
-                    {group.descriptionParts ? (
-                      <RenderParts parts={group.descriptionParts} />
-                    ) : (
-                      group.description
-                    )}
-                  </p>
-
-                  <ContactTable rows={group.rows} />
-                </div>
-              ))}
+              <div
+                className={richText}
+                dangerouslySetInnerHTML={{ __html: cms?.contactsTable || "" }}
+              />
             </div>
           </div>
         </div>

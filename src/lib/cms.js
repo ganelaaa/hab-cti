@@ -1126,6 +1126,8 @@ query GetBiopesticideData {
       additionalDetailsText
       eupText
       additionalInfoText
+      dataRequirementsTable
+      contactsTable
     }
   }
 }
@@ -1166,6 +1168,8 @@ query GetConventionalData {
       eupText
       additionalInfoText
       endangeredSpeciesText
+      contactsTable
+      dataRequirementsTable
     }
   }
 }
@@ -1247,6 +1251,8 @@ query GetMinimumRiskData {
       tableFooter
       additionalInfoText
       questionsText
+      activeIngredientsTable
+      inertIngredientsTable
     }
   }
 }
@@ -1270,6 +1276,253 @@ export async function getMinimumRiskFields() {
     return json.data?.page?.minimumRiskPesticideRegistrationInfoPage || null;
   } catch (error) {
     console.error("Minimum Risk Fetch Error:", error);
+    return null;
+  }
+}
+
+export const GET_PESTICIDE_INGREDIENTS_DATA = `
+query GetPesticideIngredientsData {
+  page(id: 1370, idType: DATABASE_ID) {
+    pesticideIngredientsInfoPage {
+      pageTitle
+      pageSubtitle
+      introText
+      overviewText
+      activeText
+      inertText
+      endangeredSpeciesText
+      additionalInfoText
+      questionsText
+      citationText
+    }
+  }
+}
+`;
+
+export async function getPesticideIngredientsFields() {
+  try {
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: GET_PESTICIDE_INGREDIENTS_DATA }),
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const json = await res.json();
+    if (json.errors)
+      console.error(
+        "Pesticide Ingredients GraphQL errors:",
+        json.errors.map((e) => e.message).join(" | "),
+      );
+    return json.data?.page?.pesticideIngredientsInfoPage || null;
+  } catch (error) {
+    console.error("Pesticide Ingredients Fetch Error:", error);
+    return null;
+  }
+}
+export const GET_GETTING_APPROVAL_DATA = `
+query GetGettingApprovalData {
+  page(id: 1390, idType: DATABASE_ID) {
+    gettingApprovalInfoPage {
+      pageTitle
+      pageSubtitle
+      questionHeading
+      meetingHeading
+      meetingIntro
+      meetingBody
+      websiteLink
+    }
+  }
+}
+`;
+
+export async function getGettingApprovalFields() {
+  try {
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: GET_GETTING_APPROVAL_DATA }),
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const json = await res.json();
+    if (json.errors)
+      console.error(
+        "Getting Approval GraphQL errors:",
+        json.errors.map((e) => e.message).join(" | "),
+      );
+    return json.data?.page?.gettingApprovalInfoPage || null;
+  } catch (error) {
+    console.error("Getting Approval Fetch Error:", error);
+    return null;
+  }
+}
+
+export const GET_PESTICIDE_REGISTRATION_DATA = `
+query GetPesticideRegistrationData {
+  page(id: 1402, idType: DATABASE_ID) {
+    pesticideRegistrationInfoPage {
+      pageTitle
+      pageSubtitle
+      introText
+      overviewText
+      stepsText
+      dataTopText
+      dataTableHtml
+      dataBottomText
+      additionalInfoText
+      questionsText
+      citationText
+    }
+  }
+}
+`;
+
+export async function getPesticideRegistrationFields() {
+  try {
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: GET_PESTICIDE_REGISTRATION_DATA }),
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const json = await res.json();
+    if (json.errors)
+      console.error(
+        "Pesticide Registration GraphQL errors:",
+        json.errors.map((e) => e.message).join(" | "),
+      );
+    return json.data?.page?.pesticideRegistrationInfoPage || null;
+  } catch (error) {
+    console.error("Pesticide Registration Fetch Error:", error);
+    return null;
+  }
+}
+
+export const GET_LABELING_DATA = `
+query GetLabelingData {
+  page(id: 1417, idType: DATABASE_ID) {
+    labelingInfoPage {
+      pageTitle
+      pageSubtitle
+      overviewText
+      labelVsLabelingText
+      frontPanelText
+      frontTemplateText
+      backPanelText
+      backTemplateText
+      exampleLabelsText
+      additionalDocsText
+      trainingText
+      additionalInfoText
+      questionsText
+    }
+  }
+}
+`;
+
+export async function getLabelingFields() {
+  try {
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: GET_LABELING_DATA }),
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const json = await res.json();
+    if (json.errors)
+      console.error(
+        "Labeling GraphQL errors:",
+        json.errors.map((e) => e.message).join(" | "),
+      );
+    return json.data?.page?.labelingInfoPage || null;
+  } catch (error) {
+    console.error("Labeling Fetch Error:", error);
+    return null;
+  }
+}
+
+export const GET_TOLERANCES_DATA = `
+query GetTolerancesData {
+  page(id: 1434, idType: DATABASE_ID) {
+    tolerancesInfoPage {
+      pageTitle
+      pageSubtitle
+      introText
+      overviewText
+      settingText
+      requiredDataTop
+      requiredDataTables
+      standardizedText
+      resourcesText
+      questionsText
+      citationText: citationsText
+    }
+  }
+}
+`;
+
+export async function getTolerancesFields() {
+  try {
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: GET_TOLERANCES_DATA }),
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const json = await res.json();
+    if (json.errors)
+      console.error(
+        "Tolerances GraphQL errors:",
+        json.errors.map((e) => e.message).join(" | "),
+      );
+    return json.data?.page?.tolerancesInfoPage || null;
+  } catch (error) {
+    console.error("Tolerances Fetch Error:", error);
+    return null;
+  }
+}
+
+export const GET_GLP_DATA = `
+query GetGlpData {
+  page(id: 1449, idType: DATABASE_ID) {
+    glpInfoPage {
+      pageTitle
+      pageSubtitle
+      introText
+      overviewText
+      dataRequiringText
+      additionalRequiredText
+      exemptText
+      resourcesText
+      questionsText
+      citationText
+    }
+  }
+}
+`;
+
+export async function getGlpFields() {
+  try {
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: GET_GLP_DATA }),
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const json = await res.json();
+    if (json.errors)
+      console.error(
+        "GLP GraphQL errors:",
+        json.errors.map((e) => e.message).join(" | "),
+      );
+    return json.data?.page?.glpInfoPage || null;
+  } catch (error) {
+    console.error("GLP Fetch Error:", error);
     return null;
   }
 }

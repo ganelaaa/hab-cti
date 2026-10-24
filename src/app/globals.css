@@ -132,3 +132,43 @@ input:not([disabled]):focus {
   opacity: 1;
   visibility: visible;
 }
+
+.cms-rich table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+.cms-rich table caption {
+  text-align: center !important;
+  font-weight: 700 !important;
+  background: #d1d5db !important;
+  border: 1px solid #6b7280 !important;
+  border-bottom: 0 !important;
+  padding: 0.75rem 1rem !important;
+  color: #000 !important;
+}
+.cms-rich th,
+.cms-rich td {
+  border: 1px solid #c9c9c9;
+  padding: 0.5rem 0.75rem;
+  vertical-align: top;
+  text-align: left;
+}
+.cms-rich thead th {
+  background: #f0f0f0;
+  text-align: center;
+}
+.cms-rich tbody th {
+  background: #e7f2f8;
+}
+.cms-rich td p,
+.cms-rich th p {
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .cms-rich table {
+    display: block;
+    overflow-x: auto;
+  }
+}
