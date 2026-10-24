@@ -1581,7 +1581,7 @@ export default function ConventionalPesticide({ cms }) {
 
               <div
                 className={richText}
-                dangerouslySetInnerHTML={{ __html: cms.dataRequirementsTable }}
+                dangerouslySetInnerHTML={{ __html: cms?.dataRequirementsTable }}
               />
 
               <div
@@ -1647,7 +1647,7 @@ export default function ConventionalPesticide({ cms }) {
             <div className="mb-8 text-lg">
               <div
                 className={richText}
-                dangerouslySetInnerHTML={{ __html: cms.contactsTable }}
+                dangerouslySetInnerHTML={{ __html: cms?.contactsTable }}
               />
             </div>
           </div>
