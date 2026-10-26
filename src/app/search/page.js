@@ -63,6 +63,11 @@ const SEARCH_PAGES = [
   },
   { title: "Tolerances", href: "/tolerances", keywords: "residue ffdca" },
   {
+    title: "Toxicology Data",
+    href: "/toxicologyData",
+    keywords: "toxicology toxicity acute oral dermal inhalation labs",
+  },
+  {
     title: "Labeling Information",
     href: "/labelingInfoPage",
     keywords: "label labeling",

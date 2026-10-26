@@ -1,15 +1,26 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+
+const STORAGE_KEY = "habctrl-desktop-notice-seen";
 
 export default function MobileNotice() {
-  const [open, setOpen] = useState(true);
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onKey = (e) => e.key === "Escape" && setOpen(false);
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
+    if (pathname !== "/") return;
+    try {
+      if (localStorage.getItem(STORAGE_KEY)) return;
+      localStorage.setItem(STORAGE_KEY, "1");
+    } catch {}
+    setOpen(true);
+  }, [pathname]);
+
+  useEffect(() => {
+    setOpen(pathname === "/");
+  }, [pathname]);
 
   if (!open) return null;
 
