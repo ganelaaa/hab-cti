@@ -20,6 +20,7 @@ const sections = [
     id: "questions",
     label: "Questions about Conventional Pesticide Registration?",
   },
+  { id: "citation", label: "Citation" },
 ];
 
 const externalLinks = {
@@ -1640,7 +1641,10 @@ export default function ConventionalPesticide({ cms }) {
           </div>
 
           {/* Questions / Contacts */}
-          <div id="questions" className="scroll-mt-28">
+          <div
+            id="questions"
+            className="scroll-mt-28 border-b-4 border-primary-lighter"
+          >
             <h1 className="font-bold text-primary">
               Questions about Conventional Pesticide Registration?
             </h1>
@@ -1648,6 +1652,15 @@ export default function ConventionalPesticide({ cms }) {
               <div
                 className={richText}
                 dangerouslySetInnerHTML={{ __html: cms?.contactsTable }}
+              />
+            </div>
+          </div>
+          {/* citation */}
+          <div id="citation" className="scroll-mt-28">
+            <div className="mb-8 text-lg">
+              <div
+                className={richText}
+                dangerouslySetInnerHTML={{ __html: cms?.citationText || "" }}
               />
             </div>
           </div>

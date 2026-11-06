@@ -3,24 +3,27 @@ import Link from "next/link";
 
 export default function Agencies({ allAgencies = [], headerData }) {
   // Dynamically split your custom post items based on their select configurations
-  const laws = allAgencies.filter((item) => 
-    item.agencyInternalConnector?.agencyType?.includes("permitting")
+  const laws = allAgencies.filter((item) =>
+    item.agencyInternalConnector?.agencyType?.includes("permitting"),
   );
 
-  const compliance = allAgencies.filter((item) => 
-    item.agencyInternalConnector?.agencyType?.includes("compliance")
+  const compliance = allAgencies.filter((item) =>
+    item.agencyInternalConnector?.agencyType?.includes("compliance"),
   );
 
   return (
     <div className="px-4 py-10 tracking-wide sm:px-10 lg:px-20">
       <p className="text-sm font-bold text-green">
         {headerData?.label || "ACTS AND REGULATORY AGENCIES"}
-        </p>
-      
+      </p>
+
       {/* SECTION 1: Permitting Laws */}
-      <h2 className="mt-1 text-3xl font-bold text-black">{headerData?.title || "Permitting Laws"}</h2>
+      <h2 className="mt-1 text-3xl font-bold text-black">
+        {headerData?.title || "Permitting Laws"}
+      </h2>
       <p className="mt-2 max-w-xl text-sm text-gray-600">
-        {headerData?.description || "Laws and regulations requiring permits for algaecide approval and deployment."}
+        {headerData?.description ||
+          "Laws and regulations requiring permits for algaecide approval and deployment."}
       </p>
 
       <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -28,7 +31,9 @@ export default function Agencies({ allAgencies = [], headerData }) {
           <DynamicAgencyCard key={agency.databaseId} agency={agency} />
         ))}
         {laws.length === 0 && (
-          <p className="text-sm text-gray-400 italic col-span-full">No permitting laws published yet.</p>
+          <p className="text-sm text-gray-400 italic col-span-full">
+            No permitting laws published yet.
+          </p>
         )}
       </div>
 
@@ -37,7 +42,8 @@ export default function Agencies({ allAgencies = [], headerData }) {
         {headerData?.title2 || "Acts Requiring Compliance"}
       </h2>
       <p className="mt-2 max-w-xl text-sm text-gray-600">
-        {headerData?.description2 || "Regulatory statutes with which the deployment of algaecide products must comply."}
+        {headerData?.description2 ||
+          "Regulatory statutes with which the deployment of algaecide products must comply."}
       </p>
 
       <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -45,7 +51,9 @@ export default function Agencies({ allAgencies = [], headerData }) {
           <DynamicAgencyCard key={agency.databaseId} agency={agency} />
         ))}
         {compliance.length === 0 && (
-          <p className="text-sm text-gray-400 italic col-span-full">No compliance acts published yet.</p>
+          <p className="text-sm text-gray-400 italic col-span-full">
+            No compliance acts published yet.
+          </p>
         )}
       </div>
     </div>
@@ -54,9 +62,14 @@ export default function Agencies({ allAgencies = [], headerData }) {
 
 function DynamicAgencyCard({ agency }) {
   const cms = agency.agencyInternalConnector;
-  
+
   // Maps directly onto your verified nested structure from the GQL IDE
-  const imagePath = cms?.featuredImage?.node?.sourceUrl || "/USEPA.svg.png";
+  const logos = [
+    cms?.featuredImage?.node?.sourceUrl || "/USEPA.svg.png",
+    cms?.secondLogo?.node?.sourceUrl,
+    cms?.thirdLogo?.node?.sourceUrl,
+  ].filter(Boolean);
+  const logoSize = logos.length > 1 ? "h-12 w-12" : "h-16 w-16";
 
   /*
    * State Policies and Permits has its own dedicated page.
@@ -76,26 +89,45 @@ function DynamicAgencyCard({ agency }) {
     : `/agency/${agency.databaseId}`;
 
   return (
-    <div className={`relative flex flex-col rounded border border-gray-300 p-4 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_15px_rgba(0,94,162,0.3)] ${
-      cms?.isPrimary ? 'bg-primary-lighter' : 'bg-white'
-    }`}>
-      <img src={imagePath} alt="" className="mb-3 h-16 w-16 object-contain" />
-      
-      {cms?.isPrimary && (
-        <div className="absolute top-3 right-3 flex flex-row items-center gap-1 rounded-2xl bg-[#78a529] p-1 px-2 text-sm font-bold text-white">
-          <svg className="usa-icon" aria-hidden="true" focusable="false" role="img">
-            <use href="/assets/img/sprite.svg#star"></use>
-          </svg>
-          Primary
+    <div
+      className={`relative flex flex-col rounded border border-gray-300 p-4 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_15px_rgba(0,94,162,0.3)] ${
+        cms?.isPrimary ? "bg-primary-lighter" : "bg-white"
+      }`}
+    >
+      <div className="mb-3 flex flex-wrap items-start justify-between gap-2">
+        <div className="flex flex-row items-center gap-3">
+          {logos.map((src) => (
+            <img
+              key={src}
+              src={src}
+              alt=""
+              className={`${logoSize} object-contain`}
+            />
+          ))}
         </div>
-      )}
+
+        {cms?.isPrimary && (
+          <div className="flex flex-row items-center gap-1 rounded-2xl bg-[#78a529] p-1 px-2 text-sm font-bold text-white">
+            <svg
+              className="usa-icon"
+              aria-hidden="true"
+              focusable="false"
+              role="img"
+            >
+              <use href="/assets/img/sprite.svg#star"></use>
+            </svg>
+            Primary
+          </div>
+        )}
+      </div>
 
       <div className="min-w-0 flex-1">
         <h3 className="whitespace-pre-line text-lg font-semibold leading-snug text-black">
           {agency.title}
         </h3>
-        <p className="mt-3 text-sm text-gray-700 leading-normal">
-          {cms?.cardDescription || "Click learn more to view complete details, contacts, and backgrounds."}
+        <p className="mt-3 text-sm leading-normal text-gray-700">
+          {cms?.cardDescription ||
+            "Click learn more to view complete details, contacts, and backgrounds."}
         </p>
       </div>
 

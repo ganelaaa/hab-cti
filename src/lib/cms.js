@@ -10,6 +10,16 @@ query GetAllAgencyPosts {
             sourceUrl
           }
         }
+          secondLogo {
+          node {
+            sourceUrl
+          }
+        }
+        thirdLogo {
+          node {
+            sourceUrl
+          }
+        }
         cardDescription
         isPrimary
         agencyType
@@ -145,6 +155,7 @@ query GetExperimentalUseData {
       additionalResourcesDescription
       questionsTitle
       questionsDescription
+      citationDescription
     }
   }
 }
@@ -1128,6 +1139,7 @@ query GetBiopesticideData {
       additionalInfoText
       dataRequirementsTable
       contactsTable
+      citationText
     }
   }
 }
@@ -1170,6 +1182,7 @@ query GetConventionalData {
       endangeredSpeciesText
       contactsTable
       dataRequirementsTable
+      citationText
     }
   }
 }

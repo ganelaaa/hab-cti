@@ -27,11 +27,32 @@ export default function ExperimentalUse() {
   // Anchor indicators map dynamically directly from live headline titles
   const sections = [
     { id: "overview", label: cms?.overviewTitle || "Overview" },
-    { id: "eup-application", label: cms?.eupApplicationTitle || "Information Required for the EPA Experimental Use Permit Application" },
-    { id: "confidential-statement", label: cms?.confidentialStatementTitle || "Information Required for the EPA Confidential Statement of Formula" },
-    { id: "required-forms", label: cms?.requiredFormsTitle || "Required Forms" },
-    { id: "additional-resources", label: cms?.additionalResourcesTitle || "Additional Resources" },
-    { id: "questions", label: cms?.questionsTitle || "Questions about EPA Experimental Use Permits?" }
+    {
+      id: "eup-application",
+      label:
+        cms?.eupApplicationTitle ||
+        "Information Required for the EPA Experimental Use Permit Application",
+    },
+    {
+      id: "confidential-statement",
+      label:
+        cms?.confidentialStatementTitle ||
+        "Information Required for the EPA Confidential Statement of Formula",
+    },
+    {
+      id: "required-forms",
+      label: cms?.requiredFormsTitle || "Required Forms",
+    },
+    {
+      id: "additional-resources",
+      label: cms?.additionalResourcesTitle || "Additional Resources",
+    },
+    {
+      id: "questions",
+      label:
+        cms?.questionsTitle || "Questions about EPA Experimental Use Permits?",
+    },
+    { id: "citation", label: "Citation" },
   ];
 
   const scrollTo = (id) => {
@@ -58,7 +79,11 @@ export default function ExperimentalUse() {
   }, [loading, cms]);
 
   if (loading) {
-    return <div className="p-20 text-center text-gray-500">Loading permit metrics database...</div>;
+    return (
+      <div className="p-20 text-center text-gray-500">
+        Loading permit metrics database...
+      </div>
+    );
   }
 
   // --- STATIC HTML CONTENT FALLBACKS (IF CMS TEXT AREAS ARE BLANK) ---
@@ -109,10 +134,17 @@ export default function ExperimentalUse() {
     <div className="px-20 py-10 tracking-wide">
       {/* Breadcrumb row map */}
       <div className="mb-8 flex flex-row items-center gap-2 text-sm text-gray-500">
-        <svg className="usa-icon text-gray-500 w-4 h-4" aria-hidden="true" focusable="false" role="img">
+        <svg
+          className="usa-icon text-gray-500 w-4 h-4"
+          aria-hidden="true"
+          focusable="false"
+          role="img"
+        >
           <use href="/assets/img/sprite.svg#arrow_back"></use>
         </svg>
-        <Link href="/" className="text-primary hover:underline">Home</Link>
+        <Link href="/" className="text-primary hover:underline">
+          Home
+        </Link>
         <span>›</span>
         <span className="text-primary">Laws and Permits</span>
         <span>›</span>
@@ -121,7 +153,10 @@ export default function ExperimentalUse() {
 
       <InternalPageHero
         title={cms?.pageTitle || "EPA Experimental Use Permit"}
-        subtitle={cms?.pageSubtitle || "Experimental Use Permit Application Requirements"}
+        subtitle={
+          cms?.pageSubtitle ||
+          "Experimental Use Permit Application Requirements"
+        }
         link="https://www.epa.gov/pesticide-registration/pesticide-registration-manual-chapter-12-applying-experimental-use-permit"
       />
 
@@ -150,45 +185,114 @@ export default function ExperimentalUse() {
 
         {/* Dynamic Inner HTML Content Displays */}
         <div className="flex-1 min-w-0 break-words whitespace-normal">
+          <div
+            className="mt-10 prose max-w-none"
+            dangerouslySetInnerHTML={{ __html: cms?.introText || "" }}
+          />
           {/* Section 1: Overview */}
-          <div id="overview" className="mt-10 scroll-mt-28 border-b-4 border-primary-lighter pb-6 prose max-w-none">
-            <h1 className="font-bold text-primary text-2xl mb-4">{cms?.overviewTitle || "Overview"}</h1>
-            <div dangerouslySetInnerHTML={{ __html: cms?.overviewDescription || defaultOverviewHtml }} />
+          <div
+            id="overview"
+            className="mt-10 scroll-mt-28 border-b-4 border-primary-lighter pb-6 prose max-w-none"
+          >
+            <h1 className="font-bold text-primary text-2xl mb-4">
+              {cms?.overviewTitle || "Overview"}
+            </h1>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: cms?.overviewDescription || defaultOverviewHtml,
+              }}
+            />
           </div>
 
           {/* Section 2: EUP Application Info */}
-          <div id="eup-application" className="scroll-mt-28 border-b-4 border-primary-lighter pt-10 pb-6 prose max-w-none">
+          <div
+            id="eup-application"
+            className="scroll-mt-28 border-b-4 border-primary-lighter pt-10 pb-6 prose max-w-none"
+          >
             <h1 className="font-bold text-primary text-2xl mb-4">
-              {cms?.eupApplicationTitle || "Information Required for the EPA Experimental Use Permit Application"}
+              {cms?.eupApplicationTitle ||
+                "Information Required for the EPA Experimental Use Permit Application"}
             </h1>
-            <div dangerouslySetInnerHTML={{ __html: cms?.eupApplicationDescription || defaultEupApplicationHtml }} />
+            <div
+              dangerouslySetInnerHTML={{
+                __html:
+                  cms?.eupApplicationDescription || defaultEupApplicationHtml,
+              }}
+            />
           </div>
 
           {/* Section 3: Confidential Statement */}
-          <div id="confidential-statement" className="scroll-mt-28 border-b-4 border-primary-lighter pt-10 pb-6 prose max-w-none">
+          <div
+            id="confidential-statement"
+            className="scroll-mt-28 border-b-4 border-primary-lighter pt-10 pb-6 prose max-w-none"
+          >
             <h1 className="font-bold text-primary text-2xl mb-4">
-              {cms?.confidentialStatementTitle || "Information Required for the EPA Confidential Statement of Formula"}
+              {cms?.confidentialStatementTitle ||
+                "Information Required for the EPA Confidential Statement of Formula"}
             </h1>
-            <div dangerouslySetInnerHTML={{ __html: cms?.confidentialStatementDescription || defaultConfidentialHtml }} />
+            <div
+              dangerouslySetInnerHTML={{
+                __html:
+                  cms?.confidentialStatementDescription ||
+                  defaultConfidentialHtml,
+              }}
+            />
           </div>
 
           {/* Section 4: Required Forms */}
-          <div id="required-forms" className="scroll-mt-28 border-b-4 border-primary-lighter pt-10 pb-6 prose max-w-none">
-            <h1 className="font-bold text-primary text-2xl mb-4">{cms?.requiredFormsTitle || "Required Forms"}</h1>
-            <div dangerouslySetInnerHTML={{ __html: cms?.requiredFormsDescription || defaultRequiredFormsHtml }} />
+          <div
+            id="required-forms"
+            className="scroll-mt-28 border-b-4 border-primary-lighter pt-10 pb-6 prose max-w-none"
+          >
+            <h1 className="font-bold text-primary text-2xl mb-4">
+              {cms?.requiredFormsTitle || "Required Forms"}
+            </h1>
+            <div
+              dangerouslySetInnerHTML={{
+                __html:
+                  cms?.requiredFormsDescription || defaultRequiredFormsHtml,
+              }}
+            />
           </div>
 
           {/* Section 5: Additional Resources */}
-          <div id="additional-resources" className="scroll-mt-28 border-b-4 border-primary-lighter pt-10 pb-6 prose max-w-none">
-            <h1 className="font-bold text-primary text-2xl mb-4">{cms?.additionalResourcesTitle || "Additional Resources"}</h1>
-            <div dangerouslySetInnerHTML={{ __html: cms?.additionalResourcesDescription || defaultAdditionalResourcesHtml }} />
+          <div
+            id="additional-resources"
+            className="scroll-mt-28 border-b-4 border-primary-lighter pt-10 pb-6 prose max-w-none"
+          >
+            <h1 className="font-bold text-primary text-2xl mb-4">
+              {cms?.additionalResourcesTitle || "Additional Resources"}
+            </h1>
+            <div
+              dangerouslySetInnerHTML={{
+                __html:
+                  cms?.additionalResourcesDescription ||
+                  defaultAdditionalResourcesHtml,
+              }}
+            />
           </div>
 
           {/* Section 6: Questions Contacts */}
-          <div id="questions" className="scroll-mt-28 pt-10 prose max-w-none">
-            <h1 className="font-bold text-primary text-2xl mb-4">{cms?.questionsTitle || "Questions about EPA Experimental Use Permits?"}</h1>
-            <div dangerouslySetInnerHTML={{ __html: cms?.questionsDescription || defaultQuestionsHtml }} />
+          <div
+            id="questions"
+            className="scroll-mt-28 border-b-4 border-primary-lighter pt-10 pb-6 prose max-w-none"
+          >
+            <h1 className="font-bold text-primary text-2xl mb-4">
+              {cms?.questionsTitle ||
+                "Questions about EPA Experimental Use Permits?"}
+            </h1>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: cms?.questionsDescription || defaultQuestionsHtml,
+              }}
+            />
           </div>
+
+          <div
+            id="citation"
+            className="scroll-mt-28 pt-6 prose max-w-none"
+            dangerouslySetInnerHTML={{ __html: cms?.citationText || "" }}
+          />
         </div>
       </div>
     </div>

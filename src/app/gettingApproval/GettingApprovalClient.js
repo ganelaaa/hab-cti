@@ -8,7 +8,7 @@ const richText =
 
 const sections = [
   { id: "pre-application", label: "Pre-Application Meeting" },
-  { id: "permission-approvals", label: "Permission and Approvals" },
+  { id: "product-classification", label: "Determine Product Classification" },
 ];
 
 const linkClass = "text-primary underline";
@@ -315,7 +315,7 @@ export default function GettingApprovalClient({ cms }) {
 
           {/* Determine Product Classification */}
           <div
-            id="permission-approvals"
+            id="product-classification"
             className="mt-16 scroll-mt-28 border-t-4 border-primary-lighter pt-10"
           >
             <h2 className="text-2xl font-bold text-primary-darker">

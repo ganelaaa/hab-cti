@@ -19,6 +19,7 @@ const sections = [
     id: "questions",
     label: "Questions about Biopesticide Registration?",
   },
+  { id: "citation", label: "Citation" },
 ];
 
 const externalLinks = {
@@ -1157,7 +1158,10 @@ export default function BiopesticideClient({ cms }) {
           </div>
 
           {/* Questions */}
-          <div id="questions" className="scroll-mt-28">
+          <div
+            id="questions"
+            className="scroll-mt-28 border-b-4 border-primary-lighter"
+          >
             <h1 className="font-bold text-primary">
               Questions about Biopesticide Registration?
             </h1>
@@ -1166,6 +1170,15 @@ export default function BiopesticideClient({ cms }) {
               <div
                 className={richText}
                 dangerouslySetInnerHTML={{ __html: cms?.contactsTable || "" }}
+              />
+            </div>
+            {/* Citation */}
+          </div>
+          <div id="citation" className="scroll-mt-28">
+            <div className="mb-8 text-lg">
+              <div
+                className={richText}
+                dangerouslySetInnerHTML={{ __html: cms?.citationText || "" }}
               />
             </div>
           </div>
