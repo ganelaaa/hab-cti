@@ -1030,11 +1030,10 @@ export default function BiopesticideClient({ cms }) {
                 <p
                   key={section.id}
                   onClick={() => scrollTo(section.id)}
-                  className={`cursor-pointer py-2 pl-4 text-sm transition-colors duration-200 hover:text-primary ${
-                    activeSection === section.id
-                      ? "-ml-[2px] border-l-4 border-black font-semibold text-black"
-                      : "text-primary"
-                  }`}
+                  className={`cursor-pointer py-2 pl-4 text-sm transition-colors duration-200 hover:text-primary ${activeSection === section.id
+                    ? "-ml-[2px] border-l-4 border-black font-semibold text-black"
+                    : "text-primary"
+                    }`}
                 >
                   {section.label}
                 </p>
@@ -1044,8 +1043,7 @@ export default function BiopesticideClient({ cms }) {
         </div>
 
         <div className="mt-5 min-w-0 flex-1">
-          <div
-            className={richText}
+          <div className={`rounded border-l-4 border-primary bg-[#f0f6ff] px-5 py-3 text-sm max-w-none ${richText}`}
             dangerouslySetInnerHTML={{ __html: cms?.introText || "" }}
           />
           {/* Overview */}
@@ -1157,7 +1155,7 @@ export default function BiopesticideClient({ cms }) {
           </div>
 
           {/* Questions */}
-          <div id="questions" className="scroll-mt-28">
+          <div id="questions" className="scroll-mt-28 border-b-4 border-primary-lighter">
             <h1 className="font-bold text-primary">
               Questions about Biopesticide Registration?
             </h1>
@@ -1166,6 +1164,16 @@ export default function BiopesticideClient({ cms }) {
               <div
                 className={richText}
                 dangerouslySetInnerHTML={{ __html: cms?.contactsTable || "" }}
+              />
+            </div>
+          </div>
+
+          {/* Citation */}
+          <div id="citation" className="scroll-mt-28">
+            <div className="prose max-w-none">
+              <div
+                className={richText}
+                dangerouslySetInnerHTML={{ __html: cms?.citationText || "" }}
               />
             </div>
           </div>

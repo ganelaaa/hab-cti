@@ -1128,6 +1128,7 @@ query GetBiopesticideData {
       additionalInfoText
       dataRequirementsTable
       contactsTable
+      citationText
     }
   }
 }
@@ -1170,6 +1171,7 @@ query GetConventionalData {
       endangeredSpeciesText
       contactsTable
       dataRequirementsTable
+      citationText
     }
   }
 }
@@ -1564,3 +1566,4 @@ export async function getToxicologyPageFields() {
     return null;
   }
 }
+
