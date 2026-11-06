@@ -1046,7 +1046,7 @@ export default function BiopesticideClient({ cms }) {
 
         <div className="mt-5 min-w-0 flex-1">
           <div
-            className={richText}
+            className={`rounded border-l-4 border-primary bg-[#f0f6ff] px-5 py-3 text-sm max-w-none ${richText}`}
             dangerouslySetInnerHTML={{ __html: cms?.introText || "" }}
           />
           {/* Overview */}
@@ -1172,10 +1172,11 @@ export default function BiopesticideClient({ cms }) {
                 dangerouslySetInnerHTML={{ __html: cms?.contactsTable || "" }}
               />
             </div>
-            {/* Citation */}
           </div>
+
+          {/* Citation */}
           <div id="citation" className="scroll-mt-28">
-            <div className="mb-8 text-lg">
+            <div className="prose max-w-none">
               <div
                 className={richText}
                 dangerouslySetInnerHTML={{ __html: cms?.citationText || "" }}

@@ -1549,9 +1549,9 @@ export default function ConventionalPesticide({ cms }) {
           </div>
         </div>
 
-        <div className="flex-1">
+        <div className="flex-1 mt-5 min-w-0 ">
           <div
-            className={richText}
+            className={`rounded border-l-4 border-primary bg-[#f0f6ff] px-5 py-3 text-sm max-w-none ${richText}`}
             dangerouslySetInnerHTML={{ __html: cms?.introText || "" }}
           />
           {/* Overview */}
@@ -1648,16 +1648,17 @@ export default function ConventionalPesticide({ cms }) {
             <h1 className="font-bold text-primary">
               Questions about Conventional Pesticide Registration?
             </h1>
-            <div className="mb-8 text-lg">
+            <div className="text-lg">
               <div
                 className={richText}
                 dangerouslySetInnerHTML={{ __html: cms?.contactsTable }}
               />
             </div>
           </div>
-          {/* citation */}
+
+          {/* Citation */}
           <div id="citation" className="scroll-mt-28">
-            <div className="mb-8 text-lg">
+            <div className="prose max-w-none">
               <div
                 className={richText}
                 dangerouslySetInnerHTML={{ __html: cms?.citationText || "" }}
