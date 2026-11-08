@@ -1268,6 +1268,7 @@ query GetMinimumRiskData {
       questionsText
       activeIngredientsTable
       inertIngredientsTable
+      citationBottom
     }
   }
 }

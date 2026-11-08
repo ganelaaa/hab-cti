@@ -15,6 +15,7 @@ const sections = [
   { id: "table2", label: "Table 2: Inert Ingredients" },
   { id: "additional-information", label: "Additional Information" },
   { id: "questions", label: "Questions about Minimum Risk Pesticides?" },
+  { id: "citationBottom", label: "Citation" },
 ];
 
 const externalLinks = {
@@ -718,7 +719,7 @@ export default function MinimumRiskPesticides({ cms }) {
 
         <div className="flex-1">
           <div
-            className={richText}
+            className={`mt-10 rounded border-l-4 border-primary bg-[#f0f6ff] px-5 py-3 text-sm max-w-none ${richText}`}
             dangerouslySetInnerHTML={{ __html: cms?.introText || "" }}
           />
           {/* Overview */}
@@ -917,7 +918,7 @@ export default function MinimumRiskPesticides({ cms }) {
           </div>
 
           {/* Questions */}
-          <div id="questions" className="scroll-mt-28">
+          <div id="questions" className="scroll-mt-28 border-b-4 border-primary-lighter">
             <h1 className="font-bold text-primary">
               Questions about Minimum Risk Pesticides?
             </h1>
@@ -925,6 +926,19 @@ export default function MinimumRiskPesticides({ cms }) {
               <div
                 className={richText}
                 dangerouslySetInnerHTML={{ __html: cms?.questionsText || "" }}
+              />
+            </div>
+          </div>
+
+          {/* Questions */}
+          <div id="citation" className="scroll-mt-28">
+            <h1 className="font-bold text-primary">
+              Citation
+            </h1>
+            <div className="mb-8 text-lg">
+              <div
+                className={richText}
+                dangerouslySetInnerHTML={{ __html: cms?.citationBottom || "" }}
               />
             </div>
           </div>
