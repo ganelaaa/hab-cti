@@ -143,6 +143,7 @@ query GetExperimentalUseData {
     fieldStudiesExperimentalUse {
       pageTitle
       pageSubtitle
+      citationTop
       overviewTitle
       overviewDescription
       eupApplicationTitle
@@ -155,6 +156,7 @@ query GetExperimentalUseData {
       additionalResourcesDescription
       questionsTitle
       questionsDescription
+      citationsTitle
       citationDescription
     }
   }

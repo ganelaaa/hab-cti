@@ -20,7 +20,10 @@ const sections = [
     id: "questions",
     label: "Questions about Conventional Pesticide Registration?",
   },
-  { id: "citation", label: "Citation" },
+  {
+    id: "citation",
+    label: "Citation",
+  },
 ];
 
 const externalLinks = {
@@ -1658,6 +1661,9 @@ export default function ConventionalPesticide({ cms }) {
 
           {/* Citation */}
           <div id="citation" className="scroll-mt-28">
+            <h1 className="font-bold text-primary">
+              Citation
+            </h1>
             <div className="prose max-w-none">
               <div
                 className={richText}

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import InternalPageHero from "@/components/InternalPageHero";
 import { getExperimentalUseFields } from "@/lib/cms";
 
@@ -9,6 +9,7 @@ export default function ExperimentalUse() {
   const [cms, setCms] = useState(null);
   const [activeSection, setActiveSection] = useState("overview");
   const [loading, setLoading] = useState(true);
+  const clickedRef = useRef(null);
 
   useEffect(() => {
     async function initFields() {
@@ -27,49 +28,56 @@ export default function ExperimentalUse() {
   // Anchor indicators map dynamically directly from live headline titles
   const sections = [
     { id: "overview", label: cms?.overviewTitle || "Overview" },
-    {
-      id: "eup-application",
-      label:
-        cms?.eupApplicationTitle ||
-        "Information Required for the EPA Experimental Use Permit Application",
-    },
-    {
-      id: "confidential-statement",
-      label:
-        cms?.confidentialStatementTitle ||
-        "Information Required for the EPA Confidential Statement of Formula",
-    },
-    {
-      id: "required-forms",
-      label: cms?.requiredFormsTitle || "Required Forms",
-    },
-    {
-      id: "additional-resources",
-      label: cms?.additionalResourcesTitle || "Additional Resources",
-    },
-    {
-      id: "questions",
-      label:
-        cms?.questionsTitle || "Questions about EPA Experimental Use Permits?",
-    },
-    { id: "citation", label: "Citation" },
+    { id: "eup-application", label: cms?.eupApplicationTitle || "Information Required for the EPA Experimental Use Permit Application" },
+    { id: "confidential-statement", label: cms?.confidentialStatementTitle || "Information Required for the EPA Confidential Statement of Formula" },
+    { id: "required-forms", label: cms?.requiredFormsTitle || "Required Forms" },
+    { id: "additional-resources", label: cms?.additionalResourcesTitle || "Additional Resources" },
+    { id: "questions", label: cms?.questionsTitle || "Questions about EPA Experimental Use Permits?" },
+    { id: "citation", label: cms?.citationsTitle || "Citation" }
+
   ];
 
   const scrollTo = (id) => {
+    clickedRef.current = { id, until: Date.now() + 1500 };
+    setActiveSection(id);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     window.history.pushState(null, "", `#${id}`);
   };
 
   useEffect(() => {
     if (loading) return;
+    const isHeadingVisible = (id) => {
+      const heading = document.getElementById(id)?.querySelector("h1");
+      if (!heading) return false;
+      const rect = heading.getBoundingClientRect();
+      return rect.top >= 0 && rect.bottom <= window.innerHeight;
+    };
+
     const handleScroll = () => {
+      // A clicked item stays highlighted while it scrolls into place and
+      // for as long as its heading is still on screen
+      const clicked = clickedRef.current;
+      if (clicked) {
+        if (Date.now() < clicked.until || isHeadingVisible(clicked.id)) {
+          setActiveSection(clicked.id);
+          return;
+        }
+        clickedRef.current = null;
+      }
+
+      // Otherwise: the topmost heading that is on screen
+      const first = sections.find((s) => isHeadingVisible(s.id));
+      if (first) {
+        setActiveSection(first.id);
+        return;
+      }
+
+      // Inside a long section with its heading scrolled off
       for (const section of sections) {
         const el = document.getElementById(section.id);
         if (el) {
           const rect = el.getBoundingClientRect();
-          if (rect.top <= 150 && rect.bottom >= 150) {
-            setActiveSection(section.id);
-          }
+          if (rect.top <= 150 && rect.bottom >= 150) setActiveSection(section.id);
         }
       }
     };
@@ -170,11 +178,10 @@ export default function ExperimentalUse() {
                 <p
                   key={section.id}
                   onClick={() => scrollTo(section.id)}
-                  className={`cursor-pointer py-2 pl-4 text-sm transition-colors duration-200 hover:text-primary ${
-                    activeSection === section.id
+                  className={`cursor-pointer py-2 pl-4 text-sm transition-colors duration-200 hover:text-primary ${activeSection.includes(section.id)
                       ? "-ml-[2px] border-l-4 border-black font-semibold text-black"
                       : "text-primary"
-                  }`}
+                    }`}
                 >
                   {section.label}
                 </p>
@@ -184,11 +191,12 @@ export default function ExperimentalUse() {
         </div>
 
         {/* Dynamic Inner HTML Content Displays */}
+
         <div className="flex-1 min-w-0 break-words whitespace-normal">
-          <div
-            className="mt-10 prose max-w-none"
-            dangerouslySetInnerHTML={{ __html: cms?.introText || "" }}
-          />
+          {/* Source note */}
+          <div className="mt-10 rounded border-l-4 border-primary bg-[#f0f6ff] px-5 py-4 text-sm prose max-w-none">
+            <div dangerouslySetInnerHTML={{ __html: cms?.citationTop }} />
+          </div>
           {/* Section 1: Overview */}
           <div
             id="overview"
@@ -273,26 +281,16 @@ export default function ExperimentalUse() {
           </div>
 
           {/* Section 6: Questions Contacts */}
-          <div
-            id="questions"
-            className="scroll-mt-28 border-b-4 border-primary-lighter pt-10 pb-6 prose max-w-none"
-          >
-            <h1 className="font-bold text-primary text-2xl mb-4">
-              {cms?.questionsTitle ||
-                "Questions about EPA Experimental Use Permits?"}
-            </h1>
-            <div
-              dangerouslySetInnerHTML={{
-                __html: cms?.questionsDescription || defaultQuestionsHtml,
-              }}
-            />
+          <div id="questions" className="scroll-mt-28 border-b-4 border-primary-lighter pt-10 pb-6 prose max-w-none">
+            <h1 className="font-bold text-primary text-2xl mb-4">{cms?.questionsTitle || "Questions about EPA Experimental Use Permits?"}</h1>
+            <div dangerouslySetInnerHTML={{ __html: cms?.questionsDescription || defaultQuestionsHtml }} />
           </div>
 
-          <div
-            id="citation"
-            className="scroll-mt-28 pt-6 prose max-w-none"
-            dangerouslySetInnerHTML={{ __html: cms?.citationText || "" }}
-          />
+          {/* Section 7: Citation */}
+          <div id="citation" className="scroll-mt-28 pt-10 prose max-w-none">
+            <h1 className="font-bold text-primary text-2xl mb-4">{cms?.citationsTitle || "Citation"}</h1>
+            <div dangerouslySetInnerHTML={{ __html: cms?.citationDescription }} />
+          </div>
         </div>
       </div>
     </div>
