@@ -17,6 +17,8 @@ const sections = [
   { id: "data-exempt", label: "Data Exempt from GLP compliance" },
   { id: "additional-resources", label: "Additional Resources" },
   { id: "questions", label: "Questions about Good Laboratory Practices?" },
+  { id: "citation", label: "Citation" },
+
 ];
 
 function Block({ html, className = "" }) {
@@ -112,8 +114,8 @@ export default function GoodLaboratoryPracticesClient({ cms }) {
           </div>
         </div>
 
-        <div className="min-w-0 flex-1">
-          <Block html={cms?.introText} className="mt-10" />
+        <div className="mt-5 min-w-0 flex-1">
+          <Block html={cms?.introText} className={`rounded border-l-4 border-primary bg-[#f0f6ff] px-5 py-3 text-sm max-w-none ${richText}`} />
 
           <div
             id="overview"
@@ -177,13 +179,25 @@ export default function GoodLaboratoryPracticesClient({ cms }) {
             </div>
           </div>
 
-          <div id="questions" className="scroll-mt-28">
+          <div id="questions" className="scroll-mt-28 border-b-4 border-primary-lighter">
             <h1 className="font-bold text-primary">
               Questions about Good Laboratory Practices?
             </h1>
             <div className="mb-8 text-lg">
               <Block html={cms?.questionsText} />
-              <Block html={cms?.citationText} className="mt-10" />
+            </div>
+          </div>
+
+          {/* Citation */}
+          <div id="citation" className="scroll-mt-28">
+            <h1 className="font-bold text-primary">
+              Citation
+            </h1>
+            <div className="prose max-w-none">
+              <div
+                className={richText}
+                dangerouslySetInnerHTML={{ __html: cms?.citationText || "" }}
+              />
             </div>
           </div>
         </div>

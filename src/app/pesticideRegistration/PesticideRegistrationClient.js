@@ -19,6 +19,7 @@ const sections = [
     id: "questions",
     label: "Questions about FIFRA Pesticide Product Registration?",
   },
+  { id: "citation", label: "Citation" },
 ];
 
 function Block({ html, className = "" }) {
@@ -111,7 +112,7 @@ export default function PesticideRegistrationClient({ cms }) {
             id="overview"
             className="mt-10 scroll-mt-28 border-b-4 border-primary-lighter"
           >
-            <Block html={cms?.introText} className="mt-8" />
+            <Block html={cms?.introText} className={`rounded border-l-4 border-primary bg-[#f0f6ff] px-5 py-3 text-sm max-w-none ${richText}`} />
             <h1 className="font-bold text-primary">Overview</h1>
             <div className="mb-8 text-lg">
               <Block html={cms?.overviewText} />
@@ -152,17 +153,26 @@ export default function PesticideRegistrationClient({ cms }) {
             </div>
           </div>
 
-          <div id="questions" className="scroll-mt-28">
+          <div id="questions" className="scroll-mt-28 border-b-4 border-primary-lighter">
             <h1 className="font-bold text-primary">
               Questions about FIFRA Pesticide Product Registration?
             </h1>
             <div className="mb-8 text-lg">
               <Block html={cms?.questionsText} />
             </div>
-            <Block
-              html={cms?.citationText}
-              className="mb-8 text-sm [&_p]:text-gray-600! [&_a]:text-primary!"
-            />
+          </div>
+
+          {/* Citation */}
+          <div id="citation" className="scroll-mt-28">
+            <h1 className="font-bold text-primary">
+              Citation
+            </h1>
+            <div className="prose max-w-none">
+              <div
+                className={richText}
+                dangerouslySetInnerHTML={{ __html: cms?.citationText || "" }}
+              />
+            </div>
           </div>
         </div>
       </div>

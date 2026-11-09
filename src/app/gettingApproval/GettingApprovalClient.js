@@ -9,7 +9,17 @@ const richText =
 const sections = [
   { id: "pre-application", label: "Pre-Application Meeting" },
   { id: "product-classification", label: "Determine Product Classification" },
+  { id: "citation", label: "Citation" },
 ];
+
+function Block({ html, className = "" }) {
+  return (
+    <div
+      className={`${richText} ${className}`}
+      dangerouslySetInnerHTML={{ __html: html || "" }}
+    />
+  );
+}
 
 const linkClass = "text-primary underline";
 
@@ -263,7 +273,9 @@ export default function GettingApprovalClient({ cms }) {
           </div>
         </div>
 
-        <div className="min-w-0 flex-1">
+        <div className="min-w-0 flex-1 mt-10 ">
+          <Block html={cms?.introText} className={`rounded border-l-4 border-primary bg-[#f0f6ff] px-5 py-3 text-sm max-w-none ${richText}`} />
+
           {/* Pre-Application Meeting */}
           <div id="pre-application" className="mt-10 scroll-mt-28">
             <h1 className="mb-6 text-3xl font-bold text-primary">
@@ -444,6 +456,21 @@ export default function GettingApprovalClient({ cms }) {
               />
             </div>
           </div>
+
+          {/* Citation */}
+          <div id="citation" className="scroll-mt-28 mt-10 border-t-4 border-primary-lighter pt-10">
+            <h1 className="font-bold text-primary">
+              Citation
+            </h1>
+            <div className="prose max-w-none">
+              <div
+                className={richText}
+                dangerouslySetInnerHTML={{ __html: cms?.citationBottom || "" }}
+              />
+            </div>
+          </div>
+
+          
         </div>
       </div>
     </div>

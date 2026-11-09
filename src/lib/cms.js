@@ -1342,6 +1342,7 @@ export const GET_GETTING_APPROVAL_DATA = `
 query GetGettingApprovalData {
   page(id: 1390, idType: DATABASE_ID) {
     gettingApprovalInfoPage {
+      introText
       pageTitle
       pageSubtitle
       questionHeading
@@ -1349,6 +1350,7 @@ query GetGettingApprovalData {
       meetingIntro
       meetingBody
       websiteLink
+      citationBottom
     }
   }
 }

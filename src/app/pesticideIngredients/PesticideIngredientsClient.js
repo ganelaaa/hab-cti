@@ -14,6 +14,7 @@ const sections = [
   { id: "endangered-species", label: "Endangered Species Act" },
   { id: "additional-information", label: "Additional Information" },
   { id: "questions", label: "Questions about Pesticide Ingredients?" },
+  { id: "citation", label: "Citation" },
 ];
 
 const EPA_LINK =
@@ -101,10 +102,10 @@ export default function PesticideIngredientsClient({ cms }) {
           </div>
         </div>
 
-        <div className="flex-1">
+        <div className="mt-5 min-w-0 flex-1">
           <Block
             html={cms?.introText}
-            className="text-sm [&_p]:text-gray-600! [&_a]:text-primary!"
+            className={`rounded border-l-4 border-primary bg-[#f0f6ff] px-5 py-3 text-sm max-w-none ${richText}`}
           />
 
           <div
@@ -165,15 +166,26 @@ export default function PesticideIngredientsClient({ cms }) {
             </div>
           </div>
 
-          <div id="questions" className="scroll-mt-28">
+          <div id="questions" className="scroll-mt-28 border-b-4 border-primary-lighter">
             <h1 className="font-bold text-primary">
               Questions about Pesticide Ingredients?
             </h1>
             <div className="mb-8 text-lg">
               <Block html={cms?.questionsText} />
             </div>
-            <h2 className="mt-8 font-bold text-black">Citation</h2>
-            <Block html={cms?.citationText} className="text-base" />
+          </div>
+
+          {/* Citation */}
+          <div id="citation" className="scroll-mt-28">
+            <h1 className="font-bold text-primary">
+              Citation
+            </h1>
+            <div className="prose max-w-none">
+              <div
+                className={richText}
+                dangerouslySetInnerHTML={{ __html: cms?.citationText || "" }}
+              />
+            </div>
           </div>
         </div>
       </div>
