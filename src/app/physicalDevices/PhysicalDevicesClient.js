@@ -13,6 +13,7 @@ const sections = [
   { id: "device-determination", label: "Device Determination" },
   { id: "additional-information", label: "Additional Information" },
   { id: "questions", label: "Questions about Physical Devices" },
+  { id: "citationBottom", label: "Citation" },
 ];
 
 function SectionHeader({ children }) {
@@ -115,7 +116,7 @@ export default function PhysicalDevices({ cms }) {
             className="mt-10 scroll-mt-28 border-primary-lighter border-b-4"
           >
             <div
-              className={richText}
+              className={`mt-10 rounded border-l-4 border-primary bg-[#f0f6ff] px-5 py-3 text-sm max-w-none ${richText}`}
               dangerouslySetInnerHTML={{ __html: cms?.introText || "" }}
             />
             <h1 className="font-bold text-primary">Overview</h1>
@@ -193,7 +194,7 @@ export default function PhysicalDevices({ cms }) {
           </div>
 
           {/* Questions / Contacts */}
-          <div id="questions" className="scroll-mt-28">
+          <div id="questions" className="scroll-mt-28 border-b-4 border-primary-lighter">
             <h1 className="font-bold text-primary">
               Questions about Physical Devices?
             </h1>
@@ -201,6 +202,19 @@ export default function PhysicalDevices({ cms }) {
               className={richText}
               dangerouslySetInnerHTML={{ __html: cms?.questionsText || "" }}
             />
+          </div>
+
+          {/* Citation */}
+          <div id="citation" className="scroll-mt-28">
+            <h1 className="font-bold text-primary">
+              Citation
+            </h1>
+            <div className="mb-8 text-lg">
+              <div
+                className={richText}
+                dangerouslySetInnerHTML={{ __html: cms?.citationBotton || "" }}
+              />
+            </div>
           </div>
         </div>
       </div>

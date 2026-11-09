@@ -1227,6 +1227,7 @@ query GetPhysicalDevicesData {
       determinationText
       additionalInfoText
       questionsText
+      citationBotton
     }
   }
 }
@@ -1423,6 +1424,7 @@ query GetLabelingData {
     labelingInfoPage {
       pageTitle
       pageSubtitle
+      introText
       overviewText
       labelVsLabelingText
       frontPanelText
@@ -1434,6 +1436,7 @@ query GetLabelingData {
       trainingText
       additionalInfoText
       questionsText
+      citationBottom
     }
   }
 }
@@ -1475,7 +1478,7 @@ query GetTolerancesData {
       standardizedText
       resourcesText
       questionsText
-      citationText: citationsText
+      citationsText
     }
   }
 }

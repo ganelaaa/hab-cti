@@ -930,7 +930,7 @@ export default function MinimumRiskPesticides({ cms }) {
             </div>
           </div>
 
-          {/* Questions */}
+          {/* Citation */}
           <div id="citation" className="scroll-mt-28">
             <h1 className="font-bold text-primary">
               Citation

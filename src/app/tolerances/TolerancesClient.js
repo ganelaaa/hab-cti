@@ -16,6 +16,7 @@ const sections = [
   },
   { id: "additional-resources", label: "Additional Resources" },
   { id: "questions", label: "Questions about pesticide tolerances?" },
+  { id: "citationsText", label: "Citation" },
 ];
 
 function Block({ html, className = "" }) {
@@ -129,7 +130,7 @@ export default function TolerancesClient({ cms }) {
         </div>
 
         <div className="min-w-0 flex-1">
-          <Block html={cms?.introText} className="mt-10" />
+          <Block html={cms?.introText} className="mt-10 rounded border-l-4 border-primary bg-[#f0f6ff] px-5 py-3 text-sm max-w-none" />
 
           <div
             id="overview"
@@ -187,13 +188,26 @@ export default function TolerancesClient({ cms }) {
             </div>
           </div>
 
-          <div id="questions" className="scroll-mt-28">
+          <div id="questions" className="scroll-mt-28 border-b-4 border-primary-lighter">
             <h1 className="font-bold text-primary">
               Questions about pesticide tolerances?
             </h1>
             <div className="mb-8 text-lg">
               <Block html={cms?.questionsText} />
               <Block html={cms?.citationText} className="mt-10" />
+            </div>
+          </div>
+
+          {/* Citation */}
+          <div id="citation" className="scroll-mt-28">
+            <h1 className="font-bold text-primary">
+              Citation
+            </h1>
+            <div className="mb-8 text-lg">
+              <div
+                className={richText}
+                dangerouslySetInnerHTML={{ __html: cms?.citationsText || "" }}
+              />
             </div>
           </div>
         </div>

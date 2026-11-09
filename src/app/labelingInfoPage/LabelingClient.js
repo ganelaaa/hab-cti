@@ -18,6 +18,7 @@ const sections = [
   { id: "label-review-training", label: "Pesticide Label Review Training" },
   { id: "additional-information", label: "Additional Information" },
   { id: "questions", label: "Questions about FIFRA product labeling?" },
+  { id: "citationBottom", label: "Citation" },
 ];
 
 function Block({ html, className = "" }) {
@@ -114,6 +115,10 @@ export default function LabelingClient({ cms }) {
         </div>
 
         <div className="min-w-0 flex-1">
+          <div
+            className={`mt-10 rounded border-l-4 border-primary bg-[#f0f6ff] px-5 py-3 text-sm max-w-none ${richText}`}
+            dangerouslySetInnerHTML={{ __html: cms?.introText || "" }}
+          />
           <div
             id="overview"
             className="mt-10 scroll-mt-28 border-b-4 border-primary-lighter"
@@ -217,12 +222,25 @@ export default function LabelingClient({ cms }) {
             </div>
           </div>
 
-          <div id="questions" className="scroll-mt-28">
+          <div id="questions" className="scroll-mt-28 border-b-4 border-primary-lighter">
             <h1 className="font-bold text-primary">
               Questions about FIFRA product labeling?
             </h1>
             <div className="mb-8 text-lg">
               <Block html={cms?.questionsText} />
+            </div>
+          </div>
+
+          {/* Citation */}
+          <div id="citation" className="scroll-mt-28">
+            <h1 className="font-bold text-primary">
+              Citation
+            </h1>
+            <div className="mb-8 text-lg">
+              <div
+                className={richText}
+                dangerouslySetInnerHTML={{ __html: cms?.citationBottom || "" }}
+              />
             </div>
           </div>
         </div>
