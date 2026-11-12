@@ -985,12 +985,19 @@ export default function BiopesticideClient({ cms }) {
         <Link href="/" className="text-primary hover:underline">
           Home
         </Link>
-
         <span>›</span>
-        <Link href="/learnMore" className="text-primary hover:underline">
-          Learn More
+        <span className="text-primary">Processing Permits</span>
+        <span>›</span>
+        <Link href="/agency/405" className="text-primary hover:underline">
+          FIFRA
         </Link>
-
+        <span>›</span>
+        <Link
+          href="/pesticideRegistration"
+          className="text-primary hover:underline"
+        >
+          Pesticide Registration
+        </Link>
         <span>›</span>
         <span className="text-gray-800">Biopesticide Registration</span>
       </div>
@@ -1031,10 +1038,11 @@ export default function BiopesticideClient({ cms }) {
                 <p
                   key={section.id}
                   onClick={() => scrollTo(section.id)}
-                  className={`cursor-pointer py-2 pl-4 text-sm transition-colors duration-200 hover:text-primary ${activeSection === section.id
+                  className={`cursor-pointer py-2 pl-4 text-sm transition-colors duration-200 hover:text-primary ${
+                    activeSection === section.id
                       ? "-ml-[2px] border-l-4 border-black font-semibold text-black"
                       : "text-primary"
-                    }`}
+                  }`}
                 >
                   {section.label}
                 </p>
@@ -1176,9 +1184,7 @@ export default function BiopesticideClient({ cms }) {
           {/* Citation */}
           <div id="citation" className="scroll-mt-28">
             <div className="prose max-w-none">
-              <h1 className="font-bold text-primary">
-                Citation
-              </h1>
+              <h1 className="font-bold text-primary">Citation</h1>
               <div
                 className={richText}
                 dangerouslySetInnerHTML={{ __html: cms?.citationText || "" }}

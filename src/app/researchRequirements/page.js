@@ -482,7 +482,14 @@ export default function ResearchRequirementsPage() {
         cms?.section3Title ||
         "Test Guidelines for Pesticide and Toxic Substances",
     },
+
     { id: "resources", label: cms?.resourcesTitle || "Resources" },
+    {
+      id: "reference-table",
+      label:
+        "Reference Table: All requirements for all pesticide registration types",
+      href: "/dataRequirements",
+    },
   ];
 
   const scrollTo = (id) => {
@@ -585,19 +592,29 @@ export default function ResearchRequirementsPage() {
           <div className="sticky top-8">
             <p className="font-bold text-black mb-3">On this page</p>
             <div className="border-l-2 border-gray-200 flex flex-col">
-              {sections.map((section) => (
-                <p
-                  key={section.id}
-                  onClick={() => scrollTo(section.id)}
-                  className={`pl-4 py-2 text-sm cursor-pointer transition-colors duration-200 hover:text-primary ${
-                    activeSection === section.id
-                      ? "text-black font-semibold border-l-4 border-black -ml-[2px]"
-                      : "text-primary"
-                  }`}
-                >
-                  {section.label}
-                </p>
-              ))}
+              {sections.map((section) =>
+                section.href ? (
+                  <a
+                    key={section.id}
+                    href={section.href}
+                    className="pl-4 py-2 text-sm text-primary underline transition-colors duration-200 hover:text-primary-darker"
+                  >
+                    {section.label}
+                  </a>
+                ) : (
+                  <p
+                    key={section.id}
+                    onClick={() => scrollTo(section.id)}
+                    className={`pl-4 py-2 text-sm cursor-pointer transition-colors duration-200 hover:text-primary ${
+                      activeSection === section.id
+                        ? "text-black font-semibold border-l-4 border-black -ml-[2px]"
+                        : "text-primary"
+                    }`}
+                  >
+                    {section.label}
+                  </p>
+                ),
+              )}
             </div>
           </div>
         </div>

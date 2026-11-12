@@ -1586,3 +1586,73 @@ export async function getToxicologyPageFields() {
   }
 }
 
+export const GET_REGULATIONS_DIRECTORY_DATA = `
+query GetRegulationsDirectoryData {
+  page(id: 1584, idType: DATABASE_ID) {
+    regulationsdirectorypage {
+    directorycontent
+  }
+  }
+}
+`;
+
+export async function getRegulationsDirectoryFields() {
+  try {
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: GET_REGULATIONS_DIRECTORY_DATA }),
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const json = await res.json();
+    if (json.errors)
+      console.error(
+        "Regulations Directory GraphQL errors:",
+        json.errors.map((e) => e.message).join(" | "),
+      );
+    return json.data?.page?.regulationsdirectorypage || null;
+  } catch (error) {
+    console.error("Regulations Directory Fetch Error:", error);
+    return null;
+  }
+}
+
+export const GET_DATA_REQUIREMENTS_DATA = `
+query GetDataRequirementsData {
+  page(id: 1590, idType: DATABASE_ID) {
+   dataRequirementsInfoPage {
+  introText: introtext
+  conventionalTable
+  biochemicalTable
+  microbialTable
+  tableFootNotes
+  productPerformanceText
+  additionalInfoText
+  citationText
+}
+  }
+}
+`;
+
+export async function getDataRequirementsFields() {
+  try {
+    const res = await fetch("https://cms.habctrl.info/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: GET_DATA_REQUIREMENTS_DATA }),
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error(`Status ${res.status}`);
+    const json = await res.json();
+    if (json.errors)
+      console.error(
+        "Data Requirements GraphQL errors:",
+        json.errors.map((e) => e.message).join(" | "),
+      );
+    return json.data?.page?.dataRequirementsInfoPage || null;
+  } catch (error) {
+    console.error("Data Requirements Fetch Error:", error);
+    return null;
+  }
+}
