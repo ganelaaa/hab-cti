@@ -6,18 +6,18 @@ export default function Navigation({ toolsList = [], headerData }) {
   const groupedTools = toolsList.reduce((acc, tool) => {
     // FIXED: Must match the exact GraphQL property name we just updated
     const fields = tool.quickAccessKeyToolsConnector || {};
-    
+
     // Extract the label configured in ACF
     let categoryLabel = fields.toolCategory;
     if (Array.isArray(categoryLabel)) categoryLabel = categoryLabel[0];
-    
+
     // If the category is somehow blank, only then does it fall back
-    categoryLabel = categoryLabel || "Laws and Permits"; 
+    categoryLabel = categoryLabel || "Laws and Permits";
 
     if (!acc[categoryLabel]) {
       acc[categoryLabel] = [];
     }
-    
+
     // Map the WordPress fields directly to your original component's expected props
     acc[categoryLabel].push({
       title: tool.title,
@@ -29,8 +29,11 @@ export default function Navigation({ toolsList = [], headerData }) {
     return acc;
   }, {});
 
-  const categories = Object.keys(groupedTools);
-  
+  const categories = Object.keys(groupedTools).filter(
+    (category) => category !== "Resources",
+  );
+  const resourceItems = groupedTools["Resources"] || [];
+
   // Separate the first category to keep your full-width layout, and group the rest for the split layout
   const firstCategory = categories[0];
   const remainingCategories = categories.slice(1);
@@ -39,14 +42,17 @@ export default function Navigation({ toolsList = [], headerData }) {
 
   return (
     <section className="w-full px-4 py-8 tracking-wide sm:px-6 sm:py-10 lg:px-10 xl:px-20">
-      <p className="text-sm font-semibold text-green">{headerData?.label || "RESOURCE NAVIGATION"}</p>
+      <p className="text-sm font-semibold text-green">
+        {headerData?.label || "RESOURCE NAVIGATION"}
+      </p>
 
       <h2 className="mt-1 text-2xl font-bold text-gray-900 sm:text-3xl">
         {headerData?.title || "Quick Access to Key Tools"}
       </h2>
 
       <p className="mt-2 max-w-2xl text-sm leading-6 text-gray-600">
-        {headerData?.description || "Easily find permits, research, technologies, and approved products related to HAB control."}
+        {headerData?.description ||
+          "Easily find permits, research, technologies, and approved products related to HAB control."}
       </p>
 
       {/* Primary Section */}
@@ -71,6 +77,16 @@ export default function Navigation({ toolsList = [], headerData }) {
             />
           ))}
         </div>
+      )}
+
+      {/* Resources */}
+      {resourceItems.length > 0 && (
+        <ToolSection
+          title="Resources"
+          items={resourceItems}
+          className="mt-8"
+          gridClassName="md:grid-cols-2 xl:grid-cols-3"
+        />
       )}
     </section>
   );
